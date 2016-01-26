@@ -85,7 +85,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.cse110mb260t14.ffs.DrawerMenuActivity" />
         </activity>
-        <activity android:name=".PostItemActivity"></activity>
+        <activity android:name=".PostItemActivity" />
+        <activity android:name=".ConfirmItemListing"></activity>
     </application>
 
 </manifest>

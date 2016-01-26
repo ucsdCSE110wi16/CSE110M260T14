@@ -2,6 +2,7 @@ package com.example.cse110mb260t14.ffs;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -21,6 +22,14 @@ public class PostItemActivity extends AppCompatActivity {
     private EditText postPrice;
     private EditText postDescripttion;
     private EditText postCategories;
+
+    private ParseObject item;
+    private String itemTitle;
+    private String itemPrice;
+    private String itemDescription;
+    private String itemCategories;
+    private String itemLocation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,14 +57,12 @@ public class PostItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                boolean posted = postItem();
+                boolean posted = getItemData();
+
+
                 AlertDialog.Builder db = new AlertDialog.Builder(PostItemActivity.this);
 
-                if (posted){
-                    db.setMessage("You successfully posted an item!")
-                            .setTitle("Congrats!");
-                }
-                else{
+                if (!posted){
                     db.setMessage("Please double check your data")
                             .setTitle("Failed Post");
                 }
@@ -67,44 +74,46 @@ public class PostItemActivity extends AppCompatActivity {
                     }
                 });
                 db.show();
+
+
+                if (posted){
+                    Intent confirmPageIntent = new Intent(PostItemActivity.this, ConfirmItemListing.class);
+                    /*
+                    item = new ParseObject("Listings");
+                    item.put("Location", itemLocation);
+                    item.put("Price", itemPrice);
+                    item.put("Title", itemTitle);
+                    item.put("Description", itemDescription);
+                    item.put("Categories", itemCategories);*/
+
+                    confirmPageIntent.putExtra("Location", itemLocation);
+                    confirmPageIntent.putExtra("Price", itemPrice);
+                    confirmPageIntent.putExtra("Title", itemTitle);
+                    confirmPageIntent.putExtra("Description", itemDescription);
+                    confirmPageIntent.putExtra("Categories", itemCategories);
+
+                    startActivity(confirmPageIntent);
+                }
             }
         });
 
     }
 
-    private boolean postItem(){
-        String title = postTitle.getText().toString();
-        String price = postPrice.getText().toString();
-        String description = postDescripttion.getText().toString();
-        String categories = postCategories.getText().toString();
-        String location = locationSpinner.getSelectedItem().toString();
+    private boolean getItemData(){
+        itemTitle = postTitle.getText().toString();
+        itemPrice = postPrice.getText().toString();
+        itemDescription = postDescripttion.getText().toString();
+        itemCategories = postCategories.getText().toString();
+        itemLocation = locationSpinner.getSelectedItem().toString();
 
         if(locationSpinner.getSelectedItemPosition() == 0){
-            System.out.println("MUST SELECT LOCATION");
+            System.out.println("Please select a location");
             return false;
         }
-        if (title.equals("") || price.equals("") || description.equals("") || categories.equals("")){
+        if (itemTitle.equals("") || itemPrice.equals("") || itemDescription.equals("") || itemCategories.equals("")){
             System.out.println("PLEASE MAKE SURE TO FILL IN ALL THE INFORMATION!");
             return false;
         }
-
-        ParseObject item = new ParseObject("Listings");
-        item.put("Location", location);
-        item.put("Price", price);
-        item.put("Title", title);
-        item.put("Description", description);
-        item.put("Categories", categories);
-
-        try {
-            item.save();
-        }
-        catch (ParseException e){
-            System.out.println("ERROR POSTING TO DB");
-            return false;
-        }
-
-
-
 
         return true;
 

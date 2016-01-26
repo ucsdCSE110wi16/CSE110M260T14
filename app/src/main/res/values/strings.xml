@@ -20,7 +20,6 @@
     <string name="buy">Buy</string>
 
 
-
     <string-array name="locations_array">
         <item>Select Location</item>
         <item>Los Angeles</item>
