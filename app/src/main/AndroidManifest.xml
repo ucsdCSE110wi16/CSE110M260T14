@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.cse110mb260t14.ffs">
+
+    <!-- Facebook permissions -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".LoginActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <meta-data
+            android:name="com.parse.APPLICATION_ID"
+            android:value="G6wgKXsfBYRhA5DV464SceRMkjgxEmMDh0SSs6nQ" />
+        <meta-data
+            android:name="com.parse.CLIENT_KEY"
+            android:value="FmJNKV6GpVbqTIHC1mkSjyuXmmTEePDH010Ieq7s" />
+
+        <!-- Facebook meta-data -->
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <!-- Facebook Activity -->
+        <activity
+            android:name="com.facebook.FacebookActivity"
+            android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+        <activity
+            android:name=".SignedInActivity"
+            android:label="@string/title_activity_signed_in"
+            android:parentActivityName=".LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.cse110mb260t14.ffs.LoginActivity" />
+        </activity>
+        <activity
+            android:name=".DrawerMenuActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN_ACTIVITY" />
+
+            <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+        <activity
+            android:name=".ProfileActivity"
+            android:label="@string/title_activity_profile"
+            android:parentActivityName=".DrawerMenuActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.cse110mb260t14.ffs.DrawerMenuActivity" />
+        </activity>
+        <activity
+            android:name=".CategoriesActivity"
+            android:label="@string/title_activity_categories"
+            android:parentActivityName=".DrawerMenuActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.cse110mb260t14.ffs.DrawerMenuActivity" />
+        </activity>
+        <activity
+            android:name=".TransactionHistoryActivity"
+            android:label="@string/title_activity_transaction_history"
+            android:parentActivityName=".DrawerMenuActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.cse110mb260t14.ffs.DrawerMenuActivity" />
+        </activity>
+    </application>
+
+</manifest>
