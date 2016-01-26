@@ -51,11 +51,13 @@
             android:name=".DrawerMenuActivity"
             android:label="@string/title_activity_main"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <intent-filter>
             <action android:name="android.intent.action.MAIN_ACTIVITY" />
 
             <category android:name="android.intent.category.DEFAULT" />
         </intent-filter>
+
         <activity
             android:name=".ProfileActivity"
             android:label="@string/title_activity_profile"
@@ -83,6 +85,7 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.cse110mb260t14.ffs.DrawerMenuActivity" />
         </activity>
+        <activity android:name=".PostItemActivity"></activity>
     </application>
 
 </manifest>

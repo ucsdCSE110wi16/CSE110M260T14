@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="What are you selling?"
+            android:id="@+id/item_title_edit_text"
+            android:maxLength="80" />
+    </TableRow>
+    <TableRow>
+
+
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:inputType="textMultiLine"
+            android:ems="10"
+            android:hint="Describe your listing"
+            android:id="@+id/item_description_edit_text" />
+    </TableRow>
+
+    <TableRow>
+
+        <EditText
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:hint="Price (USD)"
+            android:inputType="numberDecimal"
+            android:id="@+id/item_price_edit_text"
+            android:maxLength="10"
+            />
+    </TableRow>
+    <TableRow>
+        <EditText
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:inputType="textMultiLine"
+            android:hint="Categories"
+            android:id="@+id/item_categories_edit_text"/>
+
+    </TableRow>
+    <TableRow>
+
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/location_spinner"/>
+
+    </TableRow>
+    <TableRow>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Post!"
+            android:id="@+id/post_listing_button"/>
+    </TableRow>
+</TableLayout>

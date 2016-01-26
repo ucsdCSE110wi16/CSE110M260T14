@@ -15,4 +15,21 @@
     <string name="title_activity_profile">ProfileActivity</string>
     <string name="title_activity_categories">CategoriesActivity</string>
     <string name="title_activity_transaction_history">TransactionHistoryActivity</string>
+
+
+    <string name="buy">Buy</string>
+
+
+
+    <string-array name="locations_array">
+        <item>Select Location</item>
+        <item>Los Angeles</item>
+        <item>San Diego</item>
+        <item>San Francisco</item>
+        <item>New York</item>
+        <item>Miami</item>
+        <item>Washington D.C.</item>
+        <item>Seattle</item>
+        <item>Chicago</item>
+    </string-array>
 </resources>

@@ -1,3 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
 <android.support.v4.widget.DrawerLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
@@ -5,8 +8,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- The first child in the layout is for the main Activity UI-->
-    <RelativeLayout
+
+     The first child in the layout is for the main Activity UI
+    <TableLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingLeft="@dimen/activity_horizontal_margin"
@@ -16,33 +20,51 @@
         tools:context=".MainActivity"
         android:background="#ffffffff">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="Welcome!"
-            android:textSize="40sp"
-            android:gravity="center"
-            android:layout_marginTop="100dp"/>
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:text="Welcome!"
+                android:textSize="40sp"
+                android:gravity="center"
+                android:layout_marginTop="100dp"/>
+        </TableRow>
 
+        <TableRow>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/usernameTextView"
+                android:text="Change to Username"
+                />
+        </TableRow>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/usernameTextView"
-            android:text="Change to Username"
-            />
+        <TableRow>
+            <com.facebook.login.widget.LoginButton
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:id="@id/login_button"/>
+        </TableRow>
 
-        <com.facebook.login.widget.LoginButton
+        <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:id="@id/login_button"/>
+            android:layout_height="match_parent">
 
-    </RelativeLayout>
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sell"
+                android:id="@+id/sell_button"
+                android:layout_column="0" />
+        </TableRow>
 
-    <!-- Side navigation drawer UI -->
+
+    </TableLayout>
+
+     Side navigation drawer UI
     <ListView
         android:id="@+id/navList"
         android:layout_width="200dp"

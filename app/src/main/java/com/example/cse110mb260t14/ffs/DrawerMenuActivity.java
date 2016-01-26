@@ -7,11 +7,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,21 +32,28 @@ import android.content.Intent;
 
 public class DrawerMenuActivity extends ActionBarActivity {
 
+
+
     private ListView mDrawerList;
     private DrawerLayout mDrawerLayout;
     private ArrayAdapter<String> mAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
     private String mActivityTitle;
-
+    private LoginButton login_button;
+    private Button postButton;
 
 
     TextView usernameTextView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        mDrawerList = (ListView)findViewById(R.id.navList);mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+
+
+        mDrawerList = (ListView) findViewById(R.id.navList);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mActivityTitle = getTitle().toString();
 
 
@@ -59,12 +69,21 @@ public class DrawerMenuActivity extends ActionBarActivity {
 
         final List<String> permissions = Arrays.asList("public_profile", "email");
 
-        LoginButton loginButton = (LoginButton) findViewById(R.id.login_button);
-        loginButton.setOnClickListener(new View.OnClickListener() {
+        login_button = (LoginButton) findViewById(R.id.login_button);
+        login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ParseUser.logOut();
                 Intent intent = new Intent(DrawerMenuActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        postButton = (Button)findViewById(R.id.sell_button);
+        postButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(DrawerMenuActivity.this, PostItemActivity.class);
                 startActivity(intent);
             }
         });
@@ -74,7 +93,7 @@ public class DrawerMenuActivity extends ActionBarActivity {
     }
 
     private void addDrawerItems() {
-        String[] osArray = { "Profile", "Categories", "Transaction History", "Logout"};
+        String[] osArray = {"Profile", "Categories", "Transaction History", "Logout"};
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
         mDrawerList.setAdapter(mAdapter);
 
@@ -94,10 +113,10 @@ public class DrawerMenuActivity extends ActionBarActivity {
                         Intent TransactionHistory = new Intent(DrawerMenuActivity.this, TransactionHistoryActivity.class);
                         startActivity(TransactionHistory);
                         break;
-
-
+                    case 3:
+                        login_button.performClick();
+                        break;
                 }
-                //Toast.makeText(DrawerMenuActivity.this, "Time for an upgrade!", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -105,14 +124,14 @@ public class DrawerMenuActivity extends ActionBarActivity {
     private void setupDrawer() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
 
-            /** Called when a drawer has settled in a completely open state. */
+            /** Called when a drawer has settled in a completely open state.*/
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 //getSupportActionBar().setTitle("Navigation!");
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
-            /** Called when a drawer has settled in a completely closed state. */
+            /** Called when a drawer has settled in a completely closed state.*/
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
                 //getSupportActionBar().setTitle(mActivityTitle);
@@ -164,3 +183,5 @@ public class DrawerMenuActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 }
+
+
