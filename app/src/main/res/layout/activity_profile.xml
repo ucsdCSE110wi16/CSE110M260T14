@@ -3,19 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:facebook="http://schemas.android.com/apk/res-auto"
     android:fitsSystemWindows="true"
     tools:context="com.example.cse110mb260t14.ffs.ProfileActivity">
 
-    <ImageView
-        android:layout_width="125dp"
-        android:layout_height="125dp"
+    <com.facebook.login.widget.ProfilePictureView
         android:id="@+id/profile_photo"
-        android:layout_marginLeft="42dp"
-        android:layout_marginStart="42dp"
-        android:layout_marginTop="37dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignLeft="@+id/name"
+        android:layout_alignStart="@+id/name"
+        android:layout_marginTop="40dp" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -23,10 +22,12 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Large Text"
         android:id="@+id/name"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="40dp"
         android:layout_below="@+id/profile_photo"
-        android:layout_alignLeft="@+id/profile_photo"
-        android:layout_alignStart="@+id/profile_photo" />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="40dp"
+        android:layout_marginStart="40dp" />
 
     <TextView
         android:layout_width="wrap_content"
