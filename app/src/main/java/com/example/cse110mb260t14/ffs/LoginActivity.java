@@ -1,14 +1,24 @@
 package com.example.cse110mb260t14.ffs;
 
 import android.content.Intent;
-import android.content.pm.PackageInstaller;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+import com.facebook.CallbackManager;
+import com.facebook.FacebookCallback;
+import com.facebook.FacebookException;
 import com.facebook.FacebookSdk;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
+import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
+import com.google.android.gms.appindexing.Action;
+import com.google.android.gms.appindexing.AppIndex;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.parse.FindCallback;
 import com.parse.LogInCallback;
 import com.parse.Parse;
@@ -19,13 +29,23 @@ import com.parse.ParseSession;
 import com.parse.ParseUser;
 import com.parse.SaveCallback;
 
+import org.json.JSONObject;
+
 import java.util.Arrays;
 import java.util.List;
 
 public class LoginActivity extends AppCompatActivity {
-    LoginButton loginButton;
+    private LoginButton loginButton;
+    private String name, email, facebookID;
+    private Bitmap profilePic;
+    CallbackManager callbackManager;
     static boolean parseInitialized = false;
     public final static String EXTRA_MESSAGE = "com.example.cse110mb260t14.MESSAGE";
+    /**
+     * ATTENTION: This was auto-generated to implement the App Indexing API.
+     * See https://g.co/AppIndexing/AndroidStudio for more information.
+     */
+    private GoogleApiClient client;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +70,50 @@ public class LoginActivity extends AppCompatActivity {
 
         loginButton = (LoginButton) findViewById(R.id.login_button);
 
-        if (ParseUser.getCurrentUser() != null &&  ParseUser.getCurrentUser().isAuthenticated()) {
+        loginButton.setReadPermissions(Arrays.asList("public_profile, email, user_location"));
+
+        callbackManager = CallbackManager.Factory.create();
+
+        // Callback registration
+        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
+            @Override
+            public void onSuccess(LoginResult loginResult) {
+                // App code
+                GraphRequest request = GraphRequest.newMeRequest(
+                        loginResult.getAccessToken(),
+                        new GraphRequest.GraphJSONObjectCallback() {
+                            @Override
+                            public void onCompleted(
+                                    final JSONObject object,
+                                    GraphResponse response) {
+                                name = object.optString("name");
+                                email = object.optString("email");
+                                facebookID = object.optString("id");
+                                // Application code
+                                Log.v("LoginActivity", response.toString());
+                            }
+                        });
+                Bundle parameters = new Bundle();
+                parameters.putString("fields", "id,email,gender,cover,name");
+                request.setParameters(parameters);
+                request.executeAsync();
+
+            }
+
+            @Override
+            public void onCancel() {
+                // App code
+                Log.v("LoginActivity", "cancel");
+            }
+
+            @Override
+            public void onError(FacebookException exception) {
+                // App code
+                Log.v("LoginActivity", exception.getCause().toString());
+            }
+        });
+
+        if (ParseUser.getCurrentUser() != null && ParseUser.getCurrentUser().isAuthenticated()) {
 
             final String user_name = ParseUser.getCurrentUser().getUsername();
 
@@ -81,10 +144,8 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void done(final ParseUser user, ParseException err) {
                         if (user == null) {
-                            System.out.println("1st");
                             Log.d("MyApp", "Uh oh. The user cancelled the Facebook login.");
                         } else if (user.isNew()) {
-                            System.out.println("2nd");
                             Log.d("MyApp", "User signed up and logged in through Facebook!");
                             // link user
                             if (!ParseFacebookUtils.isLinked(user)) {
@@ -98,8 +159,14 @@ public class LoginActivity extends AppCompatActivity {
                                     }
                                 });
                             }
+                            Intent intent = new Intent(LoginActivity.this, DrawerMenuActivity.class);
+                            startActivity(intent);
                         } else {
-                            System.out.println("3rd" + user.getEmail() + user.getUsername());
+                            // set Parse User Data!
+                            user.setEmail(email);
+                            user.put("name", name);
+                            user.put("facebookID", facebookID);
+                            user.saveInBackground();
                             Log.d("MyApp", "User logged in through Facebook!");
                             Intent intent = new Intent(LoginActivity.this, DrawerMenuActivity.class);
                             startActivity(intent);
@@ -111,47 +178,56 @@ public class LoginActivity extends AppCompatActivity {
         });
 
 
-
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         ParseFacebookUtils.onActivityResult(requestCode, resultCode, data);
+        callbackManager.onActivityResult(requestCode, resultCode, data);
     }
 
 
-
-    /*
     @Override
-    public View onCreateView(
-            LayoutInflater inflater,
-            ViewGroup container,
-            Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.splash, container, false);
+    public void onStart() {
+        super.onStart();
 
-        loginButton = (LoginButton) view.findViewById(R.id.login_button);
-        loginButton.setReadPermissions("user_friends");
-
-        // Other app specific specialization
-
-        // Callback registration
-        loginButton.registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-            @Override
-            public void onSuccess(LoginResult loginResult) {
-                System.out.println("SUCCESS");
-            }
-
-            @Override
-            public void onCancel() {
-                System.out.println("CANCELED");
-            }
-
-            @Override
-            public void onError(FacebookException exception) {
-                System.out.println("FAILED");
-            }
-        });
-        return view;
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        client.connect();
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Login Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.example.cse110mb260t14.ffs/http/host/path")
+        );
+        AppIndex.AppIndexApi.start(client, viewAction);
     }
-    */
+
+    @Override
+    public void onStop() {
+        super.onStop();
+
+        // ATTENTION: This was auto-generated to implement the App Indexing API.
+        // See https://g.co/AppIndexing/AndroidStudio for more information.
+        Action viewAction = Action.newAction(
+                Action.TYPE_VIEW, // TODO: choose an action type.
+                "Login Page", // TODO: Define a title for the content shown.
+                // TODO: If you have web page content that matches this app activity's content,
+                // make sure this auto-generated web page URL is correct.
+                // Otherwise, set the URL to null.
+                Uri.parse("http://host/path"),
+                // TODO: Make sure this auto-generated app deep link URI is correct.
+                Uri.parse("android-app://com.example.cse110mb260t14.ffs/http/host/path")
+        );
+        AppIndex.AppIndexApi.end(client, viewAction);
+        client.disconnect();
+    }
 }
