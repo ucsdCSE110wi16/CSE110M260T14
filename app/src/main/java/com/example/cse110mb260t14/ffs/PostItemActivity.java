@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.parse.ParseException;
 import com.parse.ParseObject;
 
 public class PostItemActivity extends AppCompatActivity {
@@ -83,8 +82,11 @@ public class PostItemActivity extends AppCompatActivity {
                     confirmPageIntent.putExtra("Title", itemTitle);
                     confirmPageIntent.putExtra("Description", itemDescription);
                     confirmPageIntent.putExtra("Categories", itemCategories);
+<<<<<<< Updated upstream
 
 
+=======
+>>>>>>> Stashed changes
                     startActivity(confirmPageIntent);
                 }
             }
@@ -112,5 +114,23 @@ public class PostItemActivity extends AppCompatActivity {
 
     }
 
+<<<<<<< Updated upstream
+=======
+    private void setDataFromConfirmIntent(){
+        itemTitle = getIntent().getExtras().getString("title");
+        itemPrice = getIntent().getExtras().getString("price");
+        itemDescription = getIntent().getExtras().getString("description");
+        itemCategories = getIntent().getExtras().getString("categories");
+        itemLocation = getIntent().getExtras().getString("location");
+
+        postTitle.setText(itemTitle);
+        postPrice.setText(itemPrice);
+        postDescripttion.setText(itemDescription);
+        postCategories.setText(itemCategories);
+        locationSpinner.setSelection(((ArrayAdapter<String>)locationSpinner.getAdapter()).getPosition(itemLocation));
+
+    }
+
+>>>>>>> Stashed changes
 
 }
