@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 public class ConfirmItemListing extends AppCompatActivity {
 
@@ -70,6 +71,7 @@ public class ConfirmItemListing extends AppCompatActivity {
                 item.put("Title", itemTitle);
                 item.put("Description", itemDescription);
                 item.put("Categories", itemCategories);
+                item.put("SellerID", ParseUser.getCurrentUser().getObjectId());
 
                 AlertDialog.Builder db = new AlertDialog.Builder(ConfirmItemListing.this);
                 db.setMessage("You posted an item!")
