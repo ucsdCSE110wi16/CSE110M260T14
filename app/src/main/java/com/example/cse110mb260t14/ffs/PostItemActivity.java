@@ -23,7 +23,6 @@ public class PostItemActivity extends AppCompatActivity {
     private EditText postDescripttion;
     private EditText postCategories;
 
-    private ParseObject item;
     private String itemTitle;
     private String itemPrice;
     private String itemDescription;
@@ -78,19 +77,13 @@ public class PostItemActivity extends AppCompatActivity {
 
                 if (posted){
                     Intent confirmPageIntent = new Intent(PostItemActivity.this, ConfirmItemListing.class);
-                    /*
-                    item = new ParseObject("Listings");
-                    item.put("Location", itemLocation);
-                    item.put("Price", itemPrice);
-                    item.put("Title", itemTitle);
-                    item.put("Description", itemDescription);
-                    item.put("Categories", itemCategories);*/
 
                     confirmPageIntent.putExtra("Location", itemLocation);
                     confirmPageIntent.putExtra("Price", itemPrice);
                     confirmPageIntent.putExtra("Title", itemTitle);
                     confirmPageIntent.putExtra("Description", itemDescription);
                     confirmPageIntent.putExtra("Categories", itemCategories);
+
 
                     startActivity(confirmPageIntent);
                 }
