@@ -43,6 +43,7 @@ public class PostItemActivity extends AppCompatActivity {
 
 
 
+
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.locations_array, android.R.layout.simple_spinner_item);
@@ -50,6 +51,12 @@ public class PostItemActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         locationSpinner.setAdapter(adapter);
+
+
+        if(getIntent().hasExtra("Title")){
+            setDataFromConfirmIntent();
+        }
+
 
         postListingButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -82,11 +89,8 @@ public class PostItemActivity extends AppCompatActivity {
                     confirmPageIntent.putExtra("Title", itemTitle);
                     confirmPageIntent.putExtra("Description", itemDescription);
                     confirmPageIntent.putExtra("Categories", itemCategories);
-<<<<<<< Updated upstream
 
 
-=======
->>>>>>> Stashed changes
                     startActivity(confirmPageIntent);
                 }
             }
@@ -114,14 +118,13 @@ public class PostItemActivity extends AppCompatActivity {
 
     }
 
-<<<<<<< Updated upstream
-=======
+
     private void setDataFromConfirmIntent(){
-        itemTitle = getIntent().getExtras().getString("title");
-        itemPrice = getIntent().getExtras().getString("price");
-        itemDescription = getIntent().getExtras().getString("description");
-        itemCategories = getIntent().getExtras().getString("categories");
-        itemLocation = getIntent().getExtras().getString("location");
+        itemTitle = getIntent().getExtras().getString("Title");
+        itemPrice = getIntent().getExtras().getString("Price");
+        itemDescription = getIntent().getExtras().getString("Description");
+        itemCategories = getIntent().getExtras().getString("Categories");
+        itemLocation = getIntent().getExtras().getString("Location");
 
         postTitle.setText(itemTitle);
         postPrice.setText(itemPrice);
@@ -131,6 +134,5 @@ public class PostItemActivity extends AppCompatActivity {
 
     }
 
->>>>>>> Stashed changes
 
 }

@@ -11,7 +11,6 @@ import android.widget.TextView;
 
 import com.parse.ParseException;
 import com.parse.ParseObject;
-import com.parse.ParseUser;
 
 public class ConfirmItemListing extends AppCompatActivity {
 
@@ -25,6 +24,8 @@ public class ConfirmItemListing extends AppCompatActivity {
     private boolean successful = true;
 
     private Button confirmButton, editButton;
+
+
     private TextView titleTextView;
     private TextView priceTextView;
     private TextView descriptionTextView;
@@ -63,14 +64,12 @@ public class ConfirmItemListing extends AppCompatActivity {
             public void onClick(View v) {
 
 
-
                 item = new ParseObject("Listings");
                 item.put("Location", itemLocation);
                 item.put("Price", itemPrice);
                 item.put("Title", itemTitle);
                 item.put("Description", itemDescription);
                 item.put("Categories", itemCategories);
-                item.put("SellerID", ParseUser.getCurrentUser().getObjectId());
 
                 AlertDialog.Builder db = new AlertDialog.Builder(ConfirmItemListing.this);
                 db.setMessage("You posted an item!")
@@ -79,8 +78,7 @@ public class ConfirmItemListing extends AppCompatActivity {
                 try {
                     item.save();
 
-                }
-                catch (ParseException e){
+                } catch (ParseException e) {
                     successful = false;
                     db.setMessage("There was an error with the data")
                             .setTitle("Error");
@@ -104,7 +102,19 @@ public class ConfirmItemListing extends AppCompatActivity {
                 db.show();
 
 
+            }
+        });
 
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ConfirmItemListing.this, PostItemActivity.class);
+                intent.putExtra("Title", itemTitle);
+                intent.putExtra("Price", itemPrice);
+                intent.putExtra("Description", itemDescription);
+                intent.putExtra("Location", itemLocation);
+                intent.putExtra("Categories", itemCategories);
+                startActivity(intent);
 
             }
         });
