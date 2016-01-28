@@ -1,9 +1,16 @@
 package com.example.cse110mb260t14.ffs;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -24,6 +31,7 @@ import com.parse.LogInCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseQuery;
 import com.parse.ParseSession;
 import com.parse.ParseUser;
@@ -37,7 +45,9 @@ import java.util.List;
 public class LoginActivity extends AppCompatActivity {
     private LoginButton loginButton;
     private String name, email, facebookID;
-    private Bitmap profilePic;
+    double longitude, latitude;
+    private LocationManager locationManager;
+    private LocationListener locationListener;
     CallbackManager callbackManager;
     static boolean parseInitialized = false;
     public final static String EXTRA_MESSAGE = "com.example.cse110mb260t14.MESSAGE";
@@ -67,6 +77,8 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         final List<String> permissions = Arrays.asList("public_profile", "email");
+
+        startGrabbingLocation(locationManager,locationListener);
 
         loginButton = (LoginButton) findViewById(R.id.login_button);
 
@@ -162,10 +174,12 @@ public class LoginActivity extends AppCompatActivity {
                             Intent intent = new Intent(LoginActivity.this, DrawerMenuActivity.class);
                             startActivity(intent);
                         } else {
+                            ParseGeoPoint userLocation = new ParseGeoPoint(latitude, longitude);
                             // set Parse User Data!
                             user.setEmail(email);
                             user.put("name", name);
                             user.put("facebookID", facebookID);
+                            user.put("currentLocation", userLocation);
                             user.saveInBackground();
                             Log.d("MyApp", "User logged in through Facebook!");
                             Intent intent = new Intent(LoginActivity.this, DrawerMenuActivity.class);
@@ -229,5 +243,47 @@ public class LoginActivity extends AppCompatActivity {
         );
         AppIndex.AppIndexApi.end(client, viewAction);
         client.disconnect();
+    }
+    public void startGrabbingLocation (LocationManager locationManager, LocationListener locationListener) {
+// start the location manager for retrieving GPS coordinates
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                ParseUser user = ParseUser.getCurrentUser();
+                longitude = location.getLongitude();
+                latitude = location.getLatitude();
+                if (user != null) {
+                    user.put("loginLocation", new ParseGeoPoint(latitude, longitude));
+                    user.saveInBackground();
+                }
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+
+            }
+        };
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
     }
 }

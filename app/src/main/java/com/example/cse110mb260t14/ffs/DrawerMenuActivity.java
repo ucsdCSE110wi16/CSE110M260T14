@@ -1,8 +1,15 @@
 package com.example.cse110mb260t14.ffs;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -24,6 +31,7 @@ import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseFacebookUtils;
 import com.parse.ParseUser;
+import com.parse.ParseGeoPoint;
 import com.parse.SaveCallback;
 
 import java.util.Arrays;
@@ -41,6 +49,9 @@ public class DrawerMenuActivity extends ActionBarActivity {
     private String mActivityTitle;
     private LoginButton login_button;
     private Button postButton;
+    private LocationManager locationManager;
+    private LocationListener locationListener;
+    double latitude, longitude;
 
 
     TextView usernameTextView;
@@ -66,6 +77,8 @@ public class DrawerMenuActivity extends ActionBarActivity {
 
         usernameTextView = (TextView) findViewById(R.id.usernameTextView);
         usernameTextView.setText(message);
+        startGrabbingLocation(locationManager, locationListener);
+
 
         final List<String> permissions = Arrays.asList("public_profile", "email");
 
@@ -181,6 +194,48 @@ public class DrawerMenuActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    public void startGrabbingLocation (LocationManager locationManager, LocationListener locationListener) {
+// start the location manager for retrieving GPS coordinates
+        locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+        locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                ParseUser user = ParseUser.getCurrentUser();
+                longitude = location.getLongitude();
+                latitude = location.getLatitude();
+                if (user != null) {
+                    user.put("loginLocation", new ParseGeoPoint(latitude, longitude));
+                    user.saveInBackground();
+                }
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+
+            }
+        };
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
+        }
+        locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListener);
     }
 }
 
