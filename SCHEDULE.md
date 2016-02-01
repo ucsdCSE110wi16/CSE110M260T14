@@ -30,6 +30,6 @@ Expected progress:
   Rework based on feedback from Week 4 features.
   
 # Week 6:
-  - ability to search based on keywords
+  - ability to search based on description
   - refine layout
-  - adding photos to items
+  - adding photos to items.
