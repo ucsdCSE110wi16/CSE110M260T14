@@ -269,7 +269,15 @@ public class DrawerMenuActivity extends ActionBarActivity {
                 if (user != null) {
                     user.put("location", new ParseGeoPoint(latitude, longitude));
 
-                    if (addresses.get(0) != null) {
+                    if (addresses == null || addresses.size() == 0) {
+                         try {
+                            addresses = geocoder.getFromLocation(latitude,longitude, 1);
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+
+                    }
+                    else if (addresses.get(0) != null) {
                         if (addresses.get(0).getAddressLine(0) != null) {
                             user.put("address", addresses.get(0).getAddressLine(0));
                         }
@@ -288,8 +296,8 @@ public class DrawerMenuActivity extends ActionBarActivity {
                         // save the data to database
                         user.saveInBackground();
                     }
-                }
-    }
+}
+}
 }
 
 
