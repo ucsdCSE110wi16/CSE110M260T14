@@ -18,6 +18,9 @@
     <string name="title_activity_listings">ListingsActivity</string>
 
 
+    <string name="fromDescription">Please Enter Your Details</string>
+    <string name="Description">Your Description</string>
+    <string name="Search">SEARCH</string>
 
     <string name="buy">Buy</string>
 
