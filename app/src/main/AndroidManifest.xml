@@ -90,6 +90,17 @@
                 android:value="com.example.cse110mb260t14.ffs.DrawerMenuActivity" />
         </activity>
         <activity
+            android:name=".ListingsActivity"
+            android:label="@string/title_activity_listings"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|keyboardHidden"
+            android:parentActivityName=".CategoriesActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.cse110mb260t14.ffs.CategoriesActivity" />
+        </activity>
+        <activity
             android:name=".TransactionHistoryActivity"
             android:label="@string/title_activity_transaction_history"
             android:screenOrientation="portrait"

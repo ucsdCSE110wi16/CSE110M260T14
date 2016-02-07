@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
-    tools:context="com.example.cse110mb260t14.ffs.CategoriesActivity">
+    tools:context="com.example.cse110mb260t14.ffs.ListingsActivity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -27,7 +27,7 @@
                 <ListView
                     android:layout_width="match_parent"
                     android:layout_height="548dp"
-                    android:id="@+id/categories_list"
+                    android:id="@+id/listings"
                     android:background="#ffffff" />
 
             </LinearLayout>
@@ -36,3 +36,5 @@
     </android.support.design.widget.AppBarLayout>
 
 </android.support.design.widget.CoordinatorLayout>
+
+
