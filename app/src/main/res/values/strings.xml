@@ -16,6 +16,9 @@
     <string name="title_activity_categories">CategoriesActivity</string>
     <string name="title_activity_transaction_history">TransactionHistoryActivity</string>
 
+    <string name="fromDescription">Please Enter Your Details</string>
+    <string name="Description">Your Description</string>
+    <string name="Search">SEARCH</string>
 
     <string name="buy">Buy</string>
 
