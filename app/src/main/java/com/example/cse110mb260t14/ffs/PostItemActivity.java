@@ -11,19 +11,18 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.parse.ParseException;
 import com.parse.ParseObject;
 
 public class PostItemActivity extends AppCompatActivity {
 
     private Spinner locationSpinner;
+    private Spinner categoriesSpinner;
     private Button postListingButton;
     private EditText postTitle;
     private EditText postPrice;
     private EditText postDescripttion;
     private EditText postCategories;
 
-    private ParseObject item;
     private String itemTitle;
     private String itemPrice;
     private String itemDescription;
@@ -37,11 +36,12 @@ public class PostItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_post_item);
 
         locationSpinner = (Spinner) findViewById(R.id.location_spinner);
+        categoriesSpinner = (Spinner)findViewById(R.id.item_categories_spinner);
         postListingButton = (Button) findViewById(R.id.post_listing_button);
         postTitle = (EditText)findViewById(R.id.item_title_edit_text);
         postPrice = (EditText)findViewById(R.id.item_price_edit_text);
         postDescripttion = (EditText)findViewById(R.id.item_description_edit_text);
-        postCategories = (EditText)findViewById(R.id.item_categories_edit_text);
+
 
 
 
@@ -52,6 +52,20 @@ public class PostItemActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         locationSpinner.setAdapter(adapter);
+
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
+                R.array.categories_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        categoriesSpinner.setAdapter(adapter2);
+
+
+        if(getIntent().hasExtra("Title")){
+            setDataFromConfirmIntent();
+        }
+
 
         postListingButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,19 +92,13 @@ public class PostItemActivity extends AppCompatActivity {
 
                 if (posted){
                     Intent confirmPageIntent = new Intent(PostItemActivity.this, ConfirmItemListing.class);
-                    /*
-                    item = new ParseObject("Listings");
-                    item.put("Location", itemLocation);
-                    item.put("Price", itemPrice);
-                    item.put("Title", itemTitle);
-                    item.put("Description", itemDescription);
-                    item.put("Categories", itemCategories);*/
 
                     confirmPageIntent.putExtra("Location", itemLocation);
                     confirmPageIntent.putExtra("Price", itemPrice);
                     confirmPageIntent.putExtra("Title", itemTitle);
                     confirmPageIntent.putExtra("Description", itemDescription);
                     confirmPageIntent.putExtra("Categories", itemCategories);
+
 
                     startActivity(confirmPageIntent);
                 }
@@ -103,19 +111,35 @@ public class PostItemActivity extends AppCompatActivity {
         itemTitle = postTitle.getText().toString();
         itemPrice = postPrice.getText().toString();
         itemDescription = postDescripttion.getText().toString();
-        itemCategories = postCategories.getText().toString();
+        itemCategories = categoriesSpinner.getSelectedItem().toString();
         itemLocation = locationSpinner.getSelectedItem().toString();
 
-        if(locationSpinner.getSelectedItemPosition() == 0){
-            System.out.println("Please select a location");
+        if(locationSpinner.getSelectedItemPosition() == 0 || categoriesSpinner.getSelectedItemPosition() == 0){
+            System.out.println("Select Valid Data");
             return false;
         }
-        if (itemTitle.equals("") || itemPrice.equals("") || itemDescription.equals("") || itemCategories.equals("")){
+        if (itemTitle.equals("") || itemPrice.equals("") || itemDescription.equals("")){
             System.out.println("PLEASE MAKE SURE TO FILL IN ALL THE INFORMATION!");
             return false;
         }
 
         return true;
+
+    }
+
+
+    private void setDataFromConfirmIntent(){
+        itemTitle = getIntent().getExtras().getString("Title");
+        itemPrice = getIntent().getExtras().getString("Price");
+        itemDescription = getIntent().getExtras().getString("Description");
+        itemCategories = getIntent().getExtras().getString("Categories");
+        itemLocation = getIntent().getExtras().getString("Location");
+
+        postTitle.setText(itemTitle);
+        postPrice.setText(itemPrice);
+        postDescripttion.setText(itemDescription);
+        locationSpinner.setSelection(((ArrayAdapter<String>)locationSpinner.getAdapter()).getPosition(itemLocation));
+        categoriesSpinner.setSelection(((ArrayAdapter<String>)categoriesSpinner.getAdapter()).getPosition(itemCategories));
 
     }
 
