@@ -1,6 +1,7 @@
 package com.example.cse110mb260t14.ffs;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,11 +12,14 @@ import android.widget.TextView;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 
 public class displayFullItem extends AppCompatActivity {
 
@@ -49,14 +53,27 @@ public class displayFullItem extends AppCompatActivity {
                     System.out.print("FOUND MORE THAN ONE ITEM WITH THAT OBJECTID!!!");
                 }
 
-                TitleTV.setText((String)found.get(0).get("Title"));
-                DescriptionTV.setText((String)found.get(0).get("Description"));
-                PriceTV.setText("$" + (String)found.get(0).get("Price"));
+                TitleTV.setText((String) found.get(0).get("Title"));
+                DescriptionTV.setText((String) found.get(0).get("Description"));
+                PriceTV.setText("$" + (String) found.get(0).get("Price"));
                 CategoriesTV.setText(Arrays.asList(found.get(0).get("Categories")).get(0).toString());
-                LocationTV.setText((String)found.get(0).get("Location"));
+                LocationTV.setText("Pickup Address at: " + ParseUser.getCurrentUser().getString("address")
+                        + ", " + ParseUser.getCurrentUser().getString("city"));
 
 
+            }
 
+        });
+
+        LocationTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ParseGeoPoint geoLoc = (ParseGeoPoint) ParseUser.getCurrentUser().get("location");
+                double latitude = geoLoc.getLatitude();
+                double longitude = geoLoc.getLongitude();
+                String uri = String.format(Locale.ENGLISH, "geo:%f,%f", latitude, longitude);
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                startActivity(intent);
             }
         });
 

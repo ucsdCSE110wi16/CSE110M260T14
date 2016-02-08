@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.parse.ParseException;
 import com.parse.ParseObject;
+import com.parse.ParseUser;
 
 import java.util.Arrays;
 
@@ -22,6 +23,7 @@ public class ConfirmItemListing extends AppCompatActivity {
     private String itemDescription;
     private String itemCategories;
     private String itemLocation;
+    private String itemSellerID;
 
     private boolean successful = true;
 
@@ -55,6 +57,7 @@ public class ConfirmItemListing extends AppCompatActivity {
         itemCategories = getIntent().getExtras().getString("Categories");
         itemLocation = getIntent().getExtras().getString("Location");
 
+        itemSellerID = ParseUser.getCurrentUser().getObjectId();
         System.out.println("About to set data\n Should see " + itemTitle);
         setTextViewData();
 
@@ -73,6 +76,7 @@ public class ConfirmItemListing extends AppCompatActivity {
                 item.put("Title", itemTitle);
                 item.put("Description", itemDescription);
                 item.put("Categories", Arrays.asList(CategoriesArray));
+                item.put("SellerID", itemSellerID);
 
                 AlertDialog.Builder db = new AlertDialog.Builder(ConfirmItemListing.this);
                 db.setMessage("You posted an item!")
