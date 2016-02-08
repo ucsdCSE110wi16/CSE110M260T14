@@ -43,9 +43,14 @@ public class ListingsActivity extends AppCompatActivity {
                                         System.out.println("Adding " + listing_ids[i] + " to listing ids array");
                                         System.out.println(listing_titles[i]);
                                 }
-                                ArrayAdapter adapter = new ArrayAdapter<String>(ListingsActivity.this, R.layout.category_list_item, listing_titles);
+
+
+                                ArrayAdapter adapter = new ArrayAdapter<String>(ListingsActivity.this, R.layout.main_list_item, R.id.item_row_title, listing_titles);
                                 ListView listView = (ListView) findViewById(R.id.listings);
                                 listView.setAdapter(adapter);
+
+
+
                                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                         @Override
                                         public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {

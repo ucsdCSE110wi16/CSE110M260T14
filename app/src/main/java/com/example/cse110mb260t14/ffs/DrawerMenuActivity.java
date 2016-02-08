@@ -124,7 +124,7 @@ public class DrawerMenuActivity extends ActionBarActivity {
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("Listings");
                     query.whereContains("Title", "");
                     query.whereContains("objectId", "");
-                    query.findInBackground(new FindCallback<ParseObject>() {
+        query.findInBackground(new FindCallback<ParseObject>() {
                         public void done(List<ParseObject> found, ParseException e) {
                             System.out.println(found.size());
                             final String[] listing_titles = new String[found.size()];
@@ -135,9 +135,13 @@ public class DrawerMenuActivity extends ActionBarActivity {
                                 System.out.println("Adding " + listing_ids[i] + " to listing ids array");
                                 System.out.println(listing_titles[i]);
                             }
-                            ArrayAdapter adapter = new ArrayAdapter<String>(DrawerMenuActivity.this, R.layout.main_list_item, listing_titles);
+
+                            ArrayAdapter adapterTitle = new ArrayAdapter<String>(DrawerMenuActivity.this, R.layout.main_list_item, R.id.item_row_title, listing_titles);
+
                             ListView listView = (ListView) findViewById(R.id.main_listings);
-                            listView.setAdapter(adapter);
+                            listView.setAdapter(adapterTitle);
+
+
                             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                                 @Override
                                 public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
@@ -155,8 +159,6 @@ public class DrawerMenuActivity extends ActionBarActivity {
                             });
                         }
                     });
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //getSupportActionBar().setHomeButtonEnabled(true);
     }
 
     private void addDrawerItems() {

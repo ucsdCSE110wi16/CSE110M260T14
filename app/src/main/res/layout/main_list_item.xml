@@ -1,5 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="35dp"
-    android:textSize="27dp" />
+
+<RelativeLayout
+    android:layout_height="wrap_content"
+    android:layout_width="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="35dp"
+        android:text="Title"
+        android:id="@+id/item_row_title"
+        android:textSize="27dp" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/item_row_price"
+        android:textAlignment="textEnd"
+        android:layout_toRightOf="@id/item_row_title"
+        android:text="Price"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description"
+        android:id="@+id/item_row_description"
+        android:layout_below="@id/item_row_title"/>
+
+
+
+</RelativeLayout>

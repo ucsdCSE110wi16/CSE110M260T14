@@ -15,7 +15,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class CategoriesActivity extends AppCompatActivity {
 
-    String[] categoriesArray = {"Vehicles", "Electronics", "Appliances"};
+    String[] categoriesArray = {"Vehicles", "Sports", "Books", "Electronics", "Furniture", "HouseHold Items", "Clothing"};
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
