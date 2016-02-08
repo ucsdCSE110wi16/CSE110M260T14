@@ -14,6 +14,7 @@ import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class displayFullItem extends AppCompatActivity {
@@ -50,8 +51,8 @@ public class displayFullItem extends AppCompatActivity {
 
                 TitleTV.setText((String)found.get(0).get("Title"));
                 DescriptionTV.setText((String)found.get(0).get("Description"));
-                PriceTV.setText((String)found.get(0).get("Price"));
-                CategoriesTV.setText((String)found.get(0).get("Categories"));
+                PriceTV.setText("$" + (String)found.get(0).get("Price"));
+                CategoriesTV.setText(Arrays.asList(found.get(0).get("Categories")).get(0).toString());
                 LocationTV.setText((String)found.get(0).get("Location"));
 
 

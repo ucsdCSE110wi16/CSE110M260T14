@@ -127,7 +127,7 @@ public class DrawerMenuActivity extends ActionBarActivity {
                     query.findInBackground(new FindCallback<ParseObject>() {
                         public void done(List<ParseObject> found, ParseException e) {
                             System.out.println(found.size());
-                            String[] listing_titles = new String[found.size()];
+                            final String[] listing_titles = new String[found.size()];
                             final String[] listing_ids = new String[found.size()];
                             for (int i = 0; i < found.size(); i++) {
                                 listing_titles[i] = (String) found.get(i).get("Title");
@@ -142,6 +142,8 @@ public class DrawerMenuActivity extends ActionBarActivity {
                                 @Override
                                 public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
                                     // do later
+
+                                    System.out.println("CLICKED ON ITEM  " + listing_titles[position]);
 
                                     Intent intent = new Intent(DrawerMenuActivity.this, displayFullItem.class);
                                     System.out.println((String) adapter.getItemAtPosition(position));
