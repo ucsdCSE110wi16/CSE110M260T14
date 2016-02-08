@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 
+import java.util.Arrays;
+
 public class ConfirmItemListing extends AppCompatActivity {
 
     private ParseObject item;
@@ -62,13 +64,15 @@ public class ConfirmItemListing extends AppCompatActivity {
             public void onClick(View v) {
 
 
+                String[] CategoriesArray = new String[1];
+                CategoriesArray[0] = itemCategories;
 
                 item = new ParseObject("Listings");
                 item.put("Location", itemLocation);
                 item.put("Price", itemPrice);
                 item.put("Title", itemTitle);
                 item.put("Description", itemDescription);
-                item.put("Categories", itemCategories);
+                item.put("Categories", Arrays.asList(CategoriesArray));
 
                 AlertDialog.Builder db = new AlertDialog.Builder(ConfirmItemListing.this);
                 db.setMessage("You posted an item!")
