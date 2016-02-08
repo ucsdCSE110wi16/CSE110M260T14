@@ -1,66 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TableLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" >
 
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:hint="What are you selling?"
-            android:id="@+id/item_title_edit_text"
-            android:maxLength="80" />
-    </TableRow>
-    <TableRow>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Post Your Item!"
+        android:id="@+id/LargeText"
+        android:layout_marginTop="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="What are you selling?"
+        android:id="@+id/item_title_edit_text"
+        android:maxLength="80"
+        android:layout_below="@id/LargeText"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:hint="Describe your listing"
+        android:id="@+id/item_description_edit_text"
+        android:layout_below="@+id/item_title_edit_text"
+        android:layout_centerHorizontal="true"/>
+
+    <EditText
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:hint="Price (USD)"
+        android:inputType="numberDecimal"
+        android:id="@+id/item_price_edit_text"
+        android:maxLength="10"
+        android:layout_below="@+id/item_description_edit_text"
+        android:layout_centerHorizontal="true"/>
 
 
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:inputType="textMultiLine"
-            android:ems="10"
-            android:hint="Describe your listing"
-            android:id="@+id/item_description_edit_text" />
-    </TableRow>
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/item_categories_spinner"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/item_price_edit_text">
+    </Spinner>
 
-    <TableRow>
 
-        <EditText
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:hint="Price (USD)"
-            android:inputType="numberDecimal"
-            android:id="@+id/item_price_edit_text"
-            android:maxLength="10"
-            />
-    </TableRow>
-    <TableRow>
-        <EditText
-            android:layout_height="wrap_content"
-            android:layout_width="wrap_content"
-            android:inputType="textMultiLine"
-            android:hint="Categories"
-            android:id="@+id/item_categories_edit_text"/>
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/location_spinner"
+        android:layout_marginBottom="79dp"
+        android:layout_below="@id/item_categories_spinner"
+        android:layout_centerHorizontal="true"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Post!"
+        android:id="@+id/post_listing_button"
+        android:layout_below="@id/location_spinner"
+        android:layout_centerHorizontal="true"/>
 
-    </TableRow>
-    <TableRow>
 
-        <Spinner
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/location_spinner"/>
-
-    </TableRow>
-    <TableRow>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Post!"
-            android:id="@+id/post_listing_button"/>
-    </TableRow>
-</TableLayout>
+</RelativeLayout>
