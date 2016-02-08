@@ -130,8 +130,9 @@ public class DrawerMenuActivity extends ActionBarActivity {
                             String[] listing_ids = new String[found.size()];
                             for (int i = 0; i < found.size(); i++) {
                                 listing_titles[i] = (String) found.get(i).get("Title");
-                                listing_ids[i] = (String) found.get(i).get("objectId");
+                                listing_ids[i] = found.get(i).getObjectId();
                                 System.out.println(listing_titles[i]);
+                                System.out.println("objid: " + listing_ids[i]);
                             }
                             ArrayAdapter adapter = new ArrayAdapter<String>(DrawerMenuActivity.this, R.layout.main_list_item, listing_titles);
                             ListView listView = (ListView) findViewById(R.id.main_listings);
