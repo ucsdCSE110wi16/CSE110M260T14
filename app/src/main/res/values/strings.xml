@@ -36,8 +36,8 @@
         <item>Seattle</item>
         <item>Chicago</item>
     </string-array>
-    
-        <string-array name="categories_array">
+
+    <string-array name="categories_array">
         <item>Select Category</item>
         <item>Vehicles</item>
         <item>Sports</item>
@@ -47,7 +47,6 @@
         <item>HouseHold Items</item>
         <item>Clothing</item>
     </string-array>
-    
-    
-    
+
+
 </resources>
