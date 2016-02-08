@@ -26,7 +26,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.login.widget.LoginButton;
+import com.parse.FindCallback;
+import com.parse.ParseException;
 import com.parse.ParseGeoPoint;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.io.IOException;
@@ -113,11 +117,35 @@ public class DrawerMenuActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 updateLocation(ParseUser.getCurrentUser());
-                ((TextView)findViewById(R.id.location_view)).setText(ParseUser.getCurrentUser().getString("address")
+                ((TextView) findViewById(R.id.location_view)).setText(ParseUser.getCurrentUser().getString("address")
                         + ", " + ParseUser.getCurrentUser().getString("city"));
             }
         });
+                ParseQuery<ParseObject> query = ParseQuery.getQuery("Listings");
+                    query.whereContains("Title", "");
+                    query.findInBackground(new FindCallback<ParseObject>() {
+                        public void done(List<ParseObject> found, ParseException e) {
+                            System.out.println(found.size());
+                            String[] listing_titles = new String[found.size()];
+                            for (int i = 0; i < found.size(); i++) {
+                                listing_titles[i] = (String) found.get(i).get("Title");
+                                System.out.println(listing_titles[i]);
+                            }
+                            ArrayAdapter adapter = new ArrayAdapter<String>(DrawerMenuActivity.this, R.layout.main_list_item, listing_titles);
+                            ListView listView = (ListView) findViewById(R.id.main_listings);
+                            listView.setAdapter(adapter);
+                            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
+                                    // do later
 
+                                    Intent intent;
+                                    System.out.println((String) adapter.getItemAtPosition(position));
+
+                                }
+                            });
+                        }
+                    });
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         //getSupportActionBar().setHomeButtonEnabled(true);
     }
