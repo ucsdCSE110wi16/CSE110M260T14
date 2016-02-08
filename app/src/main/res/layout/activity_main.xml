@@ -183,13 +183,15 @@
 
         <TableRow
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:layout_span="8">
 
             <ListView
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/main_listings"
-                android:layout_column="4" />
+                android:layout_span="8"
+                android:stretchColumns="*" />
         </TableRow>
 
 
