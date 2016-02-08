@@ -127,8 +127,10 @@ public class DrawerMenuActivity extends ActionBarActivity {
                         public void done(List<ParseObject> found, ParseException e) {
                             System.out.println(found.size());
                             String[] listing_titles = new String[found.size()];
+                            String[] listing_ids = new String[found.size()];
                             for (int i = 0; i < found.size(); i++) {
                                 listing_titles[i] = (String) found.get(i).get("Title");
+                                listing_ids[i] = (String) found.get(i).get("objectId");
                                 System.out.println(listing_titles[i]);
                             }
                             ArrayAdapter adapter = new ArrayAdapter<String>(DrawerMenuActivity.this, R.layout.main_list_item, listing_titles);
