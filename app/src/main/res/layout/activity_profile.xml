@@ -38,4 +38,24 @@
         android:layout_below="@+id/name"
         android:layout_alignLeft="@+id/name"
         android:layout_alignStart="@+id/name" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/location_button"
+        android:text="Location Update"
+        android:layout_below="@+id/email"
+        android:layout_alignLeft="@+id/email"
+        android:layout_alignStart="@+id/email"
+        android:layout_marginTop="85dp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="Location Filler"
+        android:id="@+id/location_view"
+        android:layout_below="@id/location_button"
+        android:layout_alignRight="@+id/email"
+        android:layout_alignEnd="@+id/email" />
 </RelativeLayout>
