@@ -30,6 +30,9 @@ Expected progress:
   Rework based on feedback from Week 4 features.
   
 # Week 6:
-  - ability to search based on description
+  - ability to search based on description  -- Weian/Deqian
+  - Add transaction History page        -- Gabe
   - refine layout
-  - adding photos to items.
+  - three way tab switch on main page   -- Yoon/Daniel
+  - Allow for up to three categories    --Gabe
+  - adding photos to items (--phase 1). -- George
