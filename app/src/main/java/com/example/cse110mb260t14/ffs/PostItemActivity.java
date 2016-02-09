@@ -8,25 +8,31 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.parse.ParseObject;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 
 public class PostItemActivity extends AppCompatActivity {
 
     private Spinner locationSpinner;
-    private Spinner categoriesSpinner;
+    private Spinner categoriesSpinner1,categoriesSpinner2,categoriesSpinner3;
     private Button postListingButton;
     private EditText postTitle;
     private EditText postPrice;
     private EditText postDescripttion;
     private EditText postCategories;
 
+    private CheckBox addCat1, addCat2;
+
+    private final int maxCategories = 3;
     private String itemTitle;
     private String itemPrice;
     private String itemDescription;
-    private String itemCategories;
+    private String[] itemCategories = new String[maxCategories];
     private String itemLocation;
 
 
@@ -36,12 +42,15 @@ public class PostItemActivity extends AppCompatActivity {
         setContentView(R.layout.activity_post_item);
 
         locationSpinner = (Spinner) findViewById(R.id.location_spinner);
-        categoriesSpinner = (Spinner)findViewById(R.id.item_categories_spinner);
+        categoriesSpinner1 = (Spinner)findViewById(R.id.item_categories_spinner1);
+        categoriesSpinner2 = (Spinner)findViewById(R.id.item_categories_spinner2);
+        categoriesSpinner3 = (Spinner)findViewById(R.id.item_categories_spinner3);
         postListingButton = (Button) findViewById(R.id.post_listing_button);
         postTitle = (EditText)findViewById(R.id.item_title_edit_text);
         postPrice = (EditText)findViewById(R.id.item_price_edit_text);
         postDescripttion = (EditText)findViewById(R.id.item_description_edit_text);
-
+        addCat1 = (CheckBox)findViewById(R.id.item_categories_checkbox1);
+        addCat2 = (CheckBox)findViewById(R.id.item_categories_checkbox2);
 
 
 
@@ -59,7 +68,40 @@ public class PostItemActivity extends AppCompatActivity {
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
-        categoriesSpinner.setAdapter(adapter2);
+        categoriesSpinner1.setAdapter(adapter2);
+        categoriesSpinner2.setAdapter(adapter2);
+        categoriesSpinner3.setAdapter(adapter2);
+
+
+
+        addCat1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    categoriesSpinner2.setVisibility(View.VISIBLE);
+                    addCat2.setVisibility(View.VISIBLE);
+                } else {
+                    categoriesSpinner2.setVisibility(View.GONE);
+                    addCat2.setVisibility(View.GONE);
+                    categoriesSpinner3.setVisibility(View.GONE);
+                }
+            }
+        });
+
+
+        addCat2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked){
+                    categoriesSpinner3.setVisibility(View.VISIBLE);
+                }
+                else{
+                    categoriesSpinner3.setVisibility(View.GONE);
+                }
+            }
+        });
+
+
 
 
         if(getIntent().hasExtra("Title")){
@@ -97,7 +139,11 @@ public class PostItemActivity extends AppCompatActivity {
                     confirmPageIntent.putExtra("Price", itemPrice);
                     confirmPageIntent.putExtra("Title", itemTitle);
                     confirmPageIntent.putExtra("Description", itemDescription);
-                    confirmPageIntent.putExtra("Categories", itemCategories);
+                    confirmPageIntent.putExtra("Categories0", itemCategories[0]);
+                    confirmPageIntent.putExtra("Categories1", itemCategories[1]);
+                    confirmPageIntent.putExtra("Categories2", itemCategories[2]);
+
+
 
 
                     startActivity(confirmPageIntent);
@@ -111,10 +157,19 @@ public class PostItemActivity extends AppCompatActivity {
         itemTitle = postTitle.getText().toString();
         itemPrice = postPrice.getText().toString();
         itemDescription = postDescripttion.getText().toString();
-        itemCategories = categoriesSpinner.getSelectedItem().toString();
         itemLocation = locationSpinner.getSelectedItem().toString();
 
-        if(locationSpinner.getSelectedItemPosition() == 0 || categoriesSpinner.getSelectedItemPosition() == 0){
+        itemCategories[0] = categoriesSpinner1.getSelectedItem().toString();
+        if(addCat1.isChecked() && categoriesSpinner2.getSelectedItemPosition()!=0) {
+            itemCategories[1] = categoriesSpinner2.getSelectedItem().toString();
+            if (addCat2.isChecked() && categoriesSpinner3.getSelectedItemPosition()!=0) {
+                itemCategories[2] = categoriesSpinner3.getSelectedItem().toString();
+            }
+        }
+
+
+
+        if(locationSpinner.getSelectedItemPosition() == 0 || categoriesSpinner1.getSelectedItemPosition() == 0){
             System.out.println("Select Valid Data");
             return false;
         }
@@ -132,14 +187,26 @@ public class PostItemActivity extends AppCompatActivity {
         itemTitle = getIntent().getExtras().getString("Title");
         itemPrice = getIntent().getExtras().getString("Price");
         itemDescription = getIntent().getExtras().getString("Description");
-        itemCategories = getIntent().getExtras().getString("Categories");
+        itemCategories[0] = getIntent().getExtras().getString("Categories0");
+        itemCategories[1] = getIntent().getExtras().getString("Categories1");
+        itemCategories[2] = getIntent().getExtras().getString("Categories2");
         itemLocation = getIntent().getExtras().getString("Location");
 
         postTitle.setText(itemTitle);
         postPrice.setText(itemPrice);
         postDescripttion.setText(itemDescription);
-        locationSpinner.setSelection(((ArrayAdapter<String>)locationSpinner.getAdapter()).getPosition(itemLocation));
-        categoriesSpinner.setSelection(((ArrayAdapter<String>)categoriesSpinner.getAdapter()).getPosition(itemCategories));
+        locationSpinner.setSelection(((ArrayAdapter<String>) locationSpinner.getAdapter()).getPosition(itemLocation));
+
+        categoriesSpinner1.setSelection(((ArrayAdapter<String>)categoriesSpinner1.getAdapter()).getPosition(itemCategories[0]));
+        categoriesSpinner2.setSelection(((ArrayAdapter<String>)categoriesSpinner2.getAdapter()).getPosition(itemCategories[1]));
+        categoriesSpinner3.setSelection(((ArrayAdapter<String>)categoriesSpinner3.getAdapter()).getPosition(itemCategories[2]));
+        if(categoriesSpinner2.getSelectedItemPosition()>0){
+            addCat1.setChecked(true);
+        }
+        if(categoriesSpinner3.getSelectedItemPosition()>0){
+            addCat2.setChecked(true);
+        }
+
 
     }
 

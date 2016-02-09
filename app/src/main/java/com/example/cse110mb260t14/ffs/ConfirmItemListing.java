@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import com.parse.ParseException;
@@ -21,7 +22,8 @@ public class ConfirmItemListing extends AppCompatActivity {
     private String itemTitle;
     private String itemPrice;
     private String itemDescription;
-    private String itemCategories;
+    private final int maxCategories = 3;
+    private String[] itemCategories = new String[maxCategories];
     private String itemLocation;
     private String itemSellerID;
 
@@ -33,7 +35,6 @@ public class ConfirmItemListing extends AppCompatActivity {
     private TextView descriptionTextView;
     private TextView categoriesTextView;
     private TextView locationTextView;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +55,23 @@ public class ConfirmItemListing extends AppCompatActivity {
         itemTitle = getIntent().getExtras().getString("Title");
         itemPrice = getIntent().getExtras().getString("Price");
         itemDescription = getIntent().getExtras().getString("Description");
-        itemCategories = getIntent().getExtras().getString("Categories");
+        itemCategories[0] = getIntent().getExtras().getString("Categories0");
+        itemCategories[1] = getIntent().getExtras().getString("Categories1");
+        itemCategories[2] = getIntent().getExtras().getString("Categories2");
         itemLocation = getIntent().getExtras().getString("Location");
+
+        if(itemCategories[2].equals(itemCategories[1])){
+            itemCategories[2] = "null";
+        }
+        if(itemCategories[2].equals(itemCategories[0])){
+            itemCategories[2] = "null";
+        }
+        if(itemCategories[1].equals(itemCategories[0])){
+            if(!itemCategories[2].equals("null")) {
+                itemCategories[1] = itemCategories[2];
+                itemCategories[2] = "null";
+            }
+        }
 
         itemSellerID = ParseUser.getCurrentUser().getObjectId();
         System.out.println("About to set data\n Should see " + itemTitle);
@@ -68,14 +84,13 @@ public class ConfirmItemListing extends AppCompatActivity {
 
 
                 String[] CategoriesArray = new String[1];
-                CategoriesArray[0] = itemCategories;
 
                 item = new ParseObject("Listings");
                 item.put("Location", itemLocation);
                 item.put("Price", itemPrice);
                 item.put("Title", itemTitle);
                 item.put("Description", itemDescription);
-                item.put("Categories", Arrays.asList(CategoriesArray));
+                item.put("Categories", Arrays.asList(itemCategories));
                 item.put("SellerID", itemSellerID);
 
                 AlertDialog.Builder db = new AlertDialog.Builder(ConfirmItemListing.this);
@@ -85,8 +100,7 @@ public class ConfirmItemListing extends AppCompatActivity {
                 try {
                     item.save();
 
-                }
-                catch (ParseException e){
+                } catch (ParseException e) {
                     successful = false;
                     db.setMessage("There was an error with the data")
                             .setTitle("Error");
@@ -110,8 +124,21 @@ public class ConfirmItemListing extends AppCompatActivity {
                 db.show();
 
 
+            }
+        });
 
-
+        editButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent go_back = new Intent(ConfirmItemListing.this, PostItemActivity.class);
+                go_back.putExtra("Title",itemTitle);
+                go_back.putExtra("Price",itemPrice);
+                go_back.putExtra("Description",itemDescription);
+                go_back.putExtra("Categories0",itemCategories[0]);
+                go_back.putExtra("Categories1",itemCategories[1]);
+                go_back.putExtra("Categories2",itemCategories[2]);
+                go_back.putExtra("Location",itemLocation);
+                startActivity(go_back);
             }
         });
 
@@ -122,7 +149,7 @@ public class ConfirmItemListing extends AppCompatActivity {
         titleTextView.setText(itemTitle);
         priceTextView.setText(itemPrice);
         descriptionTextView.setText(itemDescription);
-        categoriesTextView.setText(itemCategories);
+        categoriesTextView.setText(itemCategories[0] + ", " + itemCategories[1] + ", " + itemCategories[2]);
         locationTextView.setText(itemLocation);
     }
 
