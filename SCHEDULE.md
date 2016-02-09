@@ -32,7 +32,7 @@ Expected progress:
 # Week 6:
   - ability to search based on description  -- Weian/Deqian
   - Add transaction History page        -- Gabe
-  - refine layout
+  - refine layout                       -- Yoon/Daniel
   - three way tab switch on main page   -- Yoon/Daniel
   - Allow for up to three categories    --Gabe
   - adding photos to items (--phase 1). -- George
