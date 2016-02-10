@@ -71,12 +71,14 @@ public class displayFullItem extends AppCompatActivity {
                         + ", " + ParseUser.getCurrentUser().getString("city"));
 
                 photoByteArray = (ParseFile) found.get(0).get("photo_byte_array");
-                try {
-                    photoBitmap = BitmapFactory.decodeByteArray(photoByteArray.getData(), 0, photoByteArray.getData().length);
-                    photo_display.setImageBitmap(photoBitmap);
+                if (photoByteArray != null) {
+                    try {
+                        photoBitmap = BitmapFactory.decodeByteArray(photoByteArray.getData(), 0, photoByteArray.getData().length);
+                        photo_display.setImageBitmap(photoBitmap);
 
-                } catch (ParseException pe) {
-                    Log.v(displayFullItem.this.toString(), "error decoding byte array");
+                    } catch (ParseException pe) {
+                        Log.v(displayFullItem.this.toString(), "error decoding byte array");
+                    }
                 }
             }
 
