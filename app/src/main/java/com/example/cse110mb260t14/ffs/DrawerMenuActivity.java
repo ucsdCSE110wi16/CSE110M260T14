@@ -35,6 +35,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -137,8 +138,15 @@ public class DrawerMenuActivity extends ActionBarActivity {
 
                 EditText descriptionText = (EditText) findViewById(R.id.EditTextId);
                 description = descriptionText.getText().toString();
+                ParseQuery<ParseObject> title = ParseQuery.getQuery("Listings");
+                title.whereContains("objectId", "");
+                title.whereContains("Title", description);
 
                 query.whereContains("Description", description);
+                List<ParseQuery<ParseObject>> queries = new ArrayList<ParseQuery<ParseObject>>();
+                queries.add(title);
+                queries.add(query);
+                query =ParseQuery.or(queries);
                 //ParseQuery<ParseObject> newquery = ParseQuery.getQuery("Listings");
                 //query.whereContains("Title", "");
                 //query = query.or((List<ParseQuery<ParseObject>>) newquery);
