@@ -34,6 +34,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -124,43 +125,37 @@ public class DrawerMenuActivity extends ActionBarActivity {
                 ParseQuery<ParseObject> query = ParseQuery.getQuery("Listings");
                     query.whereContains("Title", "");
                     query.whereContains("objectId", "");
-        query.findInBackground(new FindCallback<ParseObject>() {
+                    query.findInBackground(new FindCallback<ParseObject>() {
                         public void done(List<ParseObject> found, ParseException e) {
-                            System.out.println(found.size());
-                            final String[] listing_titles = new String[found.size()];
-                            final String[] listing_ids = new String[found.size()];
-                            for (int i = 0; i < found.size(); i++) {
-                                listing_titles[i] = (String) found.get(i).get("Title");
-                                listing_ids[i] = found.get(i).getObjectId();
-                                System.out.println("Adding " + listing_ids[i] + " to listing ids array");
-                                System.out.println(listing_titles[i]);
-                            }
-
-                            ArrayAdapter adapterTitle = new ArrayAdapter<String>(DrawerMenuActivity.this, R.layout.main_list_item, R.id.item_row_title, listing_titles);
-
-                            ListView listView = (ListView) findViewById(R.id.main_listings);
-                            listView.setAdapter(adapterTitle);
+                            ArrayList<ParseObject> objects = new ArrayList<ParseObject>(found);
+                                ListingAdapter adapter = new ListingAdapter(DrawerMenuActivity.this, objects);
+                                ListView listView = (ListView) findViewById(R.id.main_listings);
+                                listView.setAdapter(adapter);
 
 
-                            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                @Override
-                                public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
-                                    // do later
+                                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                        @Override
+                                        public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
+                                                // do later
 
-                                    System.out.println("CLICKED ON ITEM  " + listing_titles[position]);
+                                                System.out.println("CLICKED ON ITEM  " + ((ParseObject) adapter.getItemAtPosition(position)).getString("Title"));
 
-                                    Intent intent = new Intent(DrawerMenuActivity.this, displayFullItem.class);
-                                    System.out.println((String) adapter.getItemAtPosition(position));
-                                    intent.putExtra("objectID", listing_ids[position]);
-                                    System.out.println("LISTING ID IS " + listing_ids[position]);
-                                    startActivity(intent);
+                                                Intent intent = new Intent(DrawerMenuActivity.this, displayFullItem.class);
+                                                intent.putExtra("objectID", ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
+                                                System.out.println("LISTING ID IS " + ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
+                                                startActivity(intent);
 
-                                }
-                            });
+                                        }
+                                });
                         }
                     });
     }
 
+    @Override
+    public void onBackPressed()
+    {
+        // super.onBackPressed(); // Comment this super call to avoid calling finish()
+    }
     private void addDrawerItems() {
         String[] osArray = {"Profile", "Categories", "Transaction History", "Logout"};
         mAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, osArray);
