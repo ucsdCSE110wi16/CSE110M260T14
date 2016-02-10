@@ -20,6 +20,8 @@
         android:background="#ffffffff"
         android:nestedScrollingEnabled="false">
 
+
+
         <TableRow>
 
             <TextView
@@ -28,7 +30,7 @@
                 android:layout_centerHorizontal="true"
                 android:text="Welcome,"
                 android:textSize="40sp"
-                android:layout_marginTop="100dp"
+                android:layout_marginTop="60dp"
                 android:layout_column="4"
                 android:gravity="left" />
 
@@ -149,7 +151,23 @@
                 android:id="@+id/textView4"
                 android:layout_column="4" />
         </TableRow>
-
+        <TableRow>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="text"
+                android:hint="@string/Description"
+                android:ems="20"
+                android:id="@+id/EditTextId"
+                android:layout_weight="0.31" />
+            <Button
+                android:id="@+id/Search"
+                android:layout_height="match_parent"
+                android:text="@string/Search"
+                android:onClick="search"
+                android:layout_width="fill_parent">
+            </Button>
+        </TableRow>
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent">

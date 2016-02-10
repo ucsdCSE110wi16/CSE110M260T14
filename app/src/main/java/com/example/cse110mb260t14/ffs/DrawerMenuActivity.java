@@ -21,6 +21,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,6 +53,8 @@ public class DrawerMenuActivity extends ActionBarActivity {
     private double latitude, longitude;
     private Geocoder geocoder;
     private List<Address> addresses;
+    private ParseQuery<ParseObject> query;
+    String description;
 
 
     TextView usernameTextView;
@@ -121,9 +124,63 @@ public class DrawerMenuActivity extends ActionBarActivity {
                         + ", " + ParseUser.getCurrentUser().getString("city"));
             }
         });
-                ParseQuery<ParseObject> query = ParseQuery.getQuery("Listings");
+        //This is show all items;
+                query = ParseQuery.getQuery("Listings");
                     query.whereContains("Title", "");
                     query.whereContains("objectId", "");
+        System.out.println("Description is : " + description);
+        Button search_button = (Button) findViewById(R.id.Search);
+        search_button.setOnClickListener(new View.OnClickListener(){
+
+            @Override
+            public void onClick(View v) {
+
+                EditText descriptionText = (EditText) findViewById(R.id.EditTextId);
+                description = descriptionText.getText().toString();
+
+                query.whereContains("Description", description);
+                //ParseQuery<ParseObject> newquery = ParseQuery.getQuery("Listings");
+                //query.whereContains("Title", "");
+                //query = query.or((List<ParseQuery<ParseObject>>) newquery);
+                System.out.println("Description is : " + description);
+                query.findInBackground(new FindCallback<ParseObject>() {
+                    public void done(List<ParseObject> found, ParseException e) {
+                        System.out.println(found.size());
+                        final String[] listing_titles = new String[found.size()];
+                        final String[] listing_ids = new String[found.size()];
+                        for (int i = 0; i < found.size(); i++) {
+                            listing_titles[i] = (String) found.get(i).get("Title");
+                            listing_ids[i] = found.get(i).getObjectId();
+                            System.out.println("Adding " + listing_ids[i] + " to listing ids array");
+                            System.out.println(listing_titles[i]);
+                        }
+
+                        ArrayAdapter adapterTitle = new ArrayAdapter<String>(DrawerMenuActivity.this, R.layout.main_list_item, R.id.item_row_title, listing_titles);
+
+                        ListView listView = (ListView) findViewById(R.id.main_listings);
+                        listView.setAdapter(adapterTitle);
+
+
+                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
+                                // do later
+
+                                System.out.println("CLICKED ON ITEM  " + listing_titles[position]);
+
+                                Intent intent = new Intent(DrawerMenuActivity.this, displayFullItem.class);
+                                System.out.println((String) adapter.getItemAtPosition(position));
+                                intent.putExtra("objectID", listing_ids[position]);
+                                System.out.println("LISTING ID IS " + listing_ids[position]);
+                                startActivity(intent);
+
+                            }
+                        });
+                    }
+                });
+
+            }
+        });
         query.findInBackground(new FindCallback<ParseObject>() {
                         public void done(List<ParseObject> found, ParseException e) {
                             System.out.println(found.size());
