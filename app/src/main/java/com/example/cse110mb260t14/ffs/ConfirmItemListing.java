@@ -108,18 +108,20 @@ public class ConfirmItemListing extends AppCompatActivity {
                 item.put("Categories", Arrays.asList(itemCategories));
                 item.put("SellerID", itemSellerID);
 
-                // add bitmap byte array as file
-                ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                photo_bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                //retrieve the byte array
-                byte[] byteArray = stream.toByteArray();
+                if (photo_bitmap != null) {
+                    // add bitmap byte array as file
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    photo_bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                    //retrieve the byte array
+                    byte[] byteArray = stream.toByteArray();
 
-                if (byteArray != null) {
-                    System.out.println(byteArray.toString());
-                    // name of file is objectId + ".jpg"
-                    ParseFile photo_file = new ParseFile("listing_photo.jpg", byteArray);
-                    item.put("photo_byte_array", photo_file);
-                    photo_file.saveInBackground();
+                    if (byteArray != null) {
+                        System.out.println(byteArray.toString());
+                        // name of file is objectId + ".jpg"
+                        ParseFile photo_file = new ParseFile("listing_photo.jpg", byteArray);
+                        item.put("photo_byte_array", photo_file);
+                        photo_file.saveInBackground();
+                    }
                 }
 
                 item.saveInBackground();
