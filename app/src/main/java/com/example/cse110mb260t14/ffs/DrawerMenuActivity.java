@@ -56,6 +56,7 @@ public class DrawerMenuActivity extends ActionBarActivity {
     private List<Address> addresses;
     private ParseQuery<ParseObject> query;
     String description;
+    String[] Split_description;
 
 
     TextView usernameTextView;
@@ -138,19 +139,24 @@ public class DrawerMenuActivity extends ActionBarActivity {
 
                 EditText descriptionText = (EditText) findViewById(R.id.EditTextId);
                 description = descriptionText.getText().toString();
-                ParseQuery<ParseObject> title = ParseQuery.getQuery("Listings");
-                title.whereContains("objectId", "");
-                title.whereContains("Title", description);
-
-                query.whereContains("Description", description);
+                Split_description = description.split("\\s+");
                 List<ParseQuery<ParseObject>> queries = new ArrayList<ParseQuery<ParseObject>>();
-                queries.add(title);
-                queries.add(query);
+
+                for(int i = 0; i < Split_description.length; i++) {
+                    ParseQuery<ParseObject> title = ParseQuery.getQuery("Listings");
+                    ParseQuery<ParseObject> descrip = ParseQuery.getQuery("Listings");
+                    System.out.println("SOME:" + Split_description[i]);
+                    title.whereContains("objectId", "");
+                    title.whereContains("Title", Split_description[i]);
+                    descrip.whereContains("objectId", "");
+                    descrip.whereContains("Description", Split_description[i]);
+
+                    queries.add(title);
+                    queries.add(descrip);
+                }
                 query =ParseQuery.or(queries);
-                //ParseQuery<ParseObject> newquery = ParseQuery.getQuery("Listings");
-                //query.whereContains("Title", "");
-                //query = query.or((List<ParseQuery<ParseObject>>) newquery);
-                System.out.println("Description is : " + description);
+
+                System.out.println("Description is : " + Split_description[0]);
                 query.findInBackground(new FindCallback<ParseObject>() {
                     public void done(List<ParseObject> found, ParseException e) {
                         System.out.println(found.size());
