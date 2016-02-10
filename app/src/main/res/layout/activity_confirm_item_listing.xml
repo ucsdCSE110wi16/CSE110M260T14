@@ -122,6 +122,13 @@
         android:layout_toRightOf="@id/edit_button"
         android:layout_alignBaseline="@id/edit_button"/>
 
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:id="@+id/photo_confirm"
+        android:layout_alignTop="@+id/location_text_view"
+        android:layout_alignRight="@+id/item_price_confirm"
+        android:layout_alignEnd="@+id/item_price_confirm" />
 
 
 </RelativeLayout>

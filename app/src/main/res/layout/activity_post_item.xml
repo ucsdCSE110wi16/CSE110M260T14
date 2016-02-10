@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content" >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
 
     <TextView
@@ -108,7 +108,28 @@
         android:layout_height="wrap_content"
         android:text="Post!"
         android:id="@+id/post_listing_button"
-        android:layout_below="@id/location_spinner"
-        android:layout_centerHorizontal="true"/>
+        android:layout_alignTop="@+id/camera_button"
+        android:layout_alignLeft="@+id/item_description_edit_text"
+        android:layout_alignStart="@+id/item_description_edit_text" />
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:id="@+id/photo_preview"
+        android:layout_alignTop="@+id/item_categories_checkbox1"
+        android:layout_alignLeft="@+id/camera_button"
+        android:layout_alignStart="@+id/camera_button"
+        android:layout_marginTop="8dp" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Take Photo"
+        android:id="@+id/camera_button"
+        android:layout_below="@+id/photo_preview"
+        android:layout_alignRight="@+id/item_description_edit_text"
+        android:layout_alignEnd="@+id/item_description_edit_text"
+        android:layout_marginTop="14dp" />
 
 </RelativeLayout>

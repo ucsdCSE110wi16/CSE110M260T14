@@ -3,6 +3,9 @@ package com.example.cse110mb260t14.ffs;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +14,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 
 import java.lang.reflect.Array;
@@ -18,9 +22,12 @@ import java.util.Arrays;
 
 public class PostItemActivity extends AppCompatActivity {
 
+    static final int REQUEST_IMAGE_CAPTURE = 1;
     private Spinner locationSpinner;
     private Spinner categoriesSpinner1,categoriesSpinner2,categoriesSpinner3;
     private Button postListingButton;
+    private Button camera_button;
+    private ImageView photo_preview;
     private EditText postTitle;
     private EditText postPrice;
     private EditText postDescripttion;
@@ -51,6 +58,8 @@ public class PostItemActivity extends AppCompatActivity {
         postDescripttion = (EditText)findViewById(R.id.item_description_edit_text);
         addCat1 = (CheckBox)findViewById(R.id.item_categories_checkbox1);
         addCat2 = (CheckBox)findViewById(R.id.item_categories_checkbox2);
+        camera_button = (Button) findViewById(R.id.camera_button);
+        photo_preview = (ImageView) findViewById(R.id.photo_preview);
 
 
 
@@ -92,10 +101,9 @@ public class PostItemActivity extends AppCompatActivity {
         addCat2.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                if (isChecked){
+                if (isChecked) {
                     categoriesSpinner3.setVisibility(View.VISIBLE);
-                }
-                else{
+                } else {
                     categoriesSpinner3.setVisibility(View.GONE);
                 }
             }
@@ -142,6 +150,9 @@ public class PostItemActivity extends AppCompatActivity {
                     confirmPageIntent.putExtra("Categories0", itemCategories[0]);
                     confirmPageIntent.putExtra("Categories1", itemCategories[1]);
                     confirmPageIntent.putExtra("Categories2", itemCategories[2]);
+                    if (photo_preview.getDrawable() != null) {
+                        confirmPageIntent.putExtra("Photo", ((BitmapDrawable) photo_preview.getDrawable()).getBitmap());
+                    }
 
 
 
@@ -151,8 +162,26 @@ public class PostItemActivity extends AppCompatActivity {
             }
         });
 
-    }
+        // start camera intent (open camera app)
+        camera_button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                if(cameraIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivityForResult(cameraIntent, REQUEST_IMAGE_CAPTURE);
+                }
+            }
 
+        });
+    }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            photo_preview.setImageBitmap(imageBitmap);
+        }
+    }
     private boolean getItemData(){
         itemTitle = postTitle.getText().toString();
         itemPrice = postPrice.getText().toString();
