@@ -21,7 +21,8 @@
     <string name="fromDescription">Please Enter Your Details</string>
     <string name="Description">Your Description</string>
     <string name="Search">SEARCH</string>
-
+    <string name="Listsearch">SEARCH</string>
+    <string name="ListDescription">PLEASE ENTER YOUR DESCRIPTION</string>
     <string name="buy">Buy</string>
 
 
