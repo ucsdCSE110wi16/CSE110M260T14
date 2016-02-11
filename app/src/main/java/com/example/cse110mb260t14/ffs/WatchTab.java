@@ -44,20 +44,13 @@ public class WatchTab extends Fragment {
 
                 ArrayList<ParseObject> objects = new ArrayList<ParseObject>(found);
                 ListingAdapter adapter = new ListingAdapter(getActivity(), objects);
-
                 listView.setAdapter(adapter);
-
-
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
-                        // do later
-
-                        System.out.println("CLICKED ON ITEM  " + ((ParseObject) adapter.getItemAtPosition(position)).getString("Title"));
-
+                        // do late
                         Intent intent = new Intent(getActivity(), displayFullItem.class);
                         intent.putExtra("objectID", ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
-                        System.out.println("LISTING ID IS " + ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
                         startActivity(intent);
 
                     }

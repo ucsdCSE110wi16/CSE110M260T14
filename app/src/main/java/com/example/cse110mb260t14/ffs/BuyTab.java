@@ -59,16 +59,6 @@ public class BuyTab extends Fragment {
         });
 
 
-        postButton = (Button) v.findViewById(R.id.sell_button);
-        postButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), PostItemActivity.class);
-                startActivity(intent);
-            }
-        });
-
-
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Listings");
         query.whereContains("Title", "");
