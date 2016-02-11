@@ -1,12 +1,15 @@
 package com.example.cse110mb260t14.ffs;
 
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -219,8 +222,6 @@ public class DrawerMenuActivity extends ActionBarActivity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
 
-    /*    REMOVE comment
-
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
         super.onPostCreate(savedInstanceState);
@@ -261,6 +262,8 @@ public class DrawerMenuActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    /*
     public void startGrabbingLocation(LocationManager locationManager, LocationListener locationListener) {
         // start the location manager for retrieving GPS coordinates
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);

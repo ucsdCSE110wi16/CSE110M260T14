@@ -12,7 +12,9 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     CharSequence Titles[]; // This will Store the Titles of the Tabs which are Going to be passed when ViewPagerAdapter is created
     int NumbOfTabs; // Store the number of tabs, this will also be passed when the ViewPagerAdapter is created
-
+    private BuyTab buyTab = null;
+    private SellTab sellTab = null;
+    private WatchTab watchTab = null;
 
     // Build a Constructor and assign the passed Values to appropriate values in the class
     public ViewPagerAdapter(FragmentManager fm, CharSequence mTitles[], int mNumbOfTabsumb) {
@@ -27,19 +29,29 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
+
+
         if(position == 0) // if the position is 0 we are returning the First tab
         {
-            BuyTab buyTab = new BuyTab();
+            if(buyTab==null) {
+                System.out.print("CREATING NEW BUY TAB!!!!!!");
+                buyTab = new BuyTab();
+            }
+            System.out.print("RETURNING BUYTAB!!!!!");
             return buyTab;
         }
         else if(position == 1)
         {
-            SellTab sellTab = new SellTab();
+            if(sellTab==null) {
+                sellTab = new SellTab();
+            }
             return sellTab;
         }
         else
         {
-            WatchTab watchTab = new WatchTab();
+            if (watchTab == null) {
+                watchTab = new WatchTab();
+            }
             return watchTab;
         }
 

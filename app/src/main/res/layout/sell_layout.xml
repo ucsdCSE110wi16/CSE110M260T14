@@ -1,16 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+ <RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent" >
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="You Are In sell tab"
-        android:id="@+id/textView"
-        android:layout_centerVertical="true"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Post Your Item!"
+        android:id="@+id/LargeText"
+        android:layout_marginTop="20dp"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="What are you selling?"
+        android:id="@+id/item_title_edit_text"
+        android:maxLength="80"
+        android:layout_below="@id/LargeText"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:ems="10"
+        android:hint="Describe your listing"
+        android:id="@+id/item_description_edit_text"
+        android:layout_below="@+id/item_title_edit_text"
+        android:layout_centerHorizontal="true"/>
+
+    <EditText
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:hint="Price (USD)"
+        android:inputType="numberDecimal"
+        android:id="@+id/item_price_edit_text"
+        android:maxLength="10"
+        android:layout_below="@+id/item_description_edit_text"
+        android:layout_centerHorizontal="true"/>
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/item_categories_spinner1"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/item_price_edit_text">
+    </Spinner>
+
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Category"
+        android:id="@+id/item_categories_checkbox1"
+        android:layout_below="@+id/item_categories_spinner1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:checked="false" />
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/item_categories_spinner2"
+        android:layout_below="@+id/item_categories_checkbox1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:visibility="gone"/>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add Category"
+        android:id="@+id/item_categories_checkbox2"
+        android:layout_below="@+id/item_categories_spinner2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:checked="false"
+        android:visibility="gone"/>
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/item_categories_spinner3"
+        android:layout_below="@+id/item_categories_checkbox2"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:visibility="gone"/>
+
+
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/location_spinner"
+        android:layout_below="@+id/item_categories_spinner3"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Post!"
+        android:id="@+id/post_listing_button"
+        android:layout_alignTop="@+id/camera_button"
+        android:layout_alignLeft="@+id/item_description_edit_text"
+        android:layout_alignStart="@+id/item_description_edit_text" />
+
+    <ImageView
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:id="@+id/photo_preview"
+        android:layout_alignTop="@+id/item_categories_checkbox1"
+        android:layout_alignLeft="@+id/camera_button"
+        android:layout_alignStart="@+id/camera_button"
+        android:layout_marginTop="8dp" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Take Photo"
+        android:id="@+id/camera_button"
+        android:layout_below="@+id/photo_preview"
+        android:layout_alignRight="@+id/item_description_edit_text"
+        android:layout_alignEnd="@+id/item_description_edit_text"
+        android:layout_marginTop="14dp" />
 
 </RelativeLayout>
