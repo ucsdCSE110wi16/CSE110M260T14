@@ -5,9 +5,9 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -16,9 +16,6 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
-
-import java.lang.reflect.Array;
-import java.util.Arrays;
 
 public class PostItemActivity extends AppCompatActivity {
 
@@ -47,6 +44,9 @@ public class PostItemActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_item);
+
+
+
 
         locationSpinner = (Spinner) findViewById(R.id.location_spinner);
         categoriesSpinner1 = (Spinner)findViewById(R.id.item_categories_spinner1);

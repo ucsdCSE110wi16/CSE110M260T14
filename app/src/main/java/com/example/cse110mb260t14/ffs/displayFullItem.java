@@ -3,16 +3,13 @@ package com.example.cse110mb260t14.ffs;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.media.Image;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.parse.FindCallback;
@@ -23,6 +20,7 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
@@ -31,9 +29,13 @@ public class displayFullItem extends AppCompatActivity {
 
     private String objectId;
     private TextView TitleTV, PriceTV, DescriptionTV, CategoriesTV, LocationTV;
+    private Button watchListButton;
+    private boolean WatchListAdd;
     private ImageView photo_display;
     private ParseFile photoByteArray;
     private Bitmap photoBitmap;
+    ParseUser user = ParseUser.getCurrentUser();
+    ArrayList<String> watchList = (ArrayList)user.get("WatchList");
     private boolean fullscreen = false;
 
     @Override
@@ -49,7 +51,15 @@ public class displayFullItem extends AppCompatActivity {
         CategoriesTV = (TextView)findViewById(R.id.itemCategories);
         LocationTV = (TextView)findViewById(R.id.itemLocation);
         photo_display = (ImageView)findViewById(R.id.photo_display);
-
+        watchListButton = (Button)findViewById(R.id.AddToWatchListButton);
+        if(watchList.contains(objectId)){
+            watchListButton.setText("Remove from WatchList");
+            WatchListAdd = false;
+        }
+        else{
+            watchListButton.setText("Add to WatchList");
+            WatchListAdd = true;
+        }
 
         System.out.println("OBJECT ID IS: " + objectId);
 
@@ -132,6 +142,26 @@ public class displayFullItem extends AppCompatActivity {
 
 
 
+        watchListButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                if (WatchListAdd) {
+                    watchList.add(objectId);
+
+                    watchListButton.setText("Remove from WatchList");
+                    WatchListAdd = false;
+                }
+                else {
+                    watchList.remove(objectId);
+                    watchListButton.setText("Add to WatchList");
+                    WatchListAdd = true;
+                }
+                user.put("WatchList", watchList);
+                user.saveInBackground();
+            }
+        });
 
 
 

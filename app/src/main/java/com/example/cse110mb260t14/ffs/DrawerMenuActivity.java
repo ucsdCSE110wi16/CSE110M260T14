@@ -45,6 +45,8 @@ public class DrawerMenuActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
 
+
+
         mDrawerList = (ListView) findViewById(R.id.navList);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 

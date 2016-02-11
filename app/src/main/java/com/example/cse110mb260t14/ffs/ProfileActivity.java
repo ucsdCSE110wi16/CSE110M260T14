@@ -23,6 +23,7 @@ import com.parse.ParseGeoPoint;
 import com.parse.ParseUser;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -55,6 +56,10 @@ public class ProfileActivity extends AppCompatActivity {
         ProfilePictureView profilePictureView = (ProfilePictureView) findViewById(R.id.profile_photo);
         profilePictureView.setProfileId(ParseUser.getCurrentUser().getString("facebookID"));
         profilePictureView.setPresetSize(ProfilePictureView.LARGE);
+
+
+
+
 
 
 
