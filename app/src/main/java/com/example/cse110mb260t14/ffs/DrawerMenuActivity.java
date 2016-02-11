@@ -265,6 +265,7 @@ public class DrawerMenuActivity extends ActionBarActivity {
     }
 
 
+
     /*
     public void startGrabbingLocation(LocationManager locationManager, LocationListener locationListener) {
         // start the location manager for retrieving GPS coordinates
