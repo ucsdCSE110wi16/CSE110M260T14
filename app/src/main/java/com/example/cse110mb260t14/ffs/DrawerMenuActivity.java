@@ -1,43 +1,19 @@
 package com.example.cse110mb260t14.ffs;
 
-import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.res.Configuration;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.facebook.login.widget.LoginButton;
-import com.parse.FindCallback;
-import com.parse.ParseException;
-import com.parse.ParseGeoPoint;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
-import com.parse.ParseUser;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
 
 public class DrawerMenuActivity extends ActionBarActivity {
 
@@ -45,17 +21,20 @@ public class DrawerMenuActivity extends ActionBarActivity {
     private DrawerLayout mDrawerLayout;
     private ArrayAdapter<String> mAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
-    private String mActivityTitle;
-    private LoginButton login_button;
-    private Button postButton;
-    private LocationManager locationManager;
-    private LocationListener locationListener;
-    private double latitude, longitude;
-    private Geocoder geocoder;
-    private List<Address> addresses;
-
-
     TextView usernameTextView;
+    private LoginButton login_button;
+
+
+
+    //TABSSS
+    Toolbar toolbar;
+    ViewPager pager;
+    ViewPagerAdapter adapter;
+    SlidingTabLayout tabs;
+    CharSequence Titles[]={"BUY","SELL","WATCH"};
+    int Numboftabs =3;
+    //DONE TABS
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,16 +44,19 @@ public class DrawerMenuActivity extends ActionBarActivity {
 
         mDrawerList = (ListView) findViewById(R.id.navList);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
-        mActivityTitle = getTitle().toString();
 
 
-        Intent intent = getIntent();
-        String message = intent.getStringExtra(LoginActivity.EXTRA_MESSAGE);
 
+
+
+
+        //login_button = (LoginButton)findViewById(R.id.login_button);
 
         addDrawerItems();
         setupDrawer();
 
+
+        /*
         usernameTextView = (TextView) findViewById(R.id.usernameTextView);
         usernameTextView.setText(message);
 
@@ -90,7 +72,9 @@ public class DrawerMenuActivity extends ActionBarActivity {
         startGrabbingLocation(locationManager, locationListener);
 
         location_view.setText(ParseUser.getCurrentUser().getString("address") + ", " + ParseUser.getCurrentUser().getString("city"));
+        */
 
+        /*
         final List<String> permissions = Arrays.asList("public_profile", "email");
 
         login_button = (LoginButton) findViewById(R.id.login_button);
@@ -101,8 +85,9 @@ public class DrawerMenuActivity extends ActionBarActivity {
                 Intent intent = new Intent(DrawerMenuActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
-        });
+        });*/
 
+        /*
         postButton = (Button) findViewById(R.id.sell_button);
         postButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,6 +99,7 @@ public class DrawerMenuActivity extends ActionBarActivity {
 
         // setup onclicklistener to update location
         Button location_button = (Button) findViewById(R.id.location_button);
+
         location_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,6 +135,32 @@ public class DrawerMenuActivity extends ActionBarActivity {
                                 });
                         }
                     });
+        */
+
+        /* TABSSS */
+        // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
+        adapter =  new ViewPagerAdapter(getSupportFragmentManager(),Titles,Numboftabs);
+
+        // Assigning ViewPager View and setting the adapter
+        pager = (ViewPager) findViewById(R.id.pager);
+        pager.setAdapter(adapter);
+
+        // Assiging the Sliding Tab Layout View
+        tabs = (SlidingTabLayout) findViewById(R.id.tabs);
+        tabs.setDistributeEvenly(true); // To make the Tabs Fixed set this true, This makes the tabs Space Evenly in Available width
+
+        // Setting Custom Color for the Scroll bar indicator of the Tab View
+        tabs.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+            @Override
+            public int getIndicatorColor(int position) {
+                return getResources().getColor(R.color.tabsScrollColor);
+            }
+        });
+
+        // Setting the ViewPager For the SlidingTabsLayout
+        tabs.setViewPager(pager);
+
+        /* DONE TABSSS */
     }
 
     @Override
@@ -188,14 +200,14 @@ public class DrawerMenuActivity extends ActionBarActivity {
     private void setupDrawer() {
         mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
 
-            /** Called when a drawer has settled in a completely open state.*/
+            // Called when a drawer has settled in a completely open state.
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 //getSupportActionBar().setTitle("Navigation!");
                 invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
             }
 
-            /** Called when a drawer has settled in a completely closed state.*/
+            // Called when a drawer has settled in a completely closed state.
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
                 //getSupportActionBar().setTitle(mActivityTitle);
@@ -206,6 +218,8 @@ public class DrawerMenuActivity extends ActionBarActivity {
         mDrawerToggle.setDrawerIndicatorEnabled(true);
         mDrawerLayout.setDrawerListener(mDrawerToggle);
     }
+
+    /*    REMOVE comment
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -298,6 +312,8 @@ public class DrawerMenuActivity extends ActionBarActivity {
         catch (IllegalArgumentException e) {
         }
     }
+    -- GOT IT
+
     public void updateLocation(ParseUser user) {
         // Update ParseUser
                 if (user != null) {
@@ -332,6 +348,8 @@ public class DrawerMenuActivity extends ActionBarActivity {
                     }
 }
 }
+
+    */
 }
 
 
