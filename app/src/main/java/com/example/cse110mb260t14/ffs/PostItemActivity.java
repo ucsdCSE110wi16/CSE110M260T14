@@ -29,6 +29,7 @@ public class PostItemActivity extends AppCompatActivity {
     private EditText postPrice;
     private EditText postDescripttion;
     private EditText postCategories;
+    private Bitmap photo_bitmap;
 
     private CheckBox addCat1, addCat2;
 
@@ -220,6 +221,11 @@ public class PostItemActivity extends AppCompatActivity {
         itemCategories[1] = getIntent().getExtras().getString("Categories1");
         itemCategories[2] = getIntent().getExtras().getString("Categories2");
         itemLocation = getIntent().getExtras().getString("Location");
+        photo_bitmap = (Bitmap) getIntent().getExtras().get("Photo");
+
+        if (photo_bitmap != null) {
+            photo_preview.setImageBitmap(photo_bitmap);
+        }
 
         postTitle.setText(itemTitle);
         postPrice.setText(itemPrice);

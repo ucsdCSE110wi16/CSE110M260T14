@@ -65,8 +65,11 @@ public class BuyTab extends Fragment {
         query.whereContains("objectId", "");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> found, ParseException e) {
+                ListingAdapter adapter = new ListingAdapter(getActivity(), new ArrayList<ParseObject>());
                 ArrayList<ParseObject> objects = new ArrayList<ParseObject>(found);
-                ListingAdapter adapter = new ListingAdapter(getActivity(), objects);
+                if (objects != null) {
+                    adapter = new ListingAdapter(getActivity(), objects);
+                }
                 ListView listView = (ListView) v.findViewById(R.id.main_listings);
                 listView.setAdapter(adapter);
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

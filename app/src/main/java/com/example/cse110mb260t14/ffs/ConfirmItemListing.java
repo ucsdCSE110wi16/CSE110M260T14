@@ -4,16 +4,14 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.media.Image;
-import android.support.v7.app.AppCompatActivity;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
@@ -174,6 +172,9 @@ public class ConfirmItemListing extends AppCompatActivity {
                 go_back.putExtra("Categories1", itemCategories[1]);
                 go_back.putExtra("Categories2", itemCategories[2]);
                 go_back.putExtra("Location", itemLocation);
+                if (photo_confirm.getDrawable() != null) {
+                    go_back.putExtra("Photo", ((BitmapDrawable) photo_confirm.getDrawable()).getBitmap());
+                }
                 startActivity(go_back);
             }
         });

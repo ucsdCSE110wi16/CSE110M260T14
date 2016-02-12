@@ -15,8 +15,8 @@ import java.util.ArrayList;
  * Created by georgezhe on 2/9/16.
  */
 public class ListingAdapter extends ArrayAdapter<ParseObject> {
-    public ListingAdapter(Context context, ArrayList<ParseObject> users) {
-        super(context, 0, users);
+    public ListingAdapter(Context context, ArrayList<ParseObject> objects) {
+            super(context, 0, objects);
     }
 
     @Override
