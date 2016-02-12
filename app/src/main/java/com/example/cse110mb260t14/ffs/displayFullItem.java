@@ -52,7 +52,7 @@ public class displayFullItem extends AppCompatActivity {
         LocationTV = (TextView)findViewById(R.id.itemLocation);
         photo_display = (ImageView)findViewById(R.id.photo_display);
         watchListButton = (Button)findViewById(R.id.AddToWatchListButton);
-        if(watchList.contains(objectId)){
+        if(watchList != null && watchList.contains(objectId)){
             watchListButton.setText("Remove from WatchList");
             WatchListAdd = false;
         }

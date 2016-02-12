@@ -36,27 +36,29 @@ public class WatchTab extends Fragment {
         View v =inflater.inflate(R.layout.watch_layout,container,false);
 
         final ListView listView = (ListView) v.findViewById(R.id.watch_listings);
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("Listings");
-        query.whereContainedIn("objectId", watchList);
-        query.findInBackground(new FindCallback<ParseObject>() {
-            @Override
-            public void done(List<ParseObject> found, ParseException e) {
+        if (watchList != null) {
+            ParseQuery<ParseObject> query = ParseQuery.getQuery("Listings");
+            query.whereContainedIn("objectId", watchList);
+            query.findInBackground(new FindCallback<ParseObject>() {
+                @Override
+                public void done(List<ParseObject> found, ParseException e) {
 
-                ArrayList<ParseObject> objects = new ArrayList<ParseObject>(found);
-                ListingAdapter adapter = new ListingAdapter(getActivity(), objects);
-                listView.setAdapter(adapter);
-                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
-                        // do late
-                        Intent intent = new Intent(getActivity(), displayFullItem.class);
-                        intent.putExtra("objectID", ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
-                        startActivity(intent);
+                    ArrayList<ParseObject> objects = new ArrayList<ParseObject>(found);
+                    ListingAdapter adapter = new ListingAdapter(getActivity(), objects);
+                    listView.setAdapter(adapter);
+                    listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
+                            // do late
+                            Intent intent = new Intent(getActivity(), displayFullItem.class);
+                            intent.putExtra("objectID", ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
+                            startActivity(intent);
 
-                    }
-                });
-            }
-        });
+                        }
+                    });
+                }
+            });
+        }
 
 
 
