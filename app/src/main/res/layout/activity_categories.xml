@@ -7,32 +7,10 @@
     android:fitsSystemWindows="true"
     tools:context="com.example.cse110mb260t14.ffs.CategoriesActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-        <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp"
-            android:fillViewport="false"
-            android:background="#ffffff">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
                 <ListView
                     android:layout_width="match_parent"
-                    android:layout_height="548dp"
+                    android:layout_height="match_parent"
                     android:id="@+id/categories_list"
                     android:background="#ffffff" />
-
-            </LinearLayout>
-        </ScrollView>
-
-    </android.support.design.widget.AppBarLayout>
 
 </android.support.design.widget.CoordinatorLayout>

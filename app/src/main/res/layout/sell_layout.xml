@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+ <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-
 
     <TextView
         android:layout_width="wrap_content"
@@ -11,7 +10,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Post Your Item!"
         android:id="@+id/LargeText"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="20dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 
@@ -44,7 +43,6 @@
         android:layout_below="@+id/item_description_edit_text"
         android:layout_centerHorizontal="true"/>
 
-
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -52,7 +50,6 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/item_price_edit_text">
     </Spinner>
-
 
 
     <CheckBox
@@ -64,7 +61,6 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:checked="false" />
-
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -84,7 +80,6 @@
         android:layout_alignParentStart="true"
         android:checked="false"
         android:visibility="gone"/>
-
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

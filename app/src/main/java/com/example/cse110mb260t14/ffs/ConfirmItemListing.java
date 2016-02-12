@@ -3,17 +3,22 @@ package com.example.cse110mb260t14.ffs;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.media.Image;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.parse.ParseException;
+import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
+import java.io.ByteArrayOutputStream;
 import java.util.Arrays;
 
 public class ConfirmItemListing extends AppCompatActivity {
@@ -26,6 +31,7 @@ public class ConfirmItemListing extends AppCompatActivity {
     private String[] itemCategories = new String[maxCategories];
     private String itemLocation;
     private String itemSellerID;
+    private Bitmap photo_bitmap;
 
     private boolean successful = true;
 
@@ -35,6 +41,7 @@ public class ConfirmItemListing extends AppCompatActivity {
     private TextView descriptionTextView;
     private TextView categoriesTextView;
     private TextView locationTextView;
+    private ImageView photo_confirm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +56,7 @@ public class ConfirmItemListing extends AppCompatActivity {
         descriptionTextView = (TextView)findViewById(R.id.item_description_confirm);
         categoriesTextView = (TextView)findViewById(R.id.item_categories_confirm);
         locationTextView = (TextView)findViewById(R.id.item_location_confirm);
+        photo_confirm = (ImageView)findViewById(R.id.photo_confirm);
 
 
 
@@ -59,18 +67,25 @@ public class ConfirmItemListing extends AppCompatActivity {
         itemCategories[1] = getIntent().getExtras().getString("Categories1");
         itemCategories[2] = getIntent().getExtras().getString("Categories2");
         itemLocation = getIntent().getExtras().getString("Location");
+        photo_bitmap = (Bitmap) getIntent().getExtras().get("Photo");
 
-        if(itemCategories[2].equals(itemCategories[1])){
+        if(itemCategories[2] == null || itemCategories[2].equals(itemCategories[1])){
             itemCategories[2] = "null";
         }
-        if(itemCategories[2].equals(itemCategories[0])){
+        if(itemCategories[2] == null || itemCategories[2].equals(itemCategories[0])){
             itemCategories[2] = "null";
         }
-        if(itemCategories[1].equals(itemCategories[0])){
-            if(!itemCategories[2].equals("null")) {
+        if(itemCategories[1] == null || itemCategories[1].equals(itemCategories[0])){
+            if(itemCategories[2] != null && !itemCategories[2].equals("null")) {
                 itemCategories[1] = itemCategories[2];
                 itemCategories[2] = "null";
             }
+            else {
+                itemCategories[1] = "null";
+            }
+        }
+        if (photo_bitmap != null) {
+            photo_confirm.setImageBitmap(photo_bitmap);
         }
 
         itemSellerID = ParseUser.getCurrentUser().getObjectId();
@@ -93,18 +108,39 @@ public class ConfirmItemListing extends AppCompatActivity {
                 item.put("Categories", Arrays.asList(itemCategories));
                 item.put("SellerID", itemSellerID);
 
+                if (photo_bitmap != null) {
+                    // add bitmap byte array as file
+                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
+                    photo_bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+                    //retrieve the byte array
+                    byte[] byteArray = stream.toByteArray();
+
+                    if (byteArray != null) {
+                        System.out.println(byteArray.toString());
+                        // name of file is objectId + ".jpg"
+                        ParseFile photo_file = new ParseFile("listing_photo.jpg", byteArray);
+                        item.put("photo_byte_array", photo_file);
+                        photo_file.saveInBackground();
+                    }
+                }
+
+                item.saveInBackground();
+
                 AlertDialog.Builder db = new AlertDialog.Builder(ConfirmItemListing.this);
                 db.setMessage("You posted an item!")
                         .setTitle("Congrats!");
 
-                try {
-                    item.save();
 
-                } catch (ParseException e) {
+
+                /* Dont need this, never use .save(), always use .saveInBackground()
+                try {
+                }
+                catch (ParseException e) {
                     successful = false;
                     db.setMessage("There was an error with the data")
                             .setTitle("Error");
                 }
+                */
 
                 db.setNeutralButton("Close", new DialogInterface.OnClickListener() {
                     @Override
@@ -132,12 +168,12 @@ public class ConfirmItemListing extends AppCompatActivity {
             public void onClick(View v) {
                 Intent go_back = new Intent(ConfirmItemListing.this, PostItemActivity.class);
                 go_back.putExtra("Title",itemTitle);
-                go_back.putExtra("Price",itemPrice);
-                go_back.putExtra("Description",itemDescription);
-                go_back.putExtra("Categories0",itemCategories[0]);
-                go_back.putExtra("Categories1",itemCategories[1]);
-                go_back.putExtra("Categories2",itemCategories[2]);
-                go_back.putExtra("Location",itemLocation);
+                go_back.putExtra("Price", itemPrice);
+                go_back.putExtra("Description", itemDescription);
+                go_back.putExtra("Categories0", itemCategories[0]);
+                go_back.putExtra("Categories1", itemCategories[1]);
+                go_back.putExtra("Categories2", itemCategories[2]);
+                go_back.putExtra("Location", itemLocation);
                 startActivity(go_back);
             }
         });

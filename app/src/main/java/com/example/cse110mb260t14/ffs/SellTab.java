@@ -7,8 +7,11 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.support.v7.app.AppCompatActivity;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -17,7 +20,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 
-public class PostItemActivity extends AppCompatActivity {
+
+//import com.example.yoonchung.fragmenttest.R;
+
+/**
+ * Created by hp1 on 21-01-2015.
+ */
+public class SellTab extends Fragment {
+
+
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
     private Spinner locationSpinner;
@@ -40,31 +51,31 @@ public class PostItemActivity extends AppCompatActivity {
     private String itemLocation;
 
 
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_post_item);
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        View v = inflater.inflate(R.layout.sell_layout,container,false);
 
 
 
-
-        locationSpinner = (Spinner) findViewById(R.id.location_spinner);
-        categoriesSpinner1 = (Spinner)findViewById(R.id.item_categories_spinner1);
-        categoriesSpinner2 = (Spinner)findViewById(R.id.item_categories_spinner2);
-        categoriesSpinner3 = (Spinner)findViewById(R.id.item_categories_spinner3);
-        postListingButton = (Button) findViewById(R.id.post_listing_button);
-        postTitle = (EditText)findViewById(R.id.item_title_edit_text);
-        postPrice = (EditText)findViewById(R.id.item_price_edit_text);
-        postDescripttion = (EditText)findViewById(R.id.item_description_edit_text);
-        addCat1 = (CheckBox)findViewById(R.id.item_categories_checkbox1);
-        addCat2 = (CheckBox)findViewById(R.id.item_categories_checkbox2);
-        camera_button = (Button) findViewById(R.id.camera_button);
-        photo_preview = (ImageView) findViewById(R.id.photo_preview);
+        locationSpinner = (Spinner) v.findViewById(R.id.location_spinner);
+        categoriesSpinner1 = (Spinner)v.findViewById(R.id.item_categories_spinner1);
+        categoriesSpinner2 = (Spinner)v.findViewById(R.id.item_categories_spinner2);
+        categoriesSpinner3 = (Spinner)v.findViewById(R.id.item_categories_spinner3);
+        postListingButton = (Button) v.findViewById(R.id.post_listing_button);
+        postTitle = (EditText)v.findViewById(R.id.item_title_edit_text);
+        postPrice = (EditText)v.findViewById(R.id.item_price_edit_text);
+        postDescripttion = (EditText)v.findViewById(R.id.item_description_edit_text);
+        addCat1 = (CheckBox)v.findViewById(R.id.item_categories_checkbox1);
+        addCat2 = (CheckBox)v.findViewById(R.id.item_categories_checkbox2);
+        camera_button = (Button) v.findViewById(R.id.camera_button);
+        photo_preview = (ImageView) v.findViewById(R.id.photo_preview);
 
 
 
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
                 R.array.locations_array, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -72,7 +83,7 @@ public class PostItemActivity extends AppCompatActivity {
         locationSpinner.setAdapter(adapter);
 
         // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
+        ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getActivity(),
                 R.array.categories_array, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -111,10 +122,10 @@ public class PostItemActivity extends AppCompatActivity {
 
 
 
-
+        /*
         if(getIntent().hasExtra("Title")){
             setDataFromConfirmIntent();
-        }
+        }*/
 
 
         postListingButton.setOnClickListener(new View.OnClickListener() {
@@ -124,24 +135,25 @@ public class PostItemActivity extends AppCompatActivity {
                 boolean posted = getItemData();
 
 
-                AlertDialog.Builder db = new AlertDialog.Builder(PostItemActivity.this);
+                AlertDialog.Builder db = new AlertDialog.Builder(getActivity());
 
                 if (!posted){
                     db.setMessage("Please double check your data")
                             .setTitle("Failed Post");
-                }
 
-                db.setNeutralButton("Close", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface d, int arg1) {
-                        d.cancel();
+                    db.setNeutralButton("Close", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface d, int arg1) {
+                            d.cancel();
+                        }
+                    });
+                    db.show();
                     }
-                });
-                db.show();
+
 
 
                 if (posted){
-                    Intent confirmPageIntent = new Intent(PostItemActivity.this, ConfirmItemListing.class);
+                    Intent confirmPageIntent = new Intent(getActivity(), ConfirmItemListing.class);
 
                     confirmPageIntent.putExtra("Location", itemLocation);
                     confirmPageIntent.putExtra("Price", itemPrice);
@@ -167,16 +179,25 @@ public class PostItemActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-                if(cameraIntent.resolveActivity(getPackageManager()) != null) {
+                if(cameraIntent.resolveActivity(getActivity().getPackageManager()) != null) {
                     startActivityForResult(cameraIntent, REQUEST_IMAGE_CAPTURE);
                 }
             }
 
         });
+
+
+
+
+
+        return v;
     }
+
+
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == getActivity().RESULT_OK) {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             photo_preview.setImageBitmap(imageBitmap);
@@ -211,7 +232,7 @@ public class PostItemActivity extends AppCompatActivity {
 
     }
 
-
+    /*
     private void setDataFromConfirmIntent(){
         itemTitle = getIntent().getExtras().getString("Title");
         itemPrice = getIntent().getExtras().getString("Price");
@@ -236,8 +257,7 @@ public class PostItemActivity extends AppCompatActivity {
             addCat2.setChecked(true);
         }
 
-
-    }
+    }*/
 
 
 }

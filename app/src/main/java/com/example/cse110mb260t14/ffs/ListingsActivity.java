@@ -5,18 +5,15 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.parse.FindCallback;
-import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
 import java.util.ArrayList;
 import java.util.List;
-import android.widget.AdapterView.OnItemClickListener;
 
 /**
  * Created by George on 2/6/2016.
@@ -34,6 +31,7 @@ public class ListingsActivity extends AppCompatActivity {
                 query.whereContains("objectId", "");
                 query.findInBackground(new FindCallback<ParseObject>() {
                         public void done(List<ParseObject> found, ParseException e) {
+                                /*
                                 System.out.println(found.size());
                                 final String[] listing_titles = new String[found.size()];
                                 final String[] listing_ids = new String[found.size()];
@@ -43,12 +41,12 @@ public class ListingsActivity extends AppCompatActivity {
                                         System.out.println("Adding " + listing_ids[i] + " to listing ids array");
                                         System.out.println(listing_titles[i]);
                                 }
+                                */
 
-
-                                ArrayAdapter adapter = new ArrayAdapter<String>(ListingsActivity.this, R.layout.main_list_item, R.id.item_row_title, listing_titles);
+                                ArrayList<ParseObject> objects = new ArrayList<ParseObject>(found);
+                                ListingAdapter adapter = new ListingAdapter(ListingsActivity.this, objects);
                                 ListView listView = (ListView) findViewById(R.id.listings);
                                 listView.setAdapter(adapter);
-
 
 
                                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -56,12 +54,11 @@ public class ListingsActivity extends AppCompatActivity {
                                         public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
                                                 // do later
 
-                                                System.out.println("CLICKED ON ITEM  " + listing_titles[position]);
+                                                System.out.println("CLICKED ON ITEM  " + ((ParseObject) adapter.getItemAtPosition(position)).getString("Title"));
 
                                                 Intent intent = new Intent(ListingsActivity.this, displayFullItem.class);
-                                                System.out.println((String) adapter.getItemAtPosition(position));
-                                                intent.putExtra("objectID", listing_ids[position]);
-                                                System.out.println("LISTING ID IS " + listing_ids[position]);
+                                                intent.putExtra("objectID", ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
+                                                System.out.println("LISTING ID IS " + ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
                                                 startActivity(intent);
 
                                         }
