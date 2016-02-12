@@ -53,6 +53,7 @@ public class DrawerMenuActivity extends ActionBarActivity {
     private LocationListener locationListener;
     private double latitude, longitude;
     private Geocoder geocoder;
+    private Button search_button;
     private List<Address> addresses;
     private ParseQuery<ParseObject> query;
     String description;
@@ -127,11 +128,12 @@ public class DrawerMenuActivity extends ActionBarActivity {
             }
         });
         //This is show all items;
+        //Search button
                 query = ParseQuery.getQuery("Listings");
                     query.whereContains("Title", "");
                     query.whereContains("objectId", "");
-        System.out.println("Description is : " + description);
-        Button search_button = (Button) findViewById(R.id.Search);
+        //System.out.println("Description is : " + description);
+        search_button = (Button) findViewById(R.id.Search);
         search_button.setOnClickListener(new View.OnClickListener(){
 
             @Override
@@ -144,22 +146,60 @@ public class DrawerMenuActivity extends ActionBarActivity {
 
                 for(int i = 0; i < Split_description.length; i++) {
                     ParseQuery<ParseObject> title = ParseQuery.getQuery("Listings");
-                    ParseQuery<ParseObject> descrip = ParseQuery.getQuery("Listings");
+                    ParseQuery<ParseObject> title_lower = ParseQuery.getQuery("Listings");
+                    ParseQuery<ParseObject> title_Upper = ParseQuery.getQuery("Listings");
+                    ParseQuery<ParseObject> title_UpperFirstLetter = ParseQuery.getQuery("Listings");
+
+                    ParseQuery<ParseObject> description = ParseQuery.getQuery("Listings");
+                    ParseQuery<ParseObject> description_lower = ParseQuery.getQuery("Listings");
+                    ParseQuery<ParseObject> description_Upper = ParseQuery.getQuery("Listings");
+                    ParseQuery<ParseObject> description_UpperFirstLetter = ParseQuery.getQuery("Listings");
+
+                    String origin_description = new String(Split_description[i]);
+                    String lowerCase_description = new String(Split_description[i].toLowerCase());
+                    String upperCase_description = new String(Split_description[i].toUpperCase());
+                    String FirstLetter_upperCase_description = new String(Split_description[i]);
+                    //For main search more details
+                    //For category more precise
+                    //Character.toUpperCase(FirstLetter_upperCase_description.charAt(0));
                     System.out.println("SOME:" + Split_description[i]);
                     title.whereContains("objectId", "");
-                    title.whereContains("Title", Split_description[i]);
-                    descrip.whereContains("objectId", "");
-                    descrip.whereContains("Description", Split_description[i]);
+                    title.whereContains("Title", origin_description);
+                    /*title_lower.whereContains("objectId", "");
+                    title_lower.whereContains("Title", lowerCase_description);
+                    title_Upper.whereContains("objectId", "");
+                    title_Upper.whereContains("Title", upperCase_description);
+                    title_UpperFirstLetter.whereContains("objectId", "");
+                    title_UpperFirstLetter.whereContains("Title", FirstLetter_upperCase_description);
+                    */
+                    description.whereContains("objectId", "");
+                    description.whereContains("Description", origin_description);
+                   /* description_lower.whereContains("objectId", "");
+                    description_lower.whereContains("Description", lowerCase_description);
+                    description_Upper.whereContains("objectId", "");
+                    description_Upper.whereContains("Description", upperCase_description);
+                    description_UpperFirstLetter.whereContains("objectId", "");
+                    description_UpperFirstLetter.whereContains("Description", FirstLetter_upperCase_description);
+                    */
+                    System.out.println("Description is : " + Split_description[i]);
 
                     queries.add(title);
-                    queries.add(descrip);
+                    /*queries.add(title_lower);
+                    queries.add(title_Upper);
+                    queries.add(title_UpperFirstLetter);*/
+                    queries.add(description);
+                    /*queries.add(description_lower);
+                    queries.add(description_Upper);
+                    queries.add(description_UpperFirstLetter);*/
+                    //query =ParseQuery.or(queries);
                 }
+                System.out.println("Finish Finding");
                 query =ParseQuery.or(queries);
-
-                System.out.println("Description is : " + Split_description[0]);
+                System.out.println("Finish Finding");
+                //System.out.println("Description is : " + Split_description[0]);
                 query.findInBackground(new FindCallback<ParseObject>() {
                     public void done(List<ParseObject> found, ParseException e) {
-                        System.out.println(found.size());
+                        //System.out.println(found.size());
                         final String[] listing_titles = new String[found.size()];
                         final String[] listing_ids = new String[found.size()];
                         for (int i = 0; i < found.size(); i++) {
