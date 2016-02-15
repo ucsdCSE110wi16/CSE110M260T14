@@ -95,73 +95,8 @@ public class ConfirmItemListing extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
-                String[] CategoriesArray = new String[1];
-
-                item = new ParseObject("Listings");
-                item.put("Location", itemLocation);
-                item.put("Price", itemPrice);
-                item.put("Title", itemTitle);
-                item.put("Description", itemDescription);
-                item.put("Categories", Arrays.asList(itemCategories));
-                item.put("SellerID", itemSellerID);
-                item.put("Title_lower", itemTitle.toLowerCase());
-                item.put("Description_lower", itemDescription.toLowerCase());
-                item.put("Status", 0);
-                item.put("offer_buyer_id", Arrays.asList());
-                item.put("offer_value", Arrays.asList());
-
-                if (photo_bitmap != null) {
-                    // add bitmap byte array as file
-                    ByteArrayOutputStream stream = new ByteArrayOutputStream();
-                    photo_bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-                    //retrieve the byte array
-                    byte[] byteArray = stream.toByteArray();
-
-                    if (byteArray != null) {
-                        System.out.println(byteArray.toString());
-                        // name of file is objectId + ".jpg"
-                        ParseFile photo_file = new ParseFile("listing_photo.jpg", byteArray);
-                        item.put("photo_byte_array", photo_file);
-                        photo_file.saveInBackground();
-                    }
-                }
-
-                item.saveInBackground();
-
-                AlertDialog.Builder db = new AlertDialog.Builder(ConfirmItemListing.this);
-                db.setMessage("You posted an item!")
-                        .setTitle("Congrats!");
-
-
-
-                /* Dont need this, never use .save(), always use .saveInBackground()
-                try {
-                }
-                catch (ParseException e) {
-                    successful = false;
-                    db.setMessage("There was an error with the data")
-                            .setTitle("Error");
-                }
-                */
-
-                db.setNeutralButton("Close", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface d, int arg1) {
-                        d.cancel();
-                        Intent nextStep;
-                        if (successful) {
-                            nextStep = new Intent(ConfirmItemListing.this, DrawerMenuActivity.class);
-                        } else {
-                            nextStep = new Intent(ConfirmItemListing.this, PostItemActivity.class);
-                        }
-                        startActivity(nextStep);
-
-                    }
-
-                });
-                db.show();
-
+                saveItem();
+                sendAlertBox();
 
             }
         });
@@ -195,4 +130,56 @@ public class ConfirmItemListing extends AppCompatActivity {
         locationTextView.setText(itemLocation);
     }
 
+    private void sendAlertBox(){
+        AlertDialog.Builder db = new AlertDialog.Builder(ConfirmItemListing.this);
+        db.setMessage("You posted an item!")
+                .setTitle("Congrats!");
+        db.setNeutralButton("Close", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface d, int arg1) {
+                d.cancel();
+                Intent nextStep;
+                if (successful) {
+                    nextStep = new Intent(ConfirmItemListing.this, DrawerMenuActivity.class);
+                } else {
+                    nextStep = new Intent(ConfirmItemListing.this, PostItemActivity.class);
+                }
+                startActivity(nextStep);
+            }
+        });
+        db.show();
+    }
+
+    private void saveItem(){
+        item = new ParseObject("Listings");
+        item.put("Location", itemLocation);
+        item.put("Price", itemPrice);
+        item.put("Title", itemTitle);
+        item.put("Description", itemDescription);
+        item.put("Categories", Arrays.asList(itemCategories));
+        item.put("SellerID", itemSellerID);
+        item.put("Title_lower", itemTitle.toLowerCase());
+        item.put("Description_lower", itemDescription.toLowerCase());
+        item.put("Status", 0);
+        item.put("offer_buyer_id", Arrays.asList());
+        item.put("offer_value", Arrays.asList());
+
+        if (photo_bitmap != null) {
+            // add bitmap byte array as file
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            photo_bitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            //retrieve the byte array
+            byte[] byteArray = stream.toByteArray();
+
+            if (byteArray != null) {
+                System.out.println(byteArray.toString());
+                // name of file is objectId + ".jpg"
+                ParseFile photo_file = new ParseFile("listing_photo.jpg", byteArray);
+                item.put("photo_byte_array", photo_file);
+                photo_file.saveInBackground();
+            }
+        }
+
+        item.saveInBackground();
+    }
 }
