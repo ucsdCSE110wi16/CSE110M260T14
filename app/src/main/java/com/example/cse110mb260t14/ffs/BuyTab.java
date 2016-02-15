@@ -62,6 +62,7 @@ public class BuyTab extends Fragment {
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Listings");
         query.whereContains("Title", "");
+        query.whereEqualTo("Status", 0);
         query.whereContains("objectId", "");
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> found, ParseException e) {

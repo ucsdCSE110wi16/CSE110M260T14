@@ -17,6 +17,7 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -27,7 +28,7 @@ public class WatchTab extends Fragment {
 
 
     private ParseUser currentUser = ParseUser.getCurrentUser();
-    private ArrayList<String> watchList = (ArrayList)currentUser.get("WatchList");
+    private ArrayList<String> watchList;
 
 
 
@@ -35,6 +36,20 @@ public class WatchTab extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View v =inflater.inflate(R.layout.watch_layout,container,false);
 
+
+        initializeWatchList(v);
+
+        return v;
+    }
+
+
+    private void initializeWatchList(View v){
+        if(currentUser.get("WatchList") != null){
+            watchList = (ArrayList)currentUser.get("WatchList");
+        }
+        else {
+            currentUser.put("WatchList", Arrays.asList());
+        }
         final ListView listView = (ListView) v.findViewById(R.id.watch_listings);
         if (watchList != null) {
             ParseQuery<ParseObject> query = ParseQuery.getQuery("Listings");
@@ -59,9 +74,5 @@ public class WatchTab extends Fragment {
                 }
             });
         }
-
-
-
-        return v;
     }
 }

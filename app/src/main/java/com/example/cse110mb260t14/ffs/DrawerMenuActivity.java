@@ -1,22 +1,37 @@
 package com.example.cse110mb260t14.ffs;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.Configuration;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.Toast;
 
 import com.facebook.login.widget.LoginButton;
+import com.parse.ParseGeoPoint;
+import com.parse.ParseUser;
+
+import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
 
 public class DrawerMenuActivity extends ActionBarActivity {
 
@@ -24,19 +39,19 @@ public class DrawerMenuActivity extends ActionBarActivity {
     private DrawerLayout mDrawerLayout;
     private ArrayAdapter<String> mAdapter;
     private ActionBarDrawerToggle mDrawerToggle;
-    TextView usernameTextView;
     private LoginButton login_button;
 
+    private LocationManager locationManager;
+    private LocationListener locationListener;
+    private double latitude, longitude;
+    private Geocoder geocoder;
+    private List<Address> addresses;
 
-
-    //TABSSS
-    Toolbar toolbar;
     ViewPager pager;
     ViewPagerAdapter adapter;
     SlidingTabLayout tabs;
     CharSequence Titles[]={"BUY","SELL","WATCH"};
     int Numboftabs =3;
-    //DONE TABS
 
 
     @Override
@@ -55,31 +70,19 @@ public class DrawerMenuActivity extends ActionBarActivity {
 
 
 
-        //login_button = (LoginButton)findViewById(R.id.login_button);
 
         addDrawerItems();
         setupDrawer();
 
 
-        /*
-        usernameTextView = (TextView) findViewById(R.id.usernameTextView);
-        usernameTextView.setText(message);
-
-        TextView name_view = (TextView) findViewById(R.id.name_view);
-        TextView location_view = (TextView) findViewById(R.id.location_view);
-
-        if (ParseUser.getCurrentUser().getString("name") != null) {
-            name_view.setText(ParseUser.getCurrentUser().getString("name"));
-        }
 
         geocoder = new Geocoder(this, Locale.getDefault());
         // get location
         startGrabbingLocation(locationManager, locationListener);
 
-        location_view.setText(ParseUser.getCurrentUser().getString("address") + ", " + ParseUser.getCurrentUser().getString("city"));
-        */
 
-        /*
+
+
         final List<String> permissions = Arrays.asList("public_profile", "email");
 
         login_button = (LoginButton) findViewById(R.id.login_button);
@@ -90,59 +93,9 @@ public class DrawerMenuActivity extends ActionBarActivity {
                 Intent intent = new Intent(DrawerMenuActivity.this, LoginActivity.class);
                 startActivity(intent);
             }
-        });*/
-
-        /*
-        postButton = (Button) findViewById(R.id.sell_button);
-        postButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(DrawerMenuActivity.this, PostItemActivity.class);
-                startActivity(intent);
-            }
         });
 
-        // setup onclicklistener to update location
-        Button location_button = (Button) findViewById(R.id.location_button);
 
-        location_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                updateLocation(ParseUser.getCurrentUser());
-                ((TextView) findViewById(R.id.location_view)).setText(ParseUser.getCurrentUser().getString("address")
-                        + ", " + ParseUser.getCurrentUser().getString("city"));
-            }
-        });
-                ParseQuery<ParseObject> query = ParseQuery.getQuery("Listings");
-                    query.whereContains("Title", "");
-                    query.whereContains("objectId", "");
-                    query.findInBackground(new FindCallback<ParseObject>() {
-                        public void done(List<ParseObject> found, ParseException e) {
-                            ArrayList<ParseObject> objects = new ArrayList<ParseObject>(found);
-                                ListingAdapter adapter = new ListingAdapter(DrawerMenuActivity.this, objects);
-                                ListView listView = (ListView) findViewById(R.id.main_listings);
-                                listView.setAdapter(adapter);
-
-
-                                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                        @Override
-                                        public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
-                                                // do later
-
-                                                System.out.println("CLICKED ON ITEM  " + ((ParseObject) adapter.getItemAtPosition(position)).getString("Title"));
-
-                                                Intent intent = new Intent(DrawerMenuActivity.this, displayFullItem.class);
-                                                intent.putExtra("objectID", ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
-                                                System.out.println("LISTING ID IS " + ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
-                                                startActivity(intent);
-
-                                        }
-                                });
-                        }
-                    });
-        */
-
-        /* TABSSS */
         // Creating The ViewPagerAdapter and Passing Fragment Manager, Titles fot the Tabs and Number Of Tabs.
         adapter =  new ViewPagerAdapter(getSupportFragmentManager(),Titles,Numboftabs);
 
@@ -266,7 +219,7 @@ public class DrawerMenuActivity extends ActionBarActivity {
 
 
 
-    /*
+
     public void startGrabbingLocation(LocationManager locationManager, LocationListener locationListener) {
         // start the location manager for retrieving GPS coordinates
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -318,7 +271,6 @@ public class DrawerMenuActivity extends ActionBarActivity {
         catch (IllegalArgumentException e) {
         }
     }
-    -- GOT IT
 
     public void updateLocation(ParseUser user) {
         // Update ParseUser
@@ -352,10 +304,9 @@ public class DrawerMenuActivity extends ActionBarActivity {
                         // save the data to database
                         user.saveInBackground();
                     }
-}
-}
+                }
+    }
 
-    */
 }
 
 
