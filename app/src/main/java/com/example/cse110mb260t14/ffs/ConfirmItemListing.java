@@ -105,7 +105,11 @@ public class ConfirmItemListing extends AppCompatActivity {
                 item.put("Description", itemDescription);
                 item.put("Categories", Arrays.asList(itemCategories));
                 item.put("SellerID", itemSellerID);
+                item.put("Title_lower", itemTitle.toLowerCase());
+                item.put("Description_lower", itemDescription.toLowerCase());
                 item.put("Status", 0);
+                item.put("offer_buyer_id", Arrays.asList());
+                item.put("offer_value", Arrays.asList());
 
                 if (photo_bitmap != null) {
                     // add bitmap byte array as file
