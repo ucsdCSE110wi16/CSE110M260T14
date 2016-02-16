@@ -29,7 +29,7 @@ public class displayFullItem extends AppCompatActivity {
 
     private String objectId;
     private TextView TitleTV, PriceTV, DescriptionTV, CategoriesTV, LocationTV;
-    private Button watchListButton;
+    private Button watchListButton, makeOfferButton;
     private boolean WatchListAdd;
     private ImageView photo_display;
     private ParseFile photoByteArray;
@@ -37,6 +37,9 @@ public class displayFullItem extends AppCompatActivity {
     ParseUser user = ParseUser.getCurrentUser();
     ArrayList<String> watchList = (ArrayList)user.get("WatchList");
     private boolean fullscreen = false;
+
+    ParseObject listing;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +55,8 @@ public class displayFullItem extends AppCompatActivity {
         LocationTV = (TextView)findViewById(R.id.itemLocation);
         photo_display = (ImageView)findViewById(R.id.photo_display);
         watchListButton = (Button)findViewById(R.id.AddToWatchListButton);
+        makeOfferButton = (Button)findViewById(R.id.makeOfferButton);
+
         if(watchList != null && watchList.contains(objectId)){
             watchListButton.setText("Remove from WatchList");
             WatchListAdd = false;
@@ -61,26 +66,20 @@ public class displayFullItem extends AppCompatActivity {
             WatchListAdd = true;
         }
 
-        System.out.println("OBJECT ID IS: " + objectId);
-
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Listings");
         query.whereContains("objectId", objectId);
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> found, ParseException e) {
-
-                if (found.size() > 1) {
-                    System.out.print("FOUND MORE THAN ONE ITEM WITH THAT OBJECTID!!!");
-                }
-
-                TitleTV.setText((String) found.get(0).get("Title"));
-                DescriptionTV.setText((String) found.get(0).get("Description"));
-                PriceTV.setText("$" + (String) found.get(0).get("Price"));
-                CategoriesTV.setText(Arrays.asList(found.get(0).get("Categories")).get(0).toString());
+                listing = found.get(0);
+                TitleTV.setText((String) listing.get("Title"));
+                DescriptionTV.setText((String) listing.get("Description"));
+                PriceTV.setText("$" + (String) listing.get("Price"));
+                CategoriesTV.setText(Arrays.asList(listing.get("Categories")).get(0).toString());
                 LocationTV.setText("Pickup Address at: " + ParseUser.getCurrentUser().getString("address")
                         + ", " + ParseUser.getCurrentUser().getString("city"));
 
-                photoByteArray = (ParseFile) found.get(0).get("photo_byte_array");
+                photoByteArray = (ParseFile) listing.get("photo_byte_array");
                 if (photoByteArray != null) {
                     try {
                         photoBitmap = BitmapFactory.decodeByteArray(photoByteArray.getData(), 0, photoByteArray.getData().length);
@@ -163,6 +162,34 @@ public class displayFullItem extends AppCompatActivity {
             }
         });
 
+
+        makeOfferButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<String> offers_id = (ArrayList<String>) (listing.get("offer_buyer_id"));
+                ArrayList<Integer> offer_value = (ArrayList<Integer>) (listing.get("offer_value"));
+                ArrayList<String> user_offers_id = (ArrayList<String>) (user.get("offer_made_id"));
+                ArrayList<Integer> user_offers_value = (ArrayList<Integer>) (user.get("offer_made_value"));
+
+
+                if (listing!= null && offers_id != null && user_offers_id!= null && (offers_id.contains(user.getObjectId()) || user_offers_id.contains(listing.getObjectId()))) {
+
+                } else {
+
+
+                    offers_id.add(user.getObjectId());
+                    offer_value.add(1);
+                    listing.put("offer_buyer_id", offers_id);
+                    listing.put("offer_value", offer_value);
+                    listing.saveInBackground();
+                    user_offers_id.add(listing.getObjectId());
+                    user_offers_value.add(1);
+                    user.put("offer_made_id", user_offers_id);
+                    user.put("offer_made_value", user_offers_value);
+                    user.saveInBackground();
+                }
+            }
+        });
 
 
 

@@ -57,7 +57,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Make Offer!"
-            android:id="@+id/BuyItemButton"
+            android:id="@+id/makeOfferButton"
             android:layout_marginLeft="62dp"
             android:layout_gravity="center_horizontal"
             android:layout_alignParentTop="true"
@@ -71,8 +71,8 @@
             android:text="Add To WatchList!"
             android:id="@+id/AddToWatchListButton"
             android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/BuyItemButton"
-            android:layout_toEndOf="@+id/BuyItemButton" />
+            android:layout_toRightOf="@+id/makeOfferButton"
+            android:layout_toEndOf="@+id/makeOfferButton" />
     </RelativeLayout>
 
 </LinearLayout>
