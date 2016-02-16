@@ -31,8 +31,15 @@ Expected progress:
   
 # Week 6:
   - ability to search based on description  -- Weian/Deqian
-  - Add transaction History page        -- Yoon/Daniel
+  - Add transaction History page        -- Gabe
   - refine layout                       -- Yoon/Daniel
+  - rework on login page                -- Yoon/Daniel
   - three way tab switch on main page   -- Gabe
   - Add watchlist                       --Gabe
   - adding photos to items (--phase 1). -- George
+  - 
+  
+# Week 7:
+  - differentiate between active/deleted/already sold listing
+  - rework on location for posting items
+  - refine layout
