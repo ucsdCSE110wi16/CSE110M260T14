@@ -110,10 +110,10 @@ public class BuyTab extends Fragment {
 
                     //System.out.println("SOME:" + Split_description[i]);
                     title.whereContains("objectId", "");
-                    title.whereContains("Title", lowerCase_description);
+                    title.whereContains("Title_lower", lowerCase_description);
 
                     description.whereContains("objectId", "");
-                    description.whereContains("Description", lowerCase_description);
+                    description.whereContains("Description_lower", lowerCase_description);
 
                    // System.out.println("Description is : " + Split_description[i]);
 
