@@ -35,7 +35,7 @@ public class displayFullItem extends AppCompatActivity {
     private ParseFile photoByteArray;
     private Bitmap photoBitmap;
     ParseUser user = ParseUser.getCurrentUser();
-    ArrayList<String> watchList = (ArrayList)user.get("WatchList");
+    ArrayList<String> watchList;
     private boolean fullscreen = false;
 
     ParseObject listing;
@@ -45,7 +45,12 @@ public class displayFullItem extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_full_item);
-
+        try
+        {
+            watchList = (ArrayList<String>) user.get("WatchList");
+        }catch(java.lang.ClassCastException e) {
+            Log.v("displayFullItem: ","Problem with ArrayList cast");
+        }
         objectId = getIntent().getExtras().getString("objectID");
 
         TitleTV = (TextView)findViewById(R.id.itemTitle);
@@ -144,7 +149,6 @@ public class displayFullItem extends AppCompatActivity {
         watchListButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
 
                 if (WatchListAdd) {
                     watchList.add(objectId);

@@ -12,16 +12,26 @@
         android:orientation="vertical">
 
         <TableRow>
+
             <EditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="210dp"
+            android:layout_height="wrap_content"
             android:inputType="text"
-            android:hint="@string/Description"
+            android:hint="Search..."
             android:textColorHint="@color/colorPrimary"
             android:textColor="@color/colorPrimary"
             android:ems="20"
             android:id="@+id/EditTextIdList"
             android:layout_weight="0.31" />
+
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/radius_spinner"
+                android:spinnerMode="dropdown"
+                android:layout_column="0"
+                android:touchscreenBlocksFocus="false" />
+
             <Button
             android:id="@+id/SearchList"
             android:layout_height="match_parent"
@@ -29,7 +39,15 @@
             android:onClick="search"
             android:layout_width="fill_parent">
             </Button>
+
         </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </TableRow>
+
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
