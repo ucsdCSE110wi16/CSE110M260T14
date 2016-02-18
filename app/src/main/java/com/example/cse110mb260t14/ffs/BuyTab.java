@@ -67,7 +67,7 @@ public class BuyTab extends Fragment {
 
         query = ParseQuery.getQuery("Listings");
         query.whereEqualTo("Status", 0);
-        query.whereNotEqualTo("SellerID", ParseUser.getCurrentUser().getObjectId());
+        //query.whereNotEqualTo("SellerID", ParseUser.getCurrentUser().getObjectId());
         query.whereContains("Title", "");
         query.whereContains("objectId", "");
         search_button = (Button) v.findViewById(R.id.Search);

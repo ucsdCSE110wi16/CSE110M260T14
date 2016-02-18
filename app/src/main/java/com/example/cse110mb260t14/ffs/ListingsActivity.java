@@ -31,6 +31,7 @@ public class ListingsActivity extends AppCompatActivity {
     String radius_selection;
     double radius;
     String[] Split_description;
+    List<ParseObject> title_description_res, radius_res;
     public static ArrayList<String> categories = new ArrayList<String>();
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -108,23 +109,41 @@ public class ListingsActivity extends AppCompatActivity {
                     queries.add(description);
 
                 }
+
+
+                // FIND RADIUS MATCH
                 ParseQuery<ParseObject> proximity = ParseQuery.getQuery("Listings");
 
                 if (radius > 0) {
-                    proximity.whereContains("objectId", "");
-                    proximity.whereWithinMiles("geopoint", ParseUser.getCurrentUser().getParseGeoPoint("location"), radius);
-                    queries.add(proximity);
-                }
+                    proximity.whereWithinMiles("geopoint", ParseUser.getCurrentUser().getParseGeoPoint("location"), 10);
+                    System.out.println(ParseUser.getCurrentUser().getParseGeoPoint("location"));
 
+                    proximity.findInBackground(new FindCallback<ParseObject>() {
+                        @Override
+                        public void done(List<ParseObject> found, ParseException e) {
+                            radius_res = found;
+                            if (title_description_res != null) {
+                                radius_res.retainAll(radius_res);
+                            }
+                        }
+                    });
+                }
+                else {
+                    radius_res = null;
+                }
                 System.out.println("Finish Finding");
                 query = ParseQuery.or(queries);
                 query.whereContainsAll("Categories", categories);
                 query.findInBackground(new FindCallback<ParseObject>() {
                     public void done(List<ParseObject> found, ParseException e) {
+                        title_description_res = found;
+                        if (radius_res != null) {
+                            title_description_res.retainAll(radius_res);
+                        }
                         ArrayList<ParseObject> objects = new ArrayList<ParseObject>();
-                        if (found != null) {
+                        if (title_description_res != null) {
                             System.out.println("found!");
-                            objects = new ArrayList<ParseObject>(found);
+                            objects = new ArrayList<ParseObject>(title_description_res);
                         }
                         else {
                             System.out.println("nothing found!");
