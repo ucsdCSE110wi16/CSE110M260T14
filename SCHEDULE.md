@@ -40,6 +40,14 @@ Expected progress:
   - 
   
 # Week 7:
+  - Allow user to delete item
   - differentiate between active/deleted/already sold listing
   - rework on location for posting items
+  - Add feature allowing user to make offer
   - refine layout
+  - 
+# Week 8:
+  - Add tests
+  - refine layout
+  - fix bugs
+  - update based on feedback from previous week
