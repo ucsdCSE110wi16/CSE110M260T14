@@ -15,6 +15,10 @@ As a user, I want to be able to sort all the listings by category so I can see t
 
 As a user, I want to be able to post an item that I want to sell 
 
+As a user, I want to be able to see all items I am interested through a watchlist
+
+As a user, I want to be able to access my profile page from which I can edit my profile information
+
 
 # Sell item page:
 
@@ -24,17 +28,19 @@ As a user, I want to be able to select multiple categories when I post an item s
 
 As a user, I want to be able to select the pickup location so that buyers know approximately where to pick up the item.
 
+As a user, I want to be able to edit my information at any time.
+
 
 # Individual post:
 
 As a user, I want to see a post description, with a price, pictures and the seller’s location as well as a button allowing me to pay him directly so I can purchase any item easily.
 
+As a user, I want to be able to make an offer for the item.
+
 As a user, I want to be able to click on a post and see all the information of the item
 
 
-
-
-
+# Profile Page
 
 As a user, I want to be able to access and edit my profile page, so I can change my contact information, Venmo account, name, email, phone number
 
