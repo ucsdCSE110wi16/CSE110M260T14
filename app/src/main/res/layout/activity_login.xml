@@ -8,7 +8,9 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:background="@drawable/login_bkg"
+    android:fontFamily="sans-serif-light"
     tools:context="com.example.cse110mb260t14.ffs.LoginActivity">
+
 
 
 

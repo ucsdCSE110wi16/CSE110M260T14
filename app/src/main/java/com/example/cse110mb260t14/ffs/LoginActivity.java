@@ -7,6 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 
+/*
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+import android.widget.Toast;*/
+
+
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -33,6 +40,7 @@ import org.json.JSONObject;
 import java.util.Arrays;
 import java.util.List;
 
+
 public class LoginActivity extends AppCompatActivity {
     private LoginButton loginButton;
     private String name, email, facebookID;
@@ -44,6 +52,17 @@ public class LoginActivity extends AppCompatActivity {
      * See https://g.co/AppIndexing/AndroidStudio for more information.
      */
     private GoogleApiClient client;
+
+    /*
+    //Material Design Testing Neccessities
+    private static final String TAG = "LoginActivity";
+    private static final int REQUEST_SIGNUP = 0;
+    @InjectView(R.id.input_email) EditText _emailText;
+    @InjectView(R.id.input_password) EditText _passwordText;
+    @InjectView(R.id.btn_login) Button _loginButton;
+    @InjectView(R.id.link_signup) TextView _signupLink;
+    //Material Design Testing Neccessities
+    */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

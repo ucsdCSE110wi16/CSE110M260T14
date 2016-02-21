@@ -93,7 +93,7 @@ public class displayFullItem extends AppCompatActivity {
 
         });
 
-        /* TODO: added enlarge image capability
+         //TODO: added enlarge image capability
         photo_display.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,7 +104,7 @@ public class displayFullItem extends AppCompatActivity {
                     CategoriesTV.setVisibility(View.GONE);
                     LocationTV.setVisibility(View.GONE);
                     findViewById(R.id.AddToWatchListButton).setVisibility(View.GONE);
-                    findViewById(R.id.BuyItemButton).setVisibility(View.GONE);
+                    findViewById(R.id.makeOfferButton).setVisibility(View.GONE);
                     findViewById(R.id.full_listing_relative_layout).setVisibility(View.GONE);
                     photo_display.setMinimumHeight(findViewById(R.id.full_listing_relative_layout).getHeight());
                     photo_display.setMinimumWidth(findViewById(R.id.full_listing_relative_layout).getWidth());
@@ -117,7 +117,7 @@ public class displayFullItem extends AppCompatActivity {
                     CategoriesTV.setVisibility(View.VISIBLE);
                     LocationTV.setVisibility(View.VISIBLE);
                     findViewById(R.id.AddToWatchListButton).setVisibility(View.VISIBLE);
-                    findViewById(R.id.BuyItemButton).setVisibility(View.VISIBLE);
+                    findViewById(R.id.makeOfferButton).setVisibility(View.VISIBLE);
                     findViewById(R.id.full_listing_relative_layout).setVisibility(View.VISIBLE);
                     photo_display.setMaxWidth(250);
                     photo_display.setMaxHeight(250);
@@ -125,7 +125,7 @@ public class displayFullItem extends AppCompatActivity {
                 }
             }
         });
-        */
+
         LocationTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

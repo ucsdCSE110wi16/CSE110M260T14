@@ -71,22 +71,6 @@
         android:layout_below="@+id/description_text_view" />
 
 
-    <!-- Location -->
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Location: "
-        android:id="@+id/location_text_view"
-        android:layout_marginTop="40dp"
-        android:layout_below="@+id/item_description_confirm" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/item_location_confirm"
-        android:text="Location"
-        android:layout_below="@+id/location_text_view"/>
-
 
 
     <!-- categories -->
@@ -95,16 +79,31 @@
         android:layout_height="wrap_content"
         android:text="Categories: "
         android:id="@+id/categories_text_view"
-        android:layout_below="@id/item_location_confirm"
-        android:layout_marginTop="40dp" />
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/item_description_confirm" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/item_categories_confirm"
         android:text="categories"
         android:layout_marginTop="61dp"
-        android:layout_below="@+id/item_location_confirm" />
+        android:layout_below="@+id/item_description_confirm" />
 
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:id="@+id/zipcode_textview"
+        android:layout_below="@id/item_categories_confirm"
+        android:text="Zipcode"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_toRightOf="@id/zipcode_textview"
+        android:layout_alignBaseline="@id/zipcode_textview"
+        android:id="@+id/zipcode_confirm"/>
     <!-- BUTTONS -->
     <Button
         android:layout_width="wrap_content"
@@ -126,9 +125,9 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:id="@+id/photo_confirm"
-        android:layout_alignTop="@+id/location_text_view"
-        android:layout_alignRight="@+id/item_price_confirm"
-        android:layout_alignEnd="@+id/item_price_confirm" />
+        android:layout_above="@+id/edit_button"
+        android:layout_alignLeft="@+id/LargeText"
+        android:layout_alignStart="@+id/LargeText" />
 
 
 </RelativeLayout>

@@ -20,7 +20,6 @@ import android.widget.Spinner;
 public class PostItemActivity extends AppCompatActivity {
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
-    private Spinner locationSpinner;
     private Spinner categoriesSpinner1,categoriesSpinner2,categoriesSpinner3;
     private Button postListingButton;
     private Button camera_button;
@@ -38,7 +37,6 @@ public class PostItemActivity extends AppCompatActivity {
     private String itemPrice;
     private String itemDescription;
     private String[] itemCategories = new String[maxCategories];
-    private String itemLocation;
 
 
     @Override
@@ -49,7 +47,6 @@ public class PostItemActivity extends AppCompatActivity {
 
 
 
-        locationSpinner = (Spinner) findViewById(R.id.location_spinner);
         categoriesSpinner1 = (Spinner)findViewById(R.id.item_categories_spinner1);
         categoriesSpinner2 = (Spinner)findViewById(R.id.item_categories_spinner2);
         categoriesSpinner3 = (Spinner)findViewById(R.id.item_categories_spinner3);
@@ -64,19 +61,13 @@ public class PostItemActivity extends AppCompatActivity {
 
 
 
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.locations_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        locationSpinner.setAdapter(adapter);
+
 
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(this,
                 R.array.categories_array, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         categoriesSpinner1.setAdapter(adapter2);
         categoriesSpinner2.setAdapter(adapter2);
@@ -144,7 +135,6 @@ public class PostItemActivity extends AppCompatActivity {
                 if (posted){
                     Intent confirmPageIntent = new Intent(PostItemActivity.this, ConfirmItemListing.class);
 
-                    confirmPageIntent.putExtra("Location", itemLocation);
                     confirmPageIntent.putExtra("Price", itemPrice);
                     confirmPageIntent.putExtra("Title", itemTitle);
                     confirmPageIntent.putExtra("Description", itemDescription);
@@ -187,7 +177,6 @@ public class PostItemActivity extends AppCompatActivity {
         itemTitle = postTitle.getText().toString();
         itemPrice = postPrice.getText().toString();
         itemDescription = postDescripttion.getText().toString();
-        itemLocation = locationSpinner.getSelectedItem().toString();
 
         itemCategories[0] = categoriesSpinner1.getSelectedItem().toString();
         if(addCat1.isChecked() && categoriesSpinner2.getSelectedItemPosition()!=0) {
@@ -199,10 +188,7 @@ public class PostItemActivity extends AppCompatActivity {
 
 
 
-        if(locationSpinner.getSelectedItemPosition() == 0 || categoriesSpinner1.getSelectedItemPosition() == 0){
-            System.out.println("Select Valid Data");
-            return false;
-        }
+
         if (itemTitle.equals("") || itemPrice.equals("") || itemDescription.equals("")){
             System.out.println("PLEASE MAKE SURE TO FILL IN ALL THE INFORMATION!");
             return false;
@@ -220,7 +206,6 @@ public class PostItemActivity extends AppCompatActivity {
         itemCategories[0] = getIntent().getExtras().getString("Categories0");
         itemCategories[1] = getIntent().getExtras().getString("Categories1");
         itemCategories[2] = getIntent().getExtras().getString("Categories2");
-        itemLocation = getIntent().getExtras().getString("Location");
         photo_bitmap = (Bitmap) getIntent().getExtras().get("Photo");
 
         if (photo_bitmap != null) {
@@ -230,7 +215,6 @@ public class PostItemActivity extends AppCompatActivity {
         postTitle.setText(itemTitle);
         postPrice.setText(itemPrice);
         postDescripttion.setText(itemDescription);
-        locationSpinner.setSelection(((ArrayAdapter<String>) locationSpinner.getAdapter()).getPosition(itemLocation));
 
         categoriesSpinner1.setSelection(((ArrayAdapter<String>)categoriesSpinner1.getAdapter()).getPosition(itemCategories[0]));
         categoriesSpinner2.setSelection(((ArrayAdapter<String>)categoriesSpinner2.getAdapter()).getPosition(itemCategories[1]));

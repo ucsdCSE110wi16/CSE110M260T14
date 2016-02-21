@@ -24,10 +24,10 @@ public class ConfirmItemListing extends AppCompatActivity {
     private ParseObject item;
     private String itemTitle;
     private String itemPrice;
+    private String itemZipcode;
     private String itemDescription;
     private final int maxCategories = 3;
     private String[] itemCategories = new String[maxCategories];
-    private String itemLocation;
     private String itemSellerID;
     private Bitmap photo_bitmap;
 
@@ -38,7 +38,7 @@ public class ConfirmItemListing extends AppCompatActivity {
     private TextView priceTextView;
     private TextView descriptionTextView;
     private TextView categoriesTextView;
-    private TextView locationTextView;
+    private TextView ZipcodeTextView;
     private ImageView photo_confirm;
 
     @Override
@@ -53,7 +53,7 @@ public class ConfirmItemListing extends AppCompatActivity {
         priceTextView = (TextView)findViewById(R.id.item_price_confirm);
         descriptionTextView = (TextView)findViewById(R.id.item_description_confirm);
         categoriesTextView = (TextView)findViewById(R.id.item_categories_confirm);
-        locationTextView = (TextView)findViewById(R.id.item_location_confirm);
+        ZipcodeTextView = (TextView) findViewById(R.id.zipcode_confirm);
         photo_confirm = (ImageView)findViewById(R.id.photo_confirm);
 
 
@@ -64,7 +64,7 @@ public class ConfirmItemListing extends AppCompatActivity {
         itemCategories[0] = getIntent().getExtras().getString("Categories0");
         itemCategories[1] = getIntent().getExtras().getString("Categories1");
         itemCategories[2] = getIntent().getExtras().getString("Categories2");
-        itemLocation = getIntent().getExtras().getString("Location");
+        itemZipcode = getIntent().getExtras().getString("Zipcode");
         photo_bitmap = (Bitmap) getIntent().getExtras().get("Photo");
 
         if(itemCategories[2] == null || itemCategories[2].equals(itemCategories[1])){
@@ -111,7 +111,7 @@ public class ConfirmItemListing extends AppCompatActivity {
                 go_back.putExtra("Categories0", itemCategories[0]);
                 go_back.putExtra("Categories1", itemCategories[1]);
                 go_back.putExtra("Categories2", itemCategories[2]);
-                go_back.putExtra("Location", itemLocation);
+                go_back.putExtra("ZipCode", itemZipcode);
                 if (photo_confirm.getDrawable() != null) {
                     go_back.putExtra("Photo", ((BitmapDrawable) photo_confirm.getDrawable()).getBitmap());
                 }
@@ -126,8 +126,8 @@ public class ConfirmItemListing extends AppCompatActivity {
         titleTextView.setText(itemTitle);
         priceTextView.setText(itemPrice);
         descriptionTextView.setText(itemDescription);
+        ZipcodeTextView.setText(itemZipcode);
         categoriesTextView.setText(itemCategories[0] + ", " + itemCategories[1] + ", " + itemCategories[2]);
-        locationTextView.setText(itemLocation);
     }
 
     private void sendAlertBox(){
@@ -152,7 +152,6 @@ public class ConfirmItemListing extends AppCompatActivity {
 
     private void saveItem(){
         item = new ParseObject("Listings");
-        item.put("Location", itemLocation);
         item.put("Price", itemPrice);
         item.put("Title", itemTitle);
         item.put("Description", itemDescription);
@@ -161,6 +160,7 @@ public class ConfirmItemListing extends AppCompatActivity {
         item.put("Title_lower", itemTitle.toLowerCase());
         item.put("Description_lower", itemDescription.toLowerCase());
         item.put("Status", 0);
+        item.put("ZipCode", itemZipcode);
         item.put("offer_buyer_id", Arrays.asList());
         item.put("offer_value", Arrays.asList());
 

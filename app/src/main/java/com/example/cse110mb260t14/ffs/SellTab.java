@@ -31,7 +31,6 @@ public class SellTab extends Fragment {
 
 
     static final int REQUEST_IMAGE_CAPTURE = 1;
-    private Spinner locationSpinner;
     private Spinner categoriesSpinner1,categoriesSpinner2,categoriesSpinner3;
     private Button postListingButton;
     private Button camera_button;
@@ -40,15 +39,16 @@ public class SellTab extends Fragment {
     private EditText postPrice;
     private EditText postDescripttion;
     private EditText postCategories;
+    private EditText locationText;
 
-    private CheckBox addCat1, addCat2;
+    private CheckBox addCat1, addCat2, locationCheckBox;
 
     private final int maxCategories = 3;
     private String itemTitle;
     private String itemPrice;
     private String itemDescription;
+    private String ZipCode;
     private String[] itemCategories = new String[maxCategories];
-    private String itemLocation;
 
 
 
@@ -59,7 +59,6 @@ public class SellTab extends Fragment {
 
 
 
-        locationSpinner = (Spinner) v.findViewById(R.id.location_spinner);
         categoriesSpinner1 = (Spinner)v.findViewById(R.id.item_categories_spinner1);
         categoriesSpinner2 = (Spinner)v.findViewById(R.id.item_categories_spinner2);
         categoriesSpinner3 = (Spinner)v.findViewById(R.id.item_categories_spinner3);
@@ -71,22 +70,15 @@ public class SellTab extends Fragment {
         addCat2 = (CheckBox)v.findViewById(R.id.item_categories_checkbox2);
         camera_button = (Button) v.findViewById(R.id.camera_button);
         photo_preview = (ImageView) v.findViewById(R.id.photo_preview);
+        locationCheckBox = (CheckBox)v.findViewById(R.id.location_checkbox);
+        locationText = (EditText) v.findViewById(R.id.location_editText);
 
-
-
-        // Create an ArrayAdapter using the string array and a default spinner layout
-        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getActivity(),
-                R.array.locations_array, android.R.layout.simple_spinner_item);
-        // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        locationSpinner.setAdapter(adapter);
 
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getActivity(),
                 R.array.categories_array, android.R.layout.simple_spinner_item);
         // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         categoriesSpinner1.setAdapter(adapter2);
         categoriesSpinner2.setAdapter(adapter2);
@@ -120,21 +112,23 @@ public class SellTab extends Fragment {
             }
         });
 
-
-
-        /*
-        if(getIntent().hasExtra("Title")){
-            setDataFromConfirmIntent();
-        }*/
-
+        locationCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(locationCheckBox.isChecked()){
+                    locationText.setVisibility(View.GONE);
+                }
+                else {
+                    locationText.setVisibility(View.VISIBLE);
+                }
+            }
+        });
 
         postListingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 boolean posted = getItemData();
-
-
                 AlertDialog.Builder db = new AlertDialog.Builder(getActivity());
 
                 if (!posted){
@@ -155,13 +149,13 @@ public class SellTab extends Fragment {
                 if (posted){
                     Intent confirmPageIntent = new Intent(getActivity(), ConfirmItemListing.class);
 
-                    confirmPageIntent.putExtra("Location", itemLocation);
                     confirmPageIntent.putExtra("Price", itemPrice);
                     confirmPageIntent.putExtra("Title", itemTitle);
                     confirmPageIntent.putExtra("Description", itemDescription);
                     confirmPageIntent.putExtra("Categories0", itemCategories[0]);
                     confirmPageIntent.putExtra("Categories1", itemCategories[1]);
                     confirmPageIntent.putExtra("Categories2", itemCategories[2]);
+                    confirmPageIntent.putExtra("Zipcode", ZipCode);
                     if (photo_preview.getDrawable() != null) {
                         confirmPageIntent.putExtra("Photo", ((BitmapDrawable) photo_preview.getDrawable()).getBitmap());
                     }
@@ -201,14 +195,19 @@ public class SellTab extends Fragment {
             Bundle extras = data.getExtras();
             Bitmap imageBitmap = (Bitmap) extras.get("data");
             photo_preview.setImageBitmap(imageBitmap);
+            photo_preview.setVisibility(View.VISIBLE);
         }
     }
     private boolean getItemData(){
         itemTitle = postTitle.getText().toString();
         itemPrice = postPrice.getText().toString();
         itemDescription = postDescripttion.getText().toString();
-        itemLocation = locationSpinner.getSelectedItem().toString();
-
+        if (!locationCheckBox.isChecked()) {
+            ZipCode = locationText.getText().toString();
+        }
+        else {
+            ZipCode = "CURRENT ZIPCODE";
+        }
         itemCategories[0] = categoriesSpinner1.getSelectedItem().toString();
         if(addCat1.isChecked() && categoriesSpinner2.getSelectedItemPosition()!=0) {
             itemCategories[1] = categoriesSpinner2.getSelectedItem().toString();
@@ -217,12 +216,6 @@ public class SellTab extends Fragment {
             }
         }
 
-
-
-        if(locationSpinner.getSelectedItemPosition() == 0 || categoriesSpinner1.getSelectedItemPosition() == 0){
-            System.out.println("Select Valid Data");
-            return false;
-        }
         if (itemTitle.equals("") || itemPrice.equals("") || itemDescription.equals("")){
             System.out.println("PLEASE MAKE SURE TO FILL IN ALL THE INFORMATION!");
             return false;
@@ -240,12 +233,10 @@ public class SellTab extends Fragment {
         itemCategories[0] = getIntent().getExtras().getString("Categories0");
         itemCategories[1] = getIntent().getExtras().getString("Categories1");
         itemCategories[2] = getIntent().getExtras().getString("Categories2");
-        itemLocation = getIntent().getExtras().getString("Location");
 
         postTitle.setText(itemTitle);
         postPrice.setText(itemPrice);
         postDescripttion.setText(itemDescription);
-        locationSpinner.setSelection(((ArrayAdapter<String>) locationSpinner.getAdapter()).getPosition(itemLocation));
 
         categoriesSpinner1.setSelection(((ArrayAdapter<String>)categoriesSpinner1.getAdapter()).getPosition(itemCategories[0]));
         categoriesSpinner2.setSelection(((ArrayAdapter<String>)categoriesSpinner2.getAdapter()).getPosition(itemCategories[1]));
