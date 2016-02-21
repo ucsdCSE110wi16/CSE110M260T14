@@ -64,7 +64,13 @@ public class ConfirmItemListing extends AppCompatActivity {
         itemCategories[0] = getIntent().getExtras().getString("Categories0");
         itemCategories[1] = getIntent().getExtras().getString("Categories1");
         itemCategories[2] = getIntent().getExtras().getString("Categories2");
-        itemZipcode = getIntent().getExtras().getString("Zipcode");
+        itemZipcode = getIntent().getExtras().getString("ZipCode");
+
+        //TODO fix zipcode issue
+        if(itemZipcode==null||itemZipcode.equals("")){
+            itemZipcode="CurrentLoc";
+        }
+        System.out.println("YWEHBFDKSBRIGFS + " + itemZipcode);
         photo_bitmap = (Bitmap) getIntent().getExtras().get("Photo");
 
         if(itemCategories[2] == null || itemCategories[2].equals(itemCategories[1])){

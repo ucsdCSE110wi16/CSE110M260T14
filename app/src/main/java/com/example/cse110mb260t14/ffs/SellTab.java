@@ -1,10 +1,16 @@
 package com.example.cse110mb260t14.ffs;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
@@ -19,6 +25,10 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 
 //import com.example.yoonchung.fragmenttest.R;
@@ -42,6 +52,13 @@ public class SellTab extends Fragment {
     private EditText locationText;
 
     private CheckBox addCat1, addCat2, locationCheckBox;
+
+    private LocationManager locationManager;
+    private LocationListener locationListener;
+    private double latitude, longitude;
+    private Geocoder geocoder;
+    private List<Address> addresses;
+
 
     private final int maxCategories = 3;
     private String itemTitle;
@@ -148,21 +165,16 @@ public class SellTab extends Fragment {
 
                 if (posted){
                     Intent confirmPageIntent = new Intent(getActivity(), ConfirmItemListing.class);
-
                     confirmPageIntent.putExtra("Price", itemPrice);
                     confirmPageIntent.putExtra("Title", itemTitle);
                     confirmPageIntent.putExtra("Description", itemDescription);
                     confirmPageIntent.putExtra("Categories0", itemCategories[0]);
                     confirmPageIntent.putExtra("Categories1", itemCategories[1]);
                     confirmPageIntent.putExtra("Categories2", itemCategories[2]);
-                    confirmPageIntent.putExtra("Zipcode", ZipCode);
+                    confirmPageIntent.putExtra("ZipCode", ZipCode);
                     if (photo_preview.getDrawable() != null) {
                         confirmPageIntent.putExtra("Photo", ((BitmapDrawable) photo_preview.getDrawable()).getBitmap());
                     }
-
-
-
-
                     startActivity(confirmPageIntent);
                 }
             }
@@ -179,10 +191,6 @@ public class SellTab extends Fragment {
             }
 
         });
-
-
-
-
 
         return v;
     }
@@ -206,7 +214,7 @@ public class SellTab extends Fragment {
             ZipCode = locationText.getText().toString();
         }
         else {
-            ZipCode = "CURRENT ZIPCODE";
+            getZipCode(locationManager, locationListener);
         }
         itemCategories[0] = categoriesSpinner1.getSelectedItem().toString();
         if(addCat1.isChecked() && categoriesSpinner2.getSelectedItemPosition()!=0) {
@@ -225,30 +233,40 @@ public class SellTab extends Fragment {
 
     }
 
-    /*
-    private void setDataFromConfirmIntent(){
-        itemTitle = getIntent().getExtras().getString("Title");
-        itemPrice = getIntent().getExtras().getString("Price");
-        itemDescription = getIntent().getExtras().getString("Description");
-        itemCategories[0] = getIntent().getExtras().getString("Categories0");
-        itemCategories[1] = getIntent().getExtras().getString("Categories1");
-        itemCategories[2] = getIntent().getExtras().getString("Categories2");
-
-        postTitle.setText(itemTitle);
-        postPrice.setText(itemPrice);
-        postDescripttion.setText(itemDescription);
-
-        categoriesSpinner1.setSelection(((ArrayAdapter<String>)categoriesSpinner1.getAdapter()).getPosition(itemCategories[0]));
-        categoriesSpinner2.setSelection(((ArrayAdapter<String>)categoriesSpinner2.getAdapter()).getPosition(itemCategories[1]));
-        categoriesSpinner3.setSelection(((ArrayAdapter<String>)categoriesSpinner3.getAdapter()).getPosition(itemCategories[2]));
-        if(categoriesSpinner2.getSelectedItemPosition()>0){
-            addCat1.setChecked(true);
-        }
-        if(categoriesSpinner3.getSelectedItemPosition()>0){
-            addCat2.setChecked(true);
-        }
-
-    }*/
 
 
+    private void getZipCode(LocationManager locationManager, LocationListener locationListener) {
+        // start the location manager for retrieving GPS coordinates
+        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        locationListener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
+                longitude = location.getLongitude();
+                latitude = location.getLatitude();
+                geocoder = new Geocoder(getActivity(), Locale.getDefault());
+                try {
+                    addresses = geocoder.getFromLocation(latitude, longitude, 1);
+                    ZipCode = addresses.get(0).getPostalCode();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onStatusChanged(String provider, int status, Bundle extras) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String provider) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String provider) {
+
+            }
+
+        };
+    }
 }

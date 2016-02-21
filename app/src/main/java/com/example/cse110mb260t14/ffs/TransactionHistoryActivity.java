@@ -38,10 +38,10 @@ public class TransactionHistoryActivity extends AppCompatActivity {
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> found, ParseException e) {
-                ListingAdapter adapter = new ListingAdapter(TransactionHistoryActivity.this, new ArrayList<ParseObject>());
+                OfferListingAdapter adapter = new OfferListingAdapter(TransactionHistoryActivity.this, new ArrayList<ParseObject>());
                 ArrayList<ParseObject> objects = new ArrayList<ParseObject>(found);
                 if (objects != null) {
-                    adapter = new ListingAdapter(TransactionHistoryActivity.this, objects);
+                    adapter = new OfferListingAdapter(TransactionHistoryActivity.this, objects);
                 }
                 listingsListView.setAdapter(adapter);
                 listingsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -51,6 +51,7 @@ public class TransactionHistoryActivity extends AppCompatActivity {
                         Intent intent = new Intent(TransactionHistoryActivity.this, displayFullItem.class);
                         intent.putExtra("objectID", ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
                         startActivity(intent);
+
                     }
                 });
 
