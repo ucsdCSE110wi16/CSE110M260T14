@@ -30,6 +30,7 @@ Expected progress:
   Rework based on feedback from Week 4 features.
   
 # Week 6:
+
   - ability to search based on description  -- Weian/Deqian
   - Add transaction History page        -- Gabe
   - refine layout                       -- Yoon/Daniel
@@ -40,19 +41,22 @@ Expected progress:
   - 
   
 # Week 7:
+
   - Allow user to delete item
   - differentiate between active/deleted/already sold listing
   - rework on location for posting items
   - Add feature allowing user to make offer
   - refine layout
-  - 
+
 # Week 8:
+
   - Add tests
   - Add user input location for sell.
   - Change to zipcode only, no address
   - update based on feedback from previous week
 
 # Week 9:
+
   - refine layout
   - fix bugs
   - Add more tests
