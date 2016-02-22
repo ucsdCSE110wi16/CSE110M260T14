@@ -1,2 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
+
+    <item
+        jar="/Users/Tingles/Coding/CSE110/CSE110M260T14/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/8.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="4477ea44f5ec5ad064022a22691732d7638ff197">
+        <dex dex="/Users/Tingles/Coding/CSE110/CSE110M260T14/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-appindexing-8.1.0_bab3c6b213da2e71e8bdfee5311d3f8fa18baec2.jar" />
+    </item>
+    <item
+        jar="/Users/Tingles/Coding/CSE110/CSE110M260T14/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="d0dda274b703dd9c5bb056867649d22b4171ae7d">
+        <dex dex="/Users/Tingles/Coding/CSE110/CSE110M260T14/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-basement-8.1.0_31e37ffc6be45435a765ceddcfa4dd24e2390106.jar" />
+    </item>
+    <item
+        jar="/Users/Tingles/Coding/CSE110/CSE110M260T14/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
+        <dex dex="/Users/Tingles/Coding/CSE110/CSE110M260T14/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.1.1_821bd82fb4948895278bb3fab698022b9bb11cd6.jar" />
+    </item>
+    <item
+        jar="/Users/Tingles/Coding/CSE110/CSE110M260T14/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/libs/internal_impl-23.1.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="a4de9c81ae239414e1ed0f86441b02abaf29bca9">
+        <dex dex="/Users/Tingles/Coding/CSE110/CSE110M260T14/app/build/intermediates/pre-dexed/debug/internal_impl-23.1.1_27758c1bce931a60330abb08ffe9b4776eb3dcbb.jar" />
+    </item>
+    <item
+        jar="/Users/Tingles/Coding/CSE110/CSE110M260T14/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="09c5e804bc67fc0580360043dff067df574a60d4">
+        <dex dex="/Users/Tingles/Coding/CSE110/CSE110M260T14/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-23.1.1_52b22c181f3b1b6214b9304b2c11082a841b1506.jar" />
+    </item>
+    <item
+        jar="/Users/Tingles/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-tasks/1.4.0/d85884acf6810a3bbbecb587f239005cbc846dc4/bolts-tasks-1.4.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
+        <dex dex="/Users/Tingles/Coding/CSE110/CSE110M260T14/app/build/intermediates/pre-dexed/debug/bolts-tasks-1.4.0_d64967878919a5bdd5b363e2ba316b2231426e29.jar" />
+    </item>
+    <item
+        jar="/Users/Tingles/Coding/CSE110/CSE110M260T14/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="6cbc7773921fcfedbe55657578f0cbfe614778dc">
+        <dex dex="/Users/Tingles/Coding/CSE110/CSE110M260T14/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.1.1_62493411a07a8c3141f1004c25f7f1ddddfe9bb8.jar" />
+    </item>
+    <item
+        jar="/Users/Tingles/Coding/CSE110/CSE110M260T14/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="5e412e954a24c5310a459c09870e4e2081aceb03">
+        <dex dex="/Users/Tingles/Coding/CSE110/CSE110M260T14/app/build/intermediates/pre-dexed/debug/com.android.support-cardview-v7-23.1.1_107be6b3ac31bfff59edab509f2215a64440cf7d.jar" />
+    </item>
+    <item
+        jar="/Users/Tingles/Coding/CSE110/CSE110M260T14/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.10.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="bcb4a50f5e2c67b3e84441b1b2a239856776c9b8">
+        <dex dex="/Users/Tingles/Coding/CSE110/CSE110M260T14/app/build/intermediates/pre-dexed/debug/com.facebook.android-facebook-android-sdk-4.10.0_79df42a12174b0a6f91deea81c5a6b828b25adbd.jar" />
+    </item>
+    <item
+        jar="/Users/Tingles/.gradle/caches/modules-2/files-2.1/com.parse/parse-android/1.13.0/58a7d54b6a4f28be11f0cecec93097eddf473e6f/parse-android-1.13.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="58a7d54b6a4f28be11f0cecec93097eddf473e6f">
+        <dex dex="/Users/Tingles/Coding/CSE110/CSE110M260T14/app/build/intermediates/pre-dexed/debug/parse-android-1.13.0_c50bf3faf0926e55bdf0df769f8574b651ed9c3a.jar" />
+    </item>
+    <item
+        jar="/Users/Tingles/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.1.1/support-annotations-23.1.1.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8d680ba5a623724d1fb0e81c36a790f023a6cede">
+        <dex dex="/Users/Tingles/Coding/CSE110/CSE110M260T14/app/build/intermediates/pre-dexed/debug/support-annotations-23.1.1_7ca2e1a6943dd838703a8b41499d4947c407d570.jar" />
+    </item>
+    <item
+        jar="/Users/Tingles/Coding/CSE110/CSE110M260T14/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="379471b2bd17d9737c050345c08e8c7d16589784">
+        <dex dex="/Users/Tingles/Coding/CSE110/CSE110M260T14/app/build/intermediates/pre-dexed/debug/com.android.support-design-23.1.1_42af85d83f6679715328668177803a95c5bdc4d9.jar" />
+    </item>
+    <item
+        jar="/Users/Tingles/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-applinks/1.4.0/8ad21bf21784dacce5f2043afb97218cc377e835/bolts-applinks-1.4.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8ad21bf21784dacce5f2043afb97218cc377e835">
+        <dex dex="/Users/Tingles/Coding/CSE110/CSE110M260T14/app/build/intermediates/pre-dexed/debug/bolts-applinks-1.4.0_622609ea1985230af67a06e82be8c39f70587a39.jar" />
+    </item>
+    <item
+        jar="/Users/Tingles/Coding/CSE110/CSE110M260T14/app/build/intermediates/exploded-aar/com.parse/parsefacebookutils-v4-android/1.10.3/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="771e1739a38be7573c55458d16ca2d2f9f546cf7">
+        <dex dex="/Users/Tingles/Coding/CSE110/CSE110M260T14/app/build/intermediates/pre-dexed/debug/com.parse-parsefacebookutils-v4-android-1.10.3_85b241498a9a1df7a131302b867617b77a7d8602.jar" />
+    </item>
+
+</items>
