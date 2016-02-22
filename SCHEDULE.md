@@ -1,7 +1,7 @@
 This schedule is still pending approval from our customer team
 
 
-# Week3: 
+# Week 3: 
 
 Current progress includes: 
   - working Facebook  login (ability to create accounts and login via FB)
@@ -48,6 +48,11 @@ Expected progress:
   - 
 # Week 8:
   - Add tests
+  - Add user input location for sell.
+  - Change to zipcode only, no address
+  - update based on feedback from previous week
+
+# Week 9:
   - refine layout
   - fix bugs
-  - update based on feedback from previous week
+  - Add more tests
