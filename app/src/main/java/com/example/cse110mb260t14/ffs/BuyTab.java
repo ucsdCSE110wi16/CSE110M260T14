@@ -1,6 +1,7 @@
 package com.example.cse110mb260t14.ffs;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.LocationListener;
@@ -75,7 +76,7 @@ public class BuyTab extends Fragment {
 
             @Override
             public void onClick(View a) {
-
+                search_button.setTextColor(Color.BLACK);
                 EditText descriptionText = (EditText) v.findViewById(R.id.EditTextId);
                 description = descriptionText.getText().toString();
                 int sub_postion = 0;
@@ -128,6 +129,7 @@ public class BuyTab extends Fragment {
                 query.whereNotEqualTo("SellerID", ParseUser.getCurrentUser().getObjectId());
                 query.findInBackground(new FindCallback<ParseObject>() {
                     public void done(List<ParseObject> found, ParseException e) {
+                        search_button.setTextColor(Color.GREEN);
                         ListingAdapter adapter = new ListingAdapter(getActivity(), new ArrayList<ParseObject>());
                         ArrayList<ParseObject> objects = new ArrayList<ParseObject>(found);
                         if (objects != null) {
@@ -146,6 +148,8 @@ public class BuyTab extends Fragment {
                         });
                     }
                 });
+                search_button.setTextColor(Color.BLACK);
+
             }
         });
 

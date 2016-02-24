@@ -1,6 +1,7 @@
 package com.example.cse110mb260t14.ffs;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -44,7 +45,7 @@ public class ListingsActivity extends AppCompatActivity {
                         @Override
                         public void onClick(View a) {
 
-
+                                search_button.setTextColor(Color.BLACK);
                                 EditText descriptionText = (EditText) findViewById(R.id.EditTextIdList);
                                 description = descriptionText.getText().toString();
                                 int sub_postion = 0;
@@ -95,7 +96,7 @@ public class ListingsActivity extends AppCompatActivity {
                                 query.whereContainsAll("Categories", categories);
                                 query.findInBackground(new FindCallback<ParseObject>() {
                                         public void done(List<ParseObject> found, ParseException e) {
-
+                                                search_button.setTextColor(Color.GREEN);
                                                 ArrayList<ParseObject> objects = new ArrayList<ParseObject>(found);
                                                 ListingAdapter adapter = new ListingAdapter(ListingsActivity.this, objects);
                                                 ListView listView = (ListView) findViewById(R.id.listings);
@@ -118,6 +119,7 @@ public class ListingsActivity extends AppCompatActivity {
                                                 });
                                         }
                                 });
+                                search_button.setTextColor(Color.BLACK);
 
                         }
                 });
