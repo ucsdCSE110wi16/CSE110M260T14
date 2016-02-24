@@ -13,6 +13,7 @@ import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
+import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +34,8 @@ public class ListingsActivity extends AppCompatActivity {
 
                 query = ParseQuery.getQuery("Listings");
                 query.whereContainsAll("Categories", categories);
+                query.whereEqualTo("Status", 0);
+                query.whereNotEqualTo("SellerID", ParseUser.getCurrentUser().getObjectId());
                 query.whereContains("Title", "");
                 query.whereContains("objectId", "");
                 search_button = (Button) findViewById(R.id.SearchList);
@@ -88,6 +91,7 @@ public class ListingsActivity extends AppCompatActivity {
 
                                 System.out.println("Finish Finding");
                                 query = ParseQuery.or(queries);
+                                query.whereNotEqualTo("SellerID", ParseUser.getCurrentUser().getObjectId());
                                 query.whereContainsAll("Categories", categories);
                                 query.findInBackground(new FindCallback<ParseObject>() {
                                         public void done(List<ParseObject> found, ParseException e) {
