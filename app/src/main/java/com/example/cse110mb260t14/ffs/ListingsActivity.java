@@ -93,6 +93,7 @@ public class ListingsActivity extends AppCompatActivity {
                                 System.out.println("Finish Finding");
                                 query = ParseQuery.or(queries);
                                 query.whereNotEqualTo("SellerID", ParseUser.getCurrentUser().getObjectId());
+                                query.whereEqualTo("Status", 0);
                                 query.whereContainsAll("Categories", categories);
                                 query.findInBackground(new FindCallback<ParseObject>() {
                                         public void done(List<ParseObject> found, ParseException e) {

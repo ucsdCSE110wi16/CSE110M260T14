@@ -127,6 +127,7 @@ public class BuyTab extends Fragment {
                 System.out.println("Finish Finding");
                 query = ParseQuery.or(queries);
                 query.whereNotEqualTo("SellerID", ParseUser.getCurrentUser().getObjectId());
+                query.whereEqualTo("Status", 0);
                 query.findInBackground(new FindCallback<ParseObject>() {
                     public void done(List<ParseObject> found, ParseException e) {
                         search_button.setTextColor(Color.GREEN);
