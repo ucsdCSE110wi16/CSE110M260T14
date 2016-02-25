@@ -1,14 +1,12 @@
 package com.example.cse110mb260t14.ffs;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.location.Address;
 import android.location.Geocoder;
-import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -25,10 +23,11 @@ import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
-import java.io.IOException;
+import com.parse.ParseUser;
+
 import java.util.List;
-import java.util.Locale;
 
 
 //import com.example.yoonchung.fragmenttest.R;
@@ -214,7 +213,13 @@ public class SellTab extends Fragment {
             ZipCode = locationText.getText().toString();
         }
         else {
-            getZipCode(locationManager, locationListener);
+            ZipCode = ParseUser.getCurrentUser().getString("postalCode");
+            if(ZipCode==null ||ZipCode.equals("")){
+                Toast.makeText(getActivity(), "Can't get current zipcode", Toast.LENGTH_SHORT).show();
+                locationCheckBox.setChecked(false);
+                locationText.setVisibility(View.VISIBLE);
+                ZipCode = locationText.getText().toString();
+            }
         }
         itemCategories[0] = categoriesSpinner1.getSelectedItem().toString();
         if(addCat1.isChecked() && categoriesSpinner2.getSelectedItemPosition()!=0) {
@@ -228,45 +233,6 @@ public class SellTab extends Fragment {
             System.out.println("PLEASE MAKE SURE TO FILL IN ALL THE INFORMATION!");
             return false;
         }
-
         return true;
-
-    }
-
-
-
-    private void getZipCode(LocationManager locationManager, LocationListener locationListener) {
-        // start the location manager for retrieving GPS coordinates
-        locationManager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
-        locationListener = new LocationListener() {
-            @Override
-            public void onLocationChanged(Location location) {
-                longitude = location.getLongitude();
-                latitude = location.getLatitude();
-                geocoder = new Geocoder(getActivity(), Locale.getDefault());
-                try {
-                    addresses = geocoder.getFromLocation(latitude, longitude, 1);
-                    ZipCode = addresses.get(0).getPostalCode();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onStatusChanged(String provider, int status, Bundle extras) {
-
-            }
-
-            @Override
-            public void onProviderEnabled(String provider) {
-
-            }
-
-            @Override
-            public void onProviderDisabled(String provider) {
-
-            }
-
-        };
     }
 }
