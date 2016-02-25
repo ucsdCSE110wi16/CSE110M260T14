@@ -87,22 +87,6 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
 
-        name.setOnClickListener(new View.OnClickListener() {
-            private android.content.Context context;
-
-            @Override
-            public void onClick(View v) {
-                changeProfileInfo("Name", name);
-            }
-        });
-        email.setOnClickListener(new View.OnClickListener() {
-            private android.content.Context context;
-
-            @Override
-            public void onClick(View v) {
-                changeProfileInfo("Email", email);
-            }
-        });
         venmoId.setOnClickListener(new View.OnClickListener() {
             private android.content.Context context;
 
@@ -169,7 +153,6 @@ public class ProfileActivity extends AppCompatActivity {
         //inputVenmoID.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         builder.setView(builderText);
 
-
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -181,14 +164,6 @@ public class ProfileActivity extends AppCompatActivity {
                 }
                 if (infoType.equals("Phone Number") && !newValue.equals("")) {
                     currentUser.put("PhoneNumber", newValue);
-                    toUpdate.setText(newValue);
-                }
-                if(infoType.equals("Name") && !newValue.equals("")){
-                    currentUser.put("name", newValue);
-                    toUpdate.setText(newValue);
-                }
-                if(infoType.equals("Email") && !newValue.equals("")){
-                    currentUser.put("email", newValue);
                     toUpdate.setText(newValue);
                 }
                 currentUser.saveInBackground();
