@@ -4,13 +4,13 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.parse.ParseFile;
 import com.parse.ParseObject;
@@ -68,9 +68,8 @@ public class ConfirmItemListing extends AppCompatActivity {
 
         //TODO fix zipcode issue
         if(itemZipcode==null||itemZipcode.equals("")){
-            itemZipcode="CurrentLoc";
+            itemZipcode="NONE";
         }
-        System.out.println("YWEHBFDKSBRIGFS + " + itemZipcode);
         photo_bitmap = (Bitmap) getIntent().getExtras().get("Photo");
 
         if(itemCategories[2] == null || itemCategories[2].equals(itemCategories[1])){
@@ -110,18 +109,7 @@ public class ConfirmItemListing extends AppCompatActivity {
         editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent go_back = new Intent(ConfirmItemListing.this, PostItemActivity.class);
-                go_back.putExtra("Title",itemTitle);
-                go_back.putExtra("Price", itemPrice);
-                go_back.putExtra("Description", itemDescription);
-                go_back.putExtra("Categories0", itemCategories[0]);
-                go_back.putExtra("Categories1", itemCategories[1]);
-                go_back.putExtra("Categories2", itemCategories[2]);
-                go_back.putExtra("ZipCode", itemZipcode);
-                if (photo_confirm.getDrawable() != null) {
-                    go_back.putExtra("Photo", ((BitmapDrawable) photo_confirm.getDrawable()).getBitmap());
-                }
-                startActivity(go_back);
+                finish();
             }
         });
 
@@ -147,10 +135,11 @@ public class ConfirmItemListing extends AppCompatActivity {
                 Intent nextStep;
                 if (successful) {
                     nextStep = new Intent(ConfirmItemListing.this, DrawerMenuActivity.class);
+                    startActivity(nextStep);
                 } else {
-                    nextStep = new Intent(ConfirmItemListing.this, PostItemActivity.class);
+                    finish();
+                    Toast.makeText(ConfirmItemListing.this, "Unsuccessful post, please review your listing",Toast.LENGTH_SHORT);
                 }
-                startActivity(nextStep);
             }
         });
         db.show();

@@ -118,10 +118,6 @@
                 android:value="com.example.cse110mb260t14.ffs.DrawerMenuActivity" />
         </activity>
         <activity
-            android:name=".PostItemActivity"
-            android:configChanges="orientation|keyboardHidden"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".ConfirmItemListing"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait" />
