@@ -50,3 +50,14 @@ As a user, I want to be able to access and edit my profile page, so I can change
 As a user, I want to see all my previous transactions, items bought or sold so that I can keep track of my activity.
 
 As a user, I want to see all items I posted and get offers from potential buyers so that I can sell the item.
+
+# Item Listings Page:
+As a user, I want to be able to see all listings on a page
+
+As a user, I want each listing to show title, price and description
+
+As a user, I want to be able to search the listings with keywords present in the title and description
+
+As a user, I want to be able to filter the listings based on location (distance from me)
+
+As a user, I want to be able to click on the listing and see post details
