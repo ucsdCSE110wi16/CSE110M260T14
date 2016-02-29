@@ -76,7 +76,7 @@
             android:id="@+id/makeOfferButton"
             android:layout_below="@+id/photo_display"
             android:layout_alignParentLeft="true" />
-        <Button
+        <!--<Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Add To WatchList!"
@@ -84,9 +84,9 @@
             android:layout_alignBaseline="@id/itemTitle"
             android:layout_alignParentRight="true"
             android:paddingRight="10dp"
-            />
+            />-->
 
-        <EditText
+            <EditText
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="Make your offer"
@@ -117,7 +117,17 @@
                 android:textColor="#FF0000"
                 android:id="@+id/delete_item_text_view" />
 
+            <Switch
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="WatchList"
+                android:id="@+id/watchListSwitch"
+                android:layout_alignBaseline="@id/itemPrice"
+                android:layout_alignParentLeft="true"
+                android:paddingLeft="10dp" />
+
         </RelativeLayout>
     </ScrollView>
+
 
 </RelativeLayout>

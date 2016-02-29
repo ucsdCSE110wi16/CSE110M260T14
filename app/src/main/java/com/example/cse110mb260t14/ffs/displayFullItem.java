@@ -11,7 +11,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.parse.ParseException;
@@ -30,8 +32,8 @@ public class displayFullItem extends AppCompatActivity {
 
     private String objectId;
     private TextView TitleTV, PriceTV, DescriptionTV, CategoriesTV, LocationTV, OfferTV, DeleteItemTV;
-    private Button watchListButton, makeOfferButton, OfferSubmitButton;
-    private boolean WatchListAdd;
+    private Button makeOfferButton, OfferSubmitButton;
+    private Switch watchListSwitch;
     private ImageView photo_display;
     private ParseFile photoByteArray;
     private Bitmap photoBitmap;
@@ -56,18 +58,9 @@ public class displayFullItem extends AppCompatActivity {
         CategoriesTV = (TextView)findViewById(R.id.itemCategories);
         LocationTV = (TextView)findViewById(R.id.itemLocation);
         photo_display = (ImageView)findViewById(R.id.photo_display);
-        watchListButton = (Button)findViewById(R.id.AddToWatchListButton);
         makeOfferButton = (Button)findViewById(R.id.makeOfferButton);
         OfferSubmitButton = (Button)findViewById(R.id.offer_submit_button);
-
-        if(watchList != null && watchList.contains(objectId)){
-            watchListButton.setText("Remove from WatchList");
-            WatchListAdd = false;
-        }
-        else{
-            watchListButton.setText("Add to WatchList");
-            WatchListAdd = true;
-        }
+        watchListSwitch = (Switch)findViewById(R.id.watchListSwitch);
 
 
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Listings");
@@ -123,31 +116,39 @@ public class displayFullItem extends AppCompatActivity {
 
         DeleteItemTV = (TextView) findViewById(R.id.delete_item_text_view);
         if(listing != null && listing.getString("SellerID").equals(ParseUser.getCurrentUser().getObjectId())){
+            if((int)listing.get("Status") ==2) {
+                DeleteItemTV.setText("Item Deleted");
+            }
+            else {
+                DeleteItemTV.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(displayFullItem.this);
+                        builder.setTitle("Are you sure you want to delete this item?");
+                        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                listing.put("Status", 2);
+                                listing.saveInBackground();
+                                DeleteItemTV.setText("Item Deleted");
+                            }
+                        });
+                        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                        builder.show();
+
+                    }
+                });
+            }
             DeleteItemTV.setVisibility(View.VISIBLE);
         }
 
-        DeleteItemTV.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                final AlertDialog.Builder builder = new AlertDialog.Builder(displayFullItem.this);
-                builder.setTitle("Are you sure you want to delete this item?");
-                builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        listing.put("Status", 2);
-                        listing.saveInBackground();
-                    }
-                });
-                builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.cancel();
-                    }
-                });
-                builder.show();
 
-            }
-        });
+
         /*
          //TODO: added enlarge image capability
         photo_display.setOnClickListener(new View.OnClickListener() {
@@ -197,25 +198,19 @@ public class displayFullItem extends AppCompatActivity {
 
 
 
-        watchListButton.setOnClickListener(new View.OnClickListener() {
+        watchListSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onClick(View v) {
-
-
-                if (WatchListAdd) {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (watchListSwitch.isChecked()) {
                     watchList.add(objectId);
-
-                    watchListButton.setText("Remove from WatchList");
-                    WatchListAdd = false;
                 } else {
                     watchList.remove(objectId);
-                    watchListButton.setText("Add to WatchList");
-                    WatchListAdd = true;
                 }
                 user.put("WatchList", watchList);
                 user.saveInBackground();
             }
         });
+
 
         makeOfferButton.setOnClickListener(new View.OnClickListener() {
             @Override
