@@ -57,6 +57,11 @@ Expected progress:
 
 # Week 9:
 
-  - refine layout
-  - fix bugs
-  - Add more tests
+  - Add radius search feature
+  - refine database (location data)
+  - update code due to database refractor
+
+# Week 10:
+  - finish up refine layout
+  - finish up adding tests
+  - add behavioral tests
