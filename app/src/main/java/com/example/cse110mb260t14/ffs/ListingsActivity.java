@@ -123,7 +123,7 @@ public class ListingsActivity extends AppCompatActivity {
                         public void done(List<ParseObject> found, ParseException e) {
                             radius_res = found;
                             if (title_description_res != null) {
-                                radius_res.retainAll(radius_res);
+                                radius_res.retainAll(title_description_res);
                             }
                         }
                     });
