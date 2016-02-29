@@ -1,78 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/full_listing_linear_layout">
 
-    <TextView
+    <ScrollView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="TITLE"
-        android:id="@+id/itemTitle"
-        android:layout_marginTop="50dp"
-        android:layout_gravity="center_horizontal" />
+        android:isScrollContainer="true">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/full_listing_relative_layout">
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="TITLE"
+            android:id="@+id/itemTitle"
+            android:layout_marginTop="50dp"
+            android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="PRICE"
-        android:layout_marginTop="20dp"
-        android:id="@+id/itemPrice"
-        android:layout_gravity="center_horizontal" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="PRICE"
+            android:layout_below="@id/itemTitle"
+            android:layout_marginTop="20dp"
+            android:id="@+id/itemPrice"
+            android:paddingRight="30dp"
+            android:layout_alignParentRight="true" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Description"
+            android:paddingLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_below="@id/itemPrice"
+            android:layout_centerHorizontal="true"
+            android:id="@+id/itemDescription" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Description"
-        android:layout_marginTop="20dp"
-        android:id="@+id/itemDescription" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Categories"
+            android:layout_below="@id/itemDescription"
+            android:paddingLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/itemCategories" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Categories"
-        android:layout_marginTop="20dp"
-        android:id="@+id/itemCategories" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Location"
+            android:layout_below="@id/itemCategories"
+            android:paddingLeft="30dp"
+            android:layout_marginTop="20dp"
+            android:id="@+id/itemLocation" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Location"
-        android:layout_marginTop="20dp"
-        android:id="@+id/itemLocation" />
+        <ImageView
+            android:layout_width="250dp"
+            android:layout_height="250dp"
+            android:id="@+id/photo_display"
+            android:layout_below="@id/itemLocation"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true" />
 
-    <ImageView
-        android:layout_width="250dp"
-        android:layout_height="250dp"
-        android:id="@+id/photo_display"
-        android:layout_gravity="center_horizontal" />
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/full_listing_relative_layout">
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Make Offer!"
             android:id="@+id/makeOfferButton"
-            android:layout_marginLeft="62dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginStart="62dp" />
-
+            android:layout_below="@+id/photo_display"
+            android:layout_alignParentLeft="true" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Add To WatchList!"
             android:id="@+id/AddToWatchListButton"
-            android:layout_alignParentTop="true"
-            android:layout_toRightOf="@+id/makeOfferButton"
-            android:layout_toEndOf="@+id/makeOfferButton" />
-    </RelativeLayout>
+            android:layout_alignBaseline="@id/itemTitle"
+            android:layout_alignParentRight="true"
+            android:paddingRight="10dp"
+            />
 
-</LinearLayout>
+        <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Make your offer"
+            android:visibility="gone"
+            android:paddingLeft="20dp"
+            android:inputType="numberDecimal"
+            android:id="@+id/offerTextView"
+            android:layout_alignBaseline="@id/makeOfferButton"
+            android:layout_toRightOf="@id/makeOfferButton"
+            />
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit Offer"
+            android:visibility="gone"
+            android:paddingLeft="20dp"
+            android:id="@+id/offer_submit_button"
+            android:layout_alignBaseline="@id/offerTextView"
+            android:layout_toRightOf="@id/offerTextView"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Delete Item"
+                android:visibility="gone"
+                android:textColor="#FF0000"
+                android:id="@+id/delete_item_text_view" />
+
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>
