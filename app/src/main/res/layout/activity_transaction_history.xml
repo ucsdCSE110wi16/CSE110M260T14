@@ -18,6 +18,7 @@
             android:layout_height="300dp"
             android:layout_marginTop="20dp"
             android:layout_below="@id/my_listings"
+            android:visibility="gone"
             android:layout_centerHorizontal="true"
             android:id="@+id/my_listings_list">
 
@@ -39,6 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
+            android:visibility="gone"
             android:layout_below="@id/my_offers"
             android:id="@+id/my_offers_list">
 

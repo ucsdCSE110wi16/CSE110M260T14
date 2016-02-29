@@ -25,6 +25,15 @@
         android:text="Description"
         android:id="@+id/item_row_description"
         android:layout_below="@id/item_row_title"/>
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="@color/colorAccent"
+        android:id="@+id/list_view_all_offers">
+
+
+    </ListView>
 
 
 

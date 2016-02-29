@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -20,6 +21,9 @@ import java.util.List;
 public class TransactionHistoryActivity extends AppCompatActivity {
 
     private ListView offersListView, listingsListView;
+    private TextView myOffersTV, myItemsTV;
+    private boolean showOffers=false, showItems=false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,12 +31,41 @@ public class TransactionHistoryActivity extends AppCompatActivity {
 
         offersListView = (ListView) findViewById(R.id.my_offers_list);
         listingsListView =  (ListView) findViewById(R.id.my_listings_list);
+        myOffersTV = (TextView) findViewById(R.id.my_offers);
+        myItemsTV = (TextView)findViewById(R.id.my_listings);
 
-        populateListings();
+        populateMyListings();
         populateOffers();
+
+        myOffersTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (showOffers) {
+                    offersListView.setVisibility(View.VISIBLE);
+                    showOffers=false;
+                } else {
+                    offersListView.setVisibility(View.GONE);
+                    showOffers=true;
+                }
+            }
+        });
+
+        myItemsTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(showItems){
+                    listingsListView.setVisibility(View.VISIBLE);
+                    showItems=false;
+                }
+                else {
+                    listingsListView.setVisibility(View.GONE);
+                    showItems=true;
+                }
+            }
+        });
     }
 
-    private void populateListings(){
+    private void populateMyListings(){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Listings");
         query.whereEqualTo("SellerID", ParseUser.getCurrentUser().getObjectId());
         query.findInBackground(new FindCallback<ParseObject>() {
@@ -48,10 +81,24 @@ public class TransactionHistoryActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
                         // do later
+
+                        ListView offers = (ListView) findViewById(R.id.list_view_all_offers);
+                        offers.setVisibility(View.VISIBLE);
+                        /*
                         Intent intent = new Intent(TransactionHistoryActivity.this, displayFullItem.class);
                         intent.putExtra("objectID", ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
                         startActivity(intent);
+                        */
+                    }
+                });
 
+                listingsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent intent = new Intent(TransactionHistoryActivity.this, displayFullItem.class);
+                        intent.putExtra("objectID", ((ParseObject) parent.getItemAtPosition(position)).getObjectId());
+                        startActivity(intent);
+                        return false;
                     }
                 });
 
