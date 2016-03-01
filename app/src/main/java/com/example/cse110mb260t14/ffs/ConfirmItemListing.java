@@ -92,7 +92,6 @@ public class ConfirmItemListing extends AppCompatActivity {
         }
 
         itemSellerID = ParseUser.getCurrentUser().getObjectId();
-        System.out.println("About to set data\n Should see " + itemTitle);
         setTextViewData();
 
 
@@ -167,7 +166,6 @@ public class ConfirmItemListing extends AppCompatActivity {
             byte[] byteArray = stream.toByteArray();
 
             if (byteArray != null) {
-                System.out.println(byteArray.toString());
                 // name of file is objectId + ".jpg"
                 ParseFile photo_file = new ParseFile("listing_photo.jpg", byteArray);
                 item.put("photo_byte_array", photo_file);

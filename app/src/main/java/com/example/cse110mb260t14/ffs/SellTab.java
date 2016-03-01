@@ -112,6 +112,9 @@ public class SellTab extends Fragment {
                     categoriesSpinner2.setVisibility(View.GONE);
                     addCat2.setVisibility(View.GONE);
                     categoriesSpinner3.setVisibility(View.GONE);
+                    categoriesSpinner1.setSelection(0);
+                    categoriesSpinner3.setSelection(0);
+                    addCat2.setChecked(false);
                 }
             }
         });
@@ -124,6 +127,7 @@ public class SellTab extends Fragment {
                     categoriesSpinner3.setVisibility(View.VISIBLE);
                 } else {
                     categoriesSpinner3.setVisibility(View.GONE);
+                    categoriesSpinner3.setSelection(0);
                 }
             }
         });
@@ -221,6 +225,9 @@ public class SellTab extends Fragment {
                 ZipCode = locationText.getText().toString();
             }
         }
+        if(categoriesSpinner1.getSelectedItemPosition()==0){
+            return false;
+        }
         itemCategories[0] = categoriesSpinner1.getSelectedItem().toString();
         if(addCat1.isChecked() && categoriesSpinner2.getSelectedItemPosition()!=0) {
             itemCategories[1] = categoriesSpinner2.getSelectedItem().toString();
@@ -230,7 +237,6 @@ public class SellTab extends Fragment {
         }
 
         if (itemTitle.equals("") || itemPrice.equals("") || itemDescription.equals("")){
-            System.out.println("PLEASE MAKE SURE TO FILL IN ALL THE INFORMATION!");
             return false;
         }
         return true;

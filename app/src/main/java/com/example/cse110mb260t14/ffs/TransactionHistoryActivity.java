@@ -68,6 +68,7 @@ public class TransactionHistoryActivity extends AppCompatActivity {
     private void populateMyListings(){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Listings");
         query.whereEqualTo("SellerID", ParseUser.getCurrentUser().getObjectId());
+        query.whereNotEqualTo("Status", 2);
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> found, ParseException e) {
@@ -80,27 +81,14 @@ public class TransactionHistoryActivity extends AppCompatActivity {
                 listingsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
-                        // do later
 
-                        ListView offers = (ListView) findViewById(R.id.list_view_all_offers);
-                        offers.setVisibility(View.VISIBLE);
-                        /*
                         Intent intent = new Intent(TransactionHistoryActivity.this, displayFullItem.class);
                         intent.putExtra("objectID", ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
                         startActivity(intent);
-                        */
+
                     }
                 });
 
-                listingsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                    @Override
-                    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent = new Intent(TransactionHistoryActivity.this, displayFullItem.class);
-                        intent.putExtra("objectID", ((ParseObject) parent.getItemAtPosition(position)).getObjectId());
-                        startActivity(intent);
-                        return false;
-                    }
-                });
 
             }
         });

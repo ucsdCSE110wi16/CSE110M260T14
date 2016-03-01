@@ -34,10 +34,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         if(position == 0) // if the position is 0 we are returning the First tab
         {
             if(buyTab==null) {
-                System.out.print("CREATING NEW BUY TAB!!!!!!");
                 buyTab = new BuyTab();
             }
-            System.out.print("RETURNING BUYTAB!!!!!");
             return buyTab;
         }
         else if(position == 1)

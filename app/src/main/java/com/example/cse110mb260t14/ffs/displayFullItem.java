@@ -24,7 +24,6 @@ import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 
@@ -34,7 +33,7 @@ public class displayFullItem extends AppCompatActivity {
     private TextView TitleTV, PriceTV, DescriptionTV, CategoriesTV, LocationTV, OfferTV, DeleteItemTV, MarkAsSoldTV;
     private Button makeOfferButton, OfferSubmitButton;
     private Switch watchListSwitch;
-    private ImageView photo_display, sold_stamp;
+    private ImageView photo_display, image_stamp;
     private ParseFile photoByteArray;
     private Bitmap photoBitmap;
     ParseUser user = ParseUser.getCurrentUser();
@@ -66,13 +65,25 @@ public class displayFullItem extends AppCompatActivity {
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Listings");
         query.whereContains("objectId", objectId);
 
+
+
         try {
             List<ParseObject> found = query.find();
             listing = found.get(0);
             TitleTV.setText((String) listing.get("Title"));
             DescriptionTV.setText((String) listing.get("Description"));
             PriceTV.setText("$" + (String) listing.get("Price"));
-            CategoriesTV.setText(Arrays.asList(listing.get("Categories")).get(0).toString());
+            String categoriesString = listing.get("Categories").toString();
+            String[] allCats = categoriesString.replace('[', ' ').replace(']',' ').replaceAll(" ", "").split(",");
+            String finalCatString = allCats[0];
+            if(!allCats[2].equals("null")){
+                finalCatString += ", " + allCats[1] + " and " +allCats[2];
+            }
+            else if (!allCats[1].equals("null")){
+                finalCatString += " and " + allCats[1];
+            }
+            CategoriesTV.setText(finalCatString);
+
             LocationTV.setText("Pickup Address at: " + ParseUser.getCurrentUser().getString("address")
                     + ", " + ParseUser.getCurrentUser().getString("city"));
 
@@ -116,9 +127,13 @@ public class displayFullItem extends AppCompatActivity {
 
         DeleteItemTV = (TextView) findViewById(R.id.delete_item_text_view);
         MarkAsSoldTV = (TextView) findViewById(R.id.mark_sold_text_view);
-        sold_stamp = (ImageView)findViewById(R.id.sold_stamp);
+        image_stamp = (ImageView)findViewById(R.id.image_stamp);
         if(listing != null && listing.getString("SellerID").equals(ParseUser.getCurrentUser().getObjectId())){
+
             if((int)listing.get("Status")==1){
+                MarkAsSoldTV.setVisibility(View.GONE);
+                image_stamp.setImageResource(R.drawable.sold_stamp);
+                image_stamp.setVisibility(View.VISIBLE);
                 MarkAsSoldTV.setVisibility(View.GONE);
             }
             else {
@@ -134,7 +149,9 @@ public class displayFullItem extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int which) {
                                 listing.put("Status", 1);
                                 listing.saveInBackground();
-                                sold_stamp.setVisibility(View.VISIBLE);
+                                image_stamp.setImageResource(R.drawable.sold_stamp);
+                                image_stamp.setVisibility(View.VISIBLE);
+                                MarkAsSoldTV.setVisibility(View.GONE);
                             }
                         });
                         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -149,6 +166,8 @@ public class displayFullItem extends AppCompatActivity {
             }
             if((int)listing.get("Status") ==2) {
                 DeleteItemTV.setText("Item Deleted");
+                image_stamp.setImageResource(R.drawable.deleted_stamp);
+                image_stamp.setVisibility(View.VISIBLE);
             }
             else {
                 DeleteItemTV.setOnClickListener(new View.OnClickListener() {
@@ -162,6 +181,8 @@ public class displayFullItem extends AppCompatActivity {
                                 listing.put("Status", 2);
                                 listing.saveInBackground();
                                 DeleteItemTV.setText("Item Deleted");
+                                image_stamp.setImageResource(R.drawable.deleted_stamp);
+                                image_stamp.setVisibility(View.VISIBLE);
                             }
                         });
                         builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -314,7 +335,7 @@ public class displayFullItem extends AppCompatActivity {
 
 
         if((int)listing.get("Status")==1){
-            sold_stamp.setVisibility(View.VISIBLE);
+            image_stamp.setVisibility(View.VISIBLE);
         }
 
 
