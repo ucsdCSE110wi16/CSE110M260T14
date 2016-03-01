@@ -307,6 +307,7 @@ public class displayFullItem extends AppCompatActivity {
                         user_offers_value = new ArrayList<String>();
                     }
                     String offer = OfferTV.getText().toString();
+                    OfferTV.setText("");
                     offers_id.add(user.getObjectId());
                     offer_value.add(offer);
                     listing.put("offer_buyer_id", offers_id);
