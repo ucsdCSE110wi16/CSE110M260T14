@@ -31,10 +31,10 @@ import java.util.Locale;
 public class displayFullItem extends AppCompatActivity {
 
     private String objectId;
-    private TextView TitleTV, PriceTV, DescriptionTV, CategoriesTV, LocationTV, OfferTV, DeleteItemTV;
+    private TextView TitleTV, PriceTV, DescriptionTV, CategoriesTV, LocationTV, OfferTV, DeleteItemTV, MarkAsSoldTV;
     private Button makeOfferButton, OfferSubmitButton;
     private Switch watchListSwitch;
-    private ImageView photo_display;
+    private ImageView photo_display, sold_stamp;
     private ParseFile photoByteArray;
     private Bitmap photoBitmap;
     ParseUser user = ParseUser.getCurrentUser();
@@ -115,7 +115,38 @@ public class displayFullItem extends AppCompatActivity {
 
 
         DeleteItemTV = (TextView) findViewById(R.id.delete_item_text_view);
+        MarkAsSoldTV = (TextView) findViewById(R.id.mark_sold_text_view);
+        sold_stamp = (ImageView)findViewById(R.id.sold_stamp);
         if(listing != null && listing.getString("SellerID").equals(ParseUser.getCurrentUser().getObjectId())){
+            if((int)listing.get("Status")==1){
+                MarkAsSoldTV.setVisibility(View.GONE);
+            }
+            else {
+                MarkAsSoldTV.setVisibility(View.VISIBLE);
+                MarkAsSoldTV.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        final AlertDialog.Builder builder = new AlertDialog.Builder(displayFullItem.this);
+                        builder.setTitle("Are you sure you want to mark this item as sold?");
+                        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                listing.put("Status", 1);
+                                listing.saveInBackground();
+                                sold_stamp.setVisibility(View.VISIBLE);
+                            }
+                        });
+                        builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.cancel();
+                            }
+                        });
+                        builder.show();
+                    }
+                });
+            }
             if((int)listing.get("Status") ==2) {
                 DeleteItemTV.setText("Item Deleted");
             }
@@ -197,7 +228,9 @@ public class displayFullItem extends AppCompatActivity {
 
 
 
-
+        if(watchList.contains((String) objectId)){
+            watchListSwitch.setChecked(true);
+        }
         watchListSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -212,6 +245,9 @@ public class displayFullItem extends AppCompatActivity {
         });
 
 
+        if(listing.getString("SellerID").equals(user.getObjectId())){
+            makeOfferButton.setVisibility(View.GONE);
+        }
         makeOfferButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -277,6 +313,9 @@ public class displayFullItem extends AppCompatActivity {
         });
 
 
+        if((int)listing.get("Status")==1){
+            sold_stamp.setVisibility(View.VISIBLE);
+        }
 
 
     }
