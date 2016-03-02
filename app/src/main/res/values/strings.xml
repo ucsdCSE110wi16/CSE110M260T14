@@ -37,6 +37,18 @@
         <item>Chicago</item>
     </string-array>
 
+    <string-array name="radius_array">
+        <item>radius</item>
+        <item>1</item>
+        <item>5</item>
+        <item>10</item>
+        <item>15</item>
+        <item>30</item>
+        <item>50</item>
+        <item>100</item>
+        <item>all</item>
+    </string-array>
+
     <string-array name="categories_array">
         <item>Select Category</item>
         <item>Vehicles</item>

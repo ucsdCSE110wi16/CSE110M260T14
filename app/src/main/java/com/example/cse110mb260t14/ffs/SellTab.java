@@ -174,7 +174,12 @@ public class SellTab extends Fragment {
                     confirmPageIntent.putExtra("Categories0", itemCategories[0]);
                     confirmPageIntent.putExtra("Categories1", itemCategories[1]);
                     confirmPageIntent.putExtra("Categories2", itemCategories[2]);
-                    confirmPageIntent.putExtra("ZipCode", ZipCode);
+                    if (!locationCheckBox.isChecked()) {
+                        confirmPageIntent.putExtra("Zipcode", locationText.getText().toString());
+                    }
+                    else {
+                        confirmPageIntent.putExtra("Zipcode", "");
+                    }
                     if (photo_preview.getDrawable() != null) {
                         confirmPageIntent.putExtra("Photo", ((BitmapDrawable) photo_preview.getDrawable()).getBitmap());
                     }
@@ -217,12 +222,10 @@ public class SellTab extends Fragment {
             ZipCode = locationText.getText().toString();
         }
         else {
-            ZipCode = ParseUser.getCurrentUser().getString("postalCode");
-            if(ZipCode==null ||ZipCode.equals("")){
-                Toast.makeText(getActivity(), "Can't get current zipcode", Toast.LENGTH_SHORT).show();
+            if(ParseUser.getCurrentUser().getParseGeoPoint("location")==null){
+                Toast.makeText(getActivity(), "Can't get current location, please enter zipcode", Toast.LENGTH_SHORT).show();
                 locationCheckBox.setChecked(false);
                 locationText.setVisibility(View.VISIBLE);
-                ZipCode = locationText.getText().toString();
             }
         }
         if(categoriesSpinner1.getSelectedItemPosition()==0){

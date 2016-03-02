@@ -13,9 +13,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.facebook.login.widget.LoginButton;
 import com.parse.FindCallback;
@@ -42,6 +45,10 @@ public class BuyTab extends Fragment {
     private List<Address> addresses;
     private Button search_button;
     private ParseQuery<ParseObject> query;
+    private Spinner radiusSpinner;
+    private String radius_selection;
+    private double radius;
+    private List<ParseObject> title_description_res, radius_res;
     String description;
     String[] Split_description;
     View v;
@@ -64,11 +71,26 @@ public class BuyTab extends Fragment {
             }
         });
 
+        radiusSpinner = (Spinner) v.findViewById(R.id.radius_spinner);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(v.getContext(),
+                R.array.radius_array, android.R.layout.simple_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        radiusSpinner.setAdapter(adapter);
 
+        Spinner radius_spinner = (Spinner) v.findViewById(R.id.radius_spinner);
+                radius_selection = radius_spinner.getSelectedItem().toString();
+                if (radius_selection.equals("radius") || radius_selection.equals("all")) {
+                    radius = 0;
+                } else {
+                    radius = Double.parseDouble(radius_selection);
+                }
 
         query = ParseQuery.getQuery("Listings");
         query.whereEqualTo("Status", 0);
-        query.whereNotEqualTo("SellerID", ParseUser.getCurrentUser().getObjectId());
+        //query.whereNotEqualTo("SellerID", ParseUser.getCurrentUser().getObjectId());
         query.whereContains("Title", "");
         query.whereContains("objectId", "");
         search_button = (Button) v.findViewById(R.id.Search);
@@ -77,6 +99,15 @@ public class BuyTab extends Fragment {
             @Override
             public void onClick(View a) {
                 search_button.setTextColor(Color.BLACK);
+                Toast.makeText(getContext(), "Searching...", Toast.LENGTH_SHORT).show();
+                Spinner radius_spinner = (Spinner) v.findViewById(R.id.radius_spinner);
+                radius_selection = radius_spinner.getSelectedItem().toString();
+                if (radius_selection.equals("radius") || radius_selection.equals("all")) {
+                    radius = 0;
+                } else {
+                    radius = Double.parseDouble(radius_selection);
+                    System.out.print("Radius is: " + radius);
+                }
                 EditText descriptionText = (EditText) v.findViewById(R.id.EditTextId);
                 description = descriptionText.getText().toString();
                 int sub_postion = 0;
@@ -124,14 +155,42 @@ public class BuyTab extends Fragment {
 
                 }
 
+                System.out.println("Finish Finding");
+                // FIND RADIUS MATCH
+                ParseQuery<ParseObject> proximity = ParseQuery.getQuery("Listings");
+
+                if (radius > 0) {
+                    proximity.whereWithinMiles("geopoint", ParseUser.getCurrentUser().getParseGeoPoint("location"), radius);
+                    System.out.println(ParseUser.getCurrentUser().getParseGeoPoint("location"));
+
+                    proximity.findInBackground(new FindCallback<ParseObject>() {
+                        @Override
+                        public void done(List<ParseObject> found, ParseException e) {
+                            radius_res = found;
+                        }
+                    });
+                }
+                else {
+                    radius_res = null;
+                }
                 query = ParseQuery.or(queries);
                 query.whereNotEqualTo("SellerID", ParseUser.getCurrentUser().getObjectId());
                 query.whereEqualTo("Status", 0);
                 query.findInBackground(new FindCallback<ParseObject>() {
                     public void done(List<ParseObject> found, ParseException e) {
-                        search_button.setTextColor(Color.GREEN);
+                        title_description_res = found;
+                        if (radius_res != null) {
+                            title_description_res.retainAll(radius_res);
+                        }
+                        ArrayList<ParseObject> objects = new ArrayList<ParseObject>();
+                        if (title_description_res != null) {
+                            System.out.println("found!");
+                            objects = new ArrayList<ParseObject>(title_description_res);
+                        }
+                        else {
+                            System.out.println("nothing found!");
+                        }
                         ListingAdapter adapter = new ListingAdapter(getActivity(), new ArrayList<ParseObject>());
-                        ArrayList<ParseObject> objects = new ArrayList<ParseObject>(found);
                         if (objects != null) {
                             adapter = new ListingAdapter(getActivity(), objects);
                         }
@@ -149,14 +208,24 @@ public class BuyTab extends Fragment {
                     }
                 });
                 search_button.setTextColor(Color.BLACK);
-
+                Toast.makeText(getContext(), "Search Completed.", Toast.LENGTH_SHORT).show();
             }
         });
-
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> found, ParseException e) {
+                title_description_res = found;
+                        if (radius_res != null) {
+                            title_description_res.retainAll(radius_res);
+                        }
+                        ArrayList<ParseObject> objects = new ArrayList<ParseObject>();
+                        if (title_description_res != null) {
+                            System.out.println("found!");
+                            objects = new ArrayList<ParseObject>(title_description_res);
+                        }
+                        else {
+                            System.out.println("nothing found!");
+                        }
                 ListingAdapter adapter = new ListingAdapter(getActivity(), new ArrayList<ParseObject>());
-                ArrayList<ParseObject> objects = new ArrayList<ParseObject>(found);
                 if (objects != null) {
                     adapter = new ListingAdapter(getActivity(), objects);
                 }

@@ -4,6 +4,8 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,10 +15,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.ParseFile;
+import com.parse.ParseGeoPoint;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.Arrays;
 
 public class ConfirmItemListing extends AppCompatActivity {
@@ -24,7 +28,7 @@ public class ConfirmItemListing extends AppCompatActivity {
     private ParseObject item;
     private String itemTitle;
     private String itemPrice;
-    private String itemZipcode;
+    private String zipcode;
     private String itemDescription;
     private final int maxCategories = 3;
     private String[] itemCategories = new String[maxCategories];
@@ -64,11 +68,11 @@ public class ConfirmItemListing extends AppCompatActivity {
         itemCategories[0] = getIntent().getExtras().getString("Categories0");
         itemCategories[1] = getIntent().getExtras().getString("Categories1");
         itemCategories[2] = getIntent().getExtras().getString("Categories2");
-        itemZipcode = getIntent().getExtras().getString("ZipCode");
+        zipcode = getIntent().getExtras().getString("Zipcode");
 
         //TODO fix zipcode issue
-        if(itemZipcode==null||itemZipcode.equals("")){
-            itemZipcode="NONE";
+        if(zipcode==null||zipcode.equals("")){
+            zipcode="";
         }
         photo_bitmap = (Bitmap) getIntent().getExtras().get("Photo");
 
@@ -119,7 +123,7 @@ public class ConfirmItemListing extends AppCompatActivity {
         titleTextView.setText(itemTitle);
         priceTextView.setText(itemPrice);
         descriptionTextView.setText(itemDescription);
-        ZipcodeTextView.setText(itemZipcode);
+        ZipcodeTextView.setText(zipcode);
         categoriesTextView.setText(itemCategories[0] + ", " + itemCategories[1] + ", " + itemCategories[2]);
     }
 
@@ -154,9 +158,22 @@ public class ConfirmItemListing extends AppCompatActivity {
         item.put("Title_lower", itemTitle.toLowerCase());
         item.put("Description_lower", itemDescription.toLowerCase());
         item.put("Status", 0);
-        item.put("ZipCode", itemZipcode);
         item.put("offer_buyer_id", Arrays.asList());
         item.put("offer_value", Arrays.asList());
+        if (zipcode == null || zipcode == "") {
+            item.put("geopoint", ParseUser.getCurrentUser().getParseGeoPoint("location"));
+        }
+        else {
+            Geocoder geocoder = new Geocoder(ConfirmItemListing.this);
+            try {
+                Address address = geocoder.getFromLocationName(zipcode, 1).get(0);
+                ParseGeoPoint geoPoint = new ParseGeoPoint(address.getLatitude(), address.getLongitude());
+                item.put("geopoint", geoPoint);
+            }
+            catch (IOException e) {
+                Toast.makeText(ConfirmItemListing.this, "Error getting location. Please check your network.", Toast.LENGTH_SHORT).show();
+            }
+        }
 
         if (photo_bitmap != null) {
             // add bitmap byte array as file

@@ -175,6 +175,13 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 dialog.cancel();
             }
+            public void onClick(View v) {
+                updateLocation(ParseUser.getCurrentUser());
+                ((TextView) findViewById(R.id.location_view)).setText(ParseUser.getCurrentUser().getString("address")
+                        + ", " + ParseUser.getCurrentUser().getString("city"));
+
+                Toast.makeText(ProfileActivity.this, "Location Updated", Toast.LENGTH_SHORT).show();
+            }
         });
 
         builder.show();
