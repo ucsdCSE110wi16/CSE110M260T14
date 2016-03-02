@@ -1,6 +1,7 @@
 package com.example.cse110mb260t14.ffs;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -52,12 +53,14 @@ public class DrawerMenuActivity extends ActionBarActivity {
     SlidingTabLayout tabs;
     CharSequence Titles[]={"BUY","SELL","WATCH"};
     int Numboftabs =3;
+    public static Activity activity;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        activity = this;
 
 
 

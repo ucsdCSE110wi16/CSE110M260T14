@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.parse.FindCallback;
 import com.parse.ParseException;
@@ -55,8 +56,7 @@ public class ListingsActivity extends AppCompatActivity {
 
             @Override
             public void onClick(View a) {
-
-
+                Toast.makeText(ListingsActivity.this, "Searching...", Toast.LENGTH_SHORT).show();
                 EditText descriptionText = (EditText) findViewById(R.id.EditTextIdList);
                 Spinner radius_spinner = (Spinner) findViewById(R.id.radius_spinner);
                 radius_selection = radius_spinner.getSelectedItem().toString();
@@ -169,9 +169,8 @@ public class ListingsActivity extends AppCompatActivity {
                         });
                 }
             }
-
             );
-
+                Toast.makeText(ListingsActivity.this, "Searching Completed", Toast.LENGTH_SHORT).show();
         }
     });
 

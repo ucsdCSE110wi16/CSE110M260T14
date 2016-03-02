@@ -89,6 +89,8 @@ public class ProfileActivity extends AppCompatActivity {
                 updateLocation(ParseUser.getCurrentUser());
                 ((TextView) findViewById(R.id.location_view)).setText(ParseUser.getCurrentUser().getString("address")
                         + ", " + ParseUser.getCurrentUser().getString("city"));
+
+                Toast.makeText(ProfileActivity.this, "Location Updated", Toast.LENGTH_SHORT).show();
             }
         });
 

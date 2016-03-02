@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.facebook.login.widget.LoginButton;
 import com.parse.FindCallback;
@@ -96,7 +97,14 @@ public class BuyTab extends Fragment {
 
             @Override
             public void onClick(View a) {
-
+                Toast.makeText(getContext(), "Searching...", Toast.LENGTH_SHORT).show();
+                Spinner radius_spinner = (Spinner) v.findViewById(R.id.radius_spinner);
+                radius_selection = radius_spinner.getSelectedItem().toString();
+                if (radius_selection.equals("radius") || radius_selection.equals("all")) {
+                    radius = 0;
+                } else {
+                    radius = Double.parseDouble(radius_selection);
+                }
                 EditText descriptionText = (EditText) v.findViewById(R.id.EditTextId);
                 description = descriptionText.getText().toString();
                 int sub_postion = 0;
@@ -149,16 +157,13 @@ public class BuyTab extends Fragment {
                 ParseQuery<ParseObject> proximity = ParseQuery.getQuery("Listings");
 
                 if (radius > 0) {
-                    proximity.whereWithinMiles("geopoint", ParseUser.getCurrentUser().getParseGeoPoint("location"), 10);
+                    proximity.whereWithinMiles("geopoint", ParseUser.getCurrentUser().getParseGeoPoint("location"), radius);
                     System.out.println(ParseUser.getCurrentUser().getParseGeoPoint("location"));
 
                     proximity.findInBackground(new FindCallback<ParseObject>() {
                         @Override
                         public void done(List<ParseObject> found, ParseException e) {
                             radius_res = found;
-                            if (title_description_res != null) {
-                                radius_res.retainAll(radius_res);
-                            }
                         }
                     });
                 }
@@ -197,22 +202,20 @@ public class BuyTab extends Fragment {
                         });
                     }
                 });
+                Toast.makeText(getContext(), "Searching Completed.", Toast.LENGTH_SHORT).show();
             }
         });
                 // FIND RADIUS MATCH
                 ParseQuery<ParseObject> proximity = ParseQuery.getQuery("Listings");
 
                 if (radius > 0) {
-                    proximity.whereWithinMiles("geopoint", ParseUser.getCurrentUser().getParseGeoPoint("location"), 10);
+                    proximity.whereWithinMiles("geopoint", ParseUser.getCurrentUser().getParseGeoPoint("location"), radius);
                     System.out.println(ParseUser.getCurrentUser().getParseGeoPoint("location"));
 
                     proximity.findInBackground(new FindCallback<ParseObject>() {
                         @Override
                         public void done(List<ParseObject> found, ParseException e) {
                             radius_res = found;
-                            if (title_description_res != null) {
-                                radius_res.retainAll(radius_res);
-                            }
                         }
                     });
                 }
