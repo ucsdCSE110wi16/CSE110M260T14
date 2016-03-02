@@ -35,11 +35,12 @@ public class OfferListViewAdapter extends ArrayAdapter<OfferObject> {
 
         // Populate the data into the template view using the data object
 
+
         ParseUser objUser = object.retrieveUser();
-        Name.setText(objUser.getString("Name"));
+        Name.setText(objUser.getString("name"));
         offer.setText("$" + object.retrieveValue());
         PhoneNumber.setText(objUser.getString("PhoneNumber"));
-        EmailAddress.setText(objUser.getString("address"));
+        EmailAddress.setText(objUser.getString("email"));
 
         // Return the completed view to render on screen
         return convertView;

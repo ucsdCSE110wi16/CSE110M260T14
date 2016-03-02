@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:text="Email Address"
         android:id="@+id/email_address"
-        android:layout_alignLeft="@id/phone_number"
+        android:layout_centerHorizontal="true"
         android:layout_below="@id/phone_number"/>
 
     <TextView

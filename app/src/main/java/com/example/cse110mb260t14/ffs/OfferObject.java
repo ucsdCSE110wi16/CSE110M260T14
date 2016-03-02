@@ -1,6 +1,5 @@
 package com.example.cse110mb260t14.ffs;
 
-import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
@@ -19,15 +18,25 @@ public class OfferObject {
         offer = value;
     }
 
-    private void getUser(String userid){
-        ParseQuery<ParseUser> query = new ParseQuery<>("User");
-        query.whereEqualTo("objectId", userid);
+    private void getUser(String userid) {
+
+        ParseQuery<ParseUser> queryUser = ParseUser.getQuery();
+        queryUser.whereEqualTo("objectId", userid);
+        try {
+            List<ParseUser> found = queryUser.find();
+            potential_buyer = found.get(0);
+        }
+        catch (ParseException e){
+
+        }
+
+        /*
         query.findInBackground(new FindCallback<ParseUser>() {
             @Override
             public void done(List<ParseUser> objects, ParseException e) {
                 potential_buyer = objects.get(0);
             }
-        });
+        });*/
     }
 
     public ParseUser retrieveUser(){

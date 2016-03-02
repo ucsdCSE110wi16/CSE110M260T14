@@ -59,6 +59,7 @@
         <item>HouseHold Items</item>
         <item>Clothing</item>
     </string-array>
+    <string name="title_activity_display_offers_page">DisplayOffersPage</string>
 
 
 </resources>

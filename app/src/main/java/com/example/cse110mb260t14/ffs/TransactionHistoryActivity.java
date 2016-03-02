@@ -78,18 +78,26 @@ public class TransactionHistoryActivity extends AppCompatActivity {
                     adapter = new OfferListingAdapter(TransactionHistoryActivity.this, objects);
                 }
                 listingsListView.setAdapter(adapter);
-                listingsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+                listingsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
                     @Override
-                    public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
+                    public boolean onItemLongClick(AdapterView<?> adapter, View view, int position, long id) {
 
                         Intent intent = new Intent(TransactionHistoryActivity.this, displayFullItem.class);
                         intent.putExtra("objectID", ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
                         startActivity(intent);
-
+                        return false;
                     }
                 });
 
-
+                listingsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
+                        Intent intent = new Intent(TransactionHistoryActivity.this, DisplayOffersPage.class);
+                        intent.putExtra("objectID", ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
+                        startActivity(intent);
+                    }
+                });
             }
         });
 
@@ -113,12 +121,25 @@ public class TransactionHistoryActivity extends AppCompatActivity {
                     adapter = new ListingAdapter(TransactionHistoryActivity.this, objects);
                 }
                 offersListView.setAdapter(adapter);
+
+                offersListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                        Intent intent = new Intent(TransactionHistoryActivity.this, displayFullItem.class);
+                        intent.putExtra("objectID", ((ParseObject) parent.getItemAtPosition(position)).getObjectId());
+                        intent.putExtra("MyOffersOnly", false);
+                        startActivity(intent);
+                        return false;
+                    }
+                });
+
                 offersListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
                         // do later
-                        Intent intent = new Intent(TransactionHistoryActivity.this, displayFullItem.class);
+                        Intent intent = new Intent(TransactionHistoryActivity.this, DisplayOffersPage.class);
                         intent.putExtra("objectID", ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
+                        intent.putExtra("MyOffersOnly", true);
                         startActivity(intent);
                     }
                 });
