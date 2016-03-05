@@ -137,7 +137,8 @@
         <activity
             android:name=".DisplayOffersPage"
             android:label="@string/title_activity_display_offers_page"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".FullPageBuyer"></activity>
     </application>
 
 </manifest>

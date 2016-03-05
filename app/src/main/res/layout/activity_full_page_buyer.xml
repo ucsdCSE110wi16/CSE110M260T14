@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:background="#4A5DB4"
+    tools:context="com.example.cse110mb260t14.ffs.FullPageBuyer">
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="OfferText"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/buyer_offer"
+        android:textColor="#FFFFFF"
+        android:layout_centerVertical="true"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Phone"
+        android:layout_above="@id/buyer_offer"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="50dp"
+        android:textColor="#FFFFFF"
+        android:id="@+id/buyer_phone"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Email"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/buyer_email"
+        android:layout_marginBottom="50dp"
+        android:textColor="#FFFFFF"
+        android:layout_above="@id/buyer_phone" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Name"
+        android:id="@+id/buyer_name"
+        android:layout_marginBottom="50dp"
+        android:layout_above="@id/buyer_email"
+        android:textColor="#FFFFFF"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:id="@+id/offer_value"
+        android:textColor="#FFFFFF"
+        android:text="OfferMade"
+        android:layout_alignTop="@+id/buyer_name"
+        android:layout_alignRight="@+id/relativeLayout"
+        android:layout_alignEnd="@+id/relativeLayout" />
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buyer_offer"
+        android:id="@+id/relativeLayout">
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Decline Offer"
+            android:id="@+id/decline_button"
+            android:layout_marginLeft="40dp"/>
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Accept Offer"
+            android:id="@+id/accept_button"
+            android:layout_marginRight="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Status Of Offer"
+            android:layout_centerInParent="true"
+            android:textColor="#FFFFFF"
+            android:visibility="gone"
+            android:id="@+id/offer_status"/>
+    </RelativeLayout>
+
+
+</RelativeLayout>

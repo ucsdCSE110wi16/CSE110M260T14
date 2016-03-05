@@ -1,10 +1,13 @@
 package com.example.cse110mb260t14.ffs;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -88,6 +91,20 @@ public class DisplayOffersPage extends AppCompatActivity {
                 }
                 OfferListViewAdapter myAdapter = new OfferListViewAdapter(DisplayOffersPage.this, allOffers);
                 offer_listview.setAdapter(myAdapter);
+
+
+                offer_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
+                        // do later
+                        Intent intent = new Intent(DisplayOffersPage.this, FullPageBuyer.class);
+                        intent.putExtra("objectId", itemObjectId);
+                        OfferObject obj = allOffers.get(position);
+                        intent.putExtra("OfferValue", obj.retrieveValue());
+                        intent.putExtra("userid", obj.retrieveUser().getObjectId());
+                        startActivity(intent);
+                    }
+                });
             }
 
         }
