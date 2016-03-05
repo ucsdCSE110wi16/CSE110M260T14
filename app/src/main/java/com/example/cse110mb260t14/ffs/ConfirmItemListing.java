@@ -160,16 +160,8 @@ public class ConfirmItemListing extends AppCompatActivity {
 
     private void saveItem(){
         item = new ParseObject("Listings");
-        item.put("Price", itemPrice);
-        item.put("Title", itemTitle);
-        item.put("Description", itemDescription);
-        item.put("Categories", Arrays.asList(itemCategories));
-        item.put("SellerID", itemSellerID);
-        item.put("Title_lower", itemTitle.toLowerCase());
-        item.put("Description_lower", itemDescription.toLowerCase());
-        item.put("Status", 0);
-        item.put("offer_buyer_id", Arrays.asList());
-        item.put("offer_value", Arrays.asList());
+
+        putItems(item, itemPrice, itemTitle, itemDescription, itemCategories, itemSellerID);
         if (zipcode == null || zipcode == "") {
             item.put("geopoint", ParseUser.getCurrentUser().getParseGeoPoint("location"));
         }
@@ -177,11 +169,18 @@ public class ConfirmItemListing extends AppCompatActivity {
             Geocoder geocoder = new Geocoder(ConfirmItemListing.this);
             try {
                 Address address = geocoder.getFromLocationName(zipcode, 1).get(0);
-                ParseGeoPoint geoPoint = new ParseGeoPoint(address.getLatitude(), address.getLongitude());
+                // make geopoint
+                ParseGeoPoint geoPoint = makeGeopoint(address.getLatitude(), address.getLongitude());
                 item.put("geopoint", geoPoint);
             }
             catch (IOException e) {
                 Toast.makeText(ConfirmItemListing.this, "Error getting location. Please check your network.", Toast.LENGTH_SHORT).show();
+                finish();
+            }
+            catch (IndexOutOfBoundsException e) {
+                Toast.makeText(ConfirmItemListing.this, "Zipcode invalid, please try again.", Toast.LENGTH_SHORT).show();
+                finish();
+
             }
         }
 
@@ -202,4 +201,22 @@ public class ConfirmItemListing extends AppCompatActivity {
 
         item.saveInBackground();
     }
+
+    public void putItems(ParseObject item, String itemPrice, String itemTitle, String itemDescription, String itemCategories[], String itemSellerID) {
+        item.put("Price", itemPrice);
+        item.put("Title", itemTitle);
+        item.put("Description", itemDescription);
+        item.put("Categories", Arrays.asList(itemCategories));
+        item.put("SellerID", itemSellerID);
+        item.put("Title_lower", itemTitle.toLowerCase());
+        item.put("Description_lower", itemDescription.toLowerCase());
+        item.put("Status", 0);
+        item.put("offer_buyer_id", Arrays.asList());
+        item.put("offer_value", Arrays.asList());
+    }
+
+    public ParseGeoPoint makeGeopoint(double latitude, double longitude) {
+        return new ParseGeoPoint(latitude, longitude);
+    }
+
 }

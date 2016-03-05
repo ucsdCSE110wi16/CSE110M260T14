@@ -65,11 +65,16 @@ public class DrawerMenuActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         if (getIntent().getStringExtra("istest")==null) {
             if (!parseInitialized) {
-                Parse.enableLocalDatastore(this);
-                Parse.initialize(this);
-                // TODO: possibly change context
-                ParseFacebookUtils.initialize(this);
-                parseInitialized = true;
+                try {
+                    Parse.enableLocalDatastore(this);
+                    Parse.initialize(this);
+                    // TODO: possibly change context
+                    ParseFacebookUtils.initialize(this);
+                    parseInitialized = true;
+                }
+                catch (RuntimeException e) {
+
+                }
             }
 
             // Facebook login setup
