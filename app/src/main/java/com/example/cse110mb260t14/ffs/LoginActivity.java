@@ -71,6 +71,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // [Optional] Power your app with Local Datastore. For more info, go to
         // https://parse.com/docs/android/guide#local-datastore
+
         if (!parseInitialized) {
             Parse.enableLocalDatastore(this);
             Parse.initialize(this);
@@ -144,6 +145,7 @@ public class LoginActivity extends AppCompatActivity {
                         Intent intent = new Intent(LoginActivity.this, DrawerMenuActivity.class);
                         String message = user_name.toString();
                         intent.putExtra(EXTRA_MESSAGE, message);
+                        intent.putExtra("istest","1");
                         startActivity(intent);
                     } else {
                         Log.d("MyApp", "UNABLE TO FIND USER");
@@ -183,6 +185,7 @@ public class LoginActivity extends AppCompatActivity {
                             user.put("facebookID", facebookID);
                             user.saveInBackground();
                             Intent intent = new Intent(LoginActivity.this, DrawerMenuActivity.class);
+                            intent.putExtra("istest","1");
                             startActivity(intent);
                         } else {
                             System.out.println("Returning user info updated");
@@ -193,6 +196,7 @@ public class LoginActivity extends AppCompatActivity {
                             user.saveInBackground();
                             Log.d("MyApp", "User logged in through Facebook!");
                             Intent intent = new Intent(LoginActivity.this, DrawerMenuActivity.class);
+                            intent.putExtra("istest","1");
                             startActivity(intent);
                         }
 

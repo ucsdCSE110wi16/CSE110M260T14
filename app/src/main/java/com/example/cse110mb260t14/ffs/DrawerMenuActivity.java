@@ -25,7 +25,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.facebook.FacebookSdk;
 import com.facebook.login.widget.LoginButton;
+import com.parse.Parse;
+import com.parse.ParseFacebookUtils;
 import com.parse.ParseGeoPoint;
 import com.parse.ParseUser;
 
@@ -54,11 +57,24 @@ public class DrawerMenuActivity extends ActionBarActivity {
     CharSequence Titles[]={"BUY","SELL","WATCH"};
     int Numboftabs =3;
     public static Activity activity;
+    public static boolean parseInitialized=false;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (getIntent().getStringExtra("istest")==null) {
+            if (!parseInitialized) {
+                Parse.enableLocalDatastore(this);
+                Parse.initialize(this);
+                // TODO: possibly change context
+                ParseFacebookUtils.initialize(this);
+                parseInitialized = true;
+            }
+
+            // Facebook login setup
+            FacebookSdk.sdkInitialize(getApplicationContext());
+        }
         setContentView(R.layout.activity_main);
         activity = this;
 
