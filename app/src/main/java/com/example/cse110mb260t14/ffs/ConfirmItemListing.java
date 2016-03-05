@@ -124,7 +124,17 @@ public class ConfirmItemListing extends AppCompatActivity {
         priceTextView.setText(itemPrice);
         descriptionTextView.setText(itemDescription);
         ZipcodeTextView.setText(zipcode);
-        categoriesTextView.setText(itemCategories[0] + ", " + itemCategories[1] + ", " + itemCategories[2]);
+        String finalCatString = itemCategories[0];
+        if(!itemCategories[2].equals("null")){
+            finalCatString += ", " + itemCategories[1] + " and " + itemCategories[2];
+        }
+        else {
+            if(!itemCategories[1].equals("null")){
+                finalCatString += " and " + itemCategories[1];
+            }
+        }
+        categoriesTextView.setText(finalCatString);
+        //categoriesTextView.setText(itemCategories[0] + ", " + itemCategories[1] + ", " + itemCategories[2]);
     }
 
     private void sendAlertBox(){
