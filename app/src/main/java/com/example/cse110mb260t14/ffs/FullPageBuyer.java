@@ -2,6 +2,7 @@ package com.example.cse110mb260t14.ffs;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -21,6 +22,7 @@ import java.util.List;
 public class FullPageBuyer extends AppCompatActivity {
 
     ParseUser potential_buyer;
+    ParseUser curr = ParseUser.getCurrentUser();
     String offerValue, userid, email, phoneNum, Name, listingId;
     ParseObject listing;
     int offerIndex;
@@ -79,6 +81,7 @@ public class FullPageBuyer extends AppCompatActivity {
     private void getOfferIndex(){
         user_offers = (ArrayList)listing.get("offer_buyer_id");
         value_offers = (ArrayList)listing.get("offer_value");
+        status_offers = (ArrayList) listing.get("offerStatus");
 
         for(int i =0;i<user_offers.size();i++){
             if(user_offers.get(i).equals(userid) && value_offers.get(i).equals(offerValue)){
@@ -163,10 +166,22 @@ public class FullPageBuyer extends AppCompatActivity {
             });
 
         }
+
+
+        EmailTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("plain/text");
+                intent.putExtra(Intent.EXTRA_EMAIL, new String[] {email});
+                intent.putExtra(Intent.EXTRA_SUBJECT, "Regarding item: " + listing.getString("Title"));
+                intent.putExtra(Intent.EXTRA_TEXT, "Hi " + Name + "\nI'm contacting you regarding my listing on FFS app");
+                startActivity(Intent.createChooser(intent, ""));
+            }
+        });
     }
 
     private void setValue(String val) {
-        status_offers = (ArrayList) potential_buyer.get("offerStatus");
         if (status_offers == null) {
             status_offers = new ArrayList<>();
             for (int i = 0; i < user_offers.size(); i++) {
