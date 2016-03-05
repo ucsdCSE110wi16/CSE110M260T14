@@ -33,7 +33,7 @@ public class ListingAdapter extends ArrayAdapter<ParseObject> {
         TextView description = (TextView) convertView.findViewById(R.id.item_row_description);
         // Populate the data into the template view using the data object
         title.setText(object.getString("Title"));
-        price.setText(object.getString("Price"));
+        price.setText("$" + object.getString("Price"));
         description.setText(object.getString("Description"));
         // Return the completed view to render on screen
         return convertView;

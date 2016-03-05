@@ -5,19 +5,30 @@
     android:layout_width="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
+
+
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/item_row_price"
+        android:layout_marginRight="20dp"
+        android:layout_alignParentRight="true"
+        android:textStyle="bold"
+        android:textSize="20dp"
+        android:text="Price"/>
+
+
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
-        android:layout_height="35dp"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="50dp"
         android:text="Title"
         android:id="@+id/item_row_title"
         android:textSize="27dp" />
 
-    <TextView
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/item_row_price"
-        android:layout_toRightOf="@id/item_row_title"
-        android:text="Price"/>
+
 
     <TextView
         android:layout_width="wrap_content"
