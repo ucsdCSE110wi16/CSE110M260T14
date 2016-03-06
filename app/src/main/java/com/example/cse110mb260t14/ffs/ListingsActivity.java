@@ -49,7 +49,9 @@ public class ListingsActivity extends AppCompatActivity {
         radiusSpinner.setAdapter(adapter);
 
         query = ParseQuery.getQuery("Listings");
+        query.whereEqualTo("Status", 0);
         query.whereContainsAll("Categories", categories);
+        query.whereNotEqualTo("SellerID", ParseUser.getCurrentUser().getObjectId());
         query.whereContains("Title", "");
         query.whereContains("objectId", "");
         search_button = (Button) findViewById(R.id.SearchList);
@@ -133,6 +135,8 @@ public class ListingsActivity extends AppCompatActivity {
                                                  System.out.println("Finish Finding");
                                                  query = ParseQuery.or(queries);
                                                  query.whereContainsAll("Categories", categories);
+                                                 query.whereEqualTo("Status", 0);
+                                                 query.whereNotEqualTo("SellerID", ParseUser.getCurrentUser().getObjectId());
                                                  query.findInBackground(new FindCallback<ParseObject>() {
                                                      public void done(List<ParseObject> found, ParseException e) {
                                                          title_description_res = found;
@@ -167,7 +171,7 @@ public class ListingsActivity extends AppCompatActivity {
 
                                                      }
                                                  });
-                                                 Toast.makeText(ListingsActivity.this, "Searching...", Toast.LENGTH_SHORT).show();
+                                                 Toast.makeText(ListingsActivity.this, "Search Completed.", Toast.LENGTH_SHORT).show();
                                              }
                                          });
 
