@@ -2,7 +2,9 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/full_listing_linear_layout">
+    android:id="@+id/full_listing_linear_layout"
+    android:background="#4A5DB4">
+
 
     <ScrollView
         android:layout_width="wrap_content"
@@ -11,9 +13,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/full_listing_relative_layout">
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:id="@+id/full_listing_relative_layout"
+            android:background="#4A5DB4">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -22,7 +23,10 @@
                 android:text="TITLE"
                 android:id="@+id/itemTitle"
                 android:layout_marginTop="50dp"
-                android:layout_centerHorizontal="true" />
+                android:layout_centerHorizontal="true"
+                android:textColor="#FFFFFF"
+                android:textSize="25dp"
+                android:textStyle="bold" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -33,7 +37,10 @@
                 android:layout_marginTop="20dp"
                 android:id="@+id/itemPrice"
                 android:paddingRight="30dp"
-                android:layout_alignParentRight="true" />
+                android:layout_alignParentRight="true"
+                android:textColor="#FFFFFF"
+                android:textSize="15dp"
+                android:textStyle="bold" />
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -42,7 +49,10 @@
                 android:layout_marginTop="20dp"
                 android:layout_below="@id/itemPrice"
                 android:layout_centerHorizontal="true"
-                android:id="@+id/itemDescription" />
+                android:id="@+id/itemDescription"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="15dp" />
 
             <TextView
                 android:layout_width="match_parent"
@@ -51,7 +61,10 @@
                 android:layout_below="@id/itemDescription"
                 android:paddingLeft="30dp"
                 android:layout_marginTop="20dp"
-                android:id="@+id/itemCategories" />
+                android:id="@+id/itemCategories"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                android:textSize="15dp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -60,7 +73,10 @@
                 android:layout_below="@id/itemCategories"
                 android:paddingLeft="30dp"
                 android:layout_marginTop="20dp"
-                android:id="@+id/itemLocation" />
+                android:id="@+id/itemLocation"
+                android:textColor="#FFFFFF"
+                android:textSize="15dp"
+                android:textStyle="bold" />
 
             <ImageView
                 android:layout_width="250dp"
@@ -73,10 +89,13 @@
             <Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Make Offer!"
+                android:text="Offer!"
                 android:id="@+id/makeOfferButton"
                 android:layout_below="@+id/photo_display"
-                android:layout_alignParentLeft="true" />
+                android:textColor="#FFFFFF"
+                android:background="#2962FF"
+                android:layout_toRightOf="@+id/delete_item_text_view"
+                android:textStyle="bold" />
             <!--<Button
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -87,7 +106,7 @@
                 android:paddingRight="10dp"
                 />-->
 
-                <EditText
+            <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:hint="Make your offer"
@@ -132,11 +151,15 @@
             <Switch
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="WatchList"
+                android:text="      Watchlist  "
                 android:id="@+id/watchListSwitch"
                 android:layout_alignBaseline="@id/itemPrice"
                 android:layout_alignParentLeft="true"
-                android:paddingLeft="10dp" />
+                android:paddingLeft="10dp"
+                android:checked="false"
+                android:textColor="#FFFFFF"
+                android:textSize="15dp"
+                android:textStyle="bold" />
 
 
             <ImageView
