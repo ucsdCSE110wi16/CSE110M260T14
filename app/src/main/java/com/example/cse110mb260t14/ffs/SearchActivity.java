@@ -16,60 +16,93 @@ import com.parse.ParseObject;
 import com.parse.ParseQuery;
 import com.parse.ParseUser;
 
+import java.util.List;
+
 /**
  * Created by kongdeqian1994 on 2/6/16.
  */
 public class SearchActivity extends ActionBarActivity {
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_search);
+    private List<ParseObject> title_description_res;
+    private static int result;
 
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
+    public TestObject[] search(TestObject[] somequery ,String test){
+        TestObject[] result = new TestObject[20];
 
-    public void search(View button) {
-        ParseQuery<ParseObject> query = new ParseQuery<ParseObject>("Listings");
+        String[] Split_description;
+        //somequery = ParseQuery.getQuery("Listings");
+        //somequery.whereEqualTo("Status", 0);
+        //query.whereNotEqualTo("SellerID", ParseUser.getCurrentUser().getObjectId());
+        //somequery.whereContains("Title", "");
+        //somequery.whereContains("objectId", "");
 
-        final EditText descriptionText = (EditText) findViewById(R.id.EditTextId);
-        String description = descriptionText.getText().toString();
-        System.out.println(description);
-        query.whereEqualTo("Descriptions", description);
-        query.getFirstInBackground(new GetCallback<ParseObject>() {
 
-            public void done(ParseObject object, ParseException e) {
-                if (object != null) {
-                    TextView textView = (TextView) findViewById(R.id.TextViewContent);
-                    String desc = object.getString("Name") + "\n" ;
-                    textView.setText(desc);
-                    System.out.println("Find item");
+        int sub_postion = 0;
+        for(int i = 0; i < test.length(); i++){
+            if(test.charAt(i) == ' '){
+                sub_postion++;
+            }
+            else{
+                break;
+            }
+        }
+        test = test.substring(sub_postion);
+        //System.out.println("What is :" + test);
+        Split_description = test.split("\\s+");
+        //List<ParseQuery<ParseObject>> queries = new ArrayList<ParseQuery<ParseObject>>();
+        int word_limit = 0;
+        if(Split_description.length <=5){
+            word_limit = Split_description.length;
+        }
+        else{
+            word_limit = 5;
+        }
+        for (int i = 0; i < word_limit; i++) {
+            //ParseQuery<ParseObject> title = ParseQuery.getQuery("Listings");
+
+
+            //ParseQuery<ParseObject> description = ParseQuery.getQuery("Listings");
+
+
+            int count = 0;
+            String lowerCase_description = new String(Split_description[i].toLowerCase());
+            for(int j = 0; j < somequery.length; j++){
+                if(somequery[j] == null){
+                    break;
                 }
                 else{
-                    System.out.println("Not Find");
+                    if(somequery[j].get_title().contains(Split_description[i]) ||
+                            somequery[j].get_description().contains(Split_description[i])){
+                        result[count] = somequery[j];
+                        count++;
+                    }
+
                 }
             }
-        });
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+            //System.out.println("SOME:" + Split_description[i]);
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+
+            // System.out.println("Description is : " + Split_description[i]);
+
+
+
         }
 
-        return super.onOptionsItemSelected(item);
-    }
 
+        /*try {
+            if (somequery.count() == 0) {
+                return true;
+            }
+        }
+        catch(ParseException e){
+
+        }*/
+
+
+
+        return result;
+
+
+}
 }

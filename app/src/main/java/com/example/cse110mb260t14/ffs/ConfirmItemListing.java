@@ -21,6 +21,7 @@ import com.parse.ParseUser;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ConfirmItemListing extends AppCompatActivity {
@@ -217,6 +218,21 @@ public class ConfirmItemListing extends AppCompatActivity {
 
     public ParseGeoPoint makeGeopoint(double latitude, double longitude) {
         return new ParseGeoPoint(latitude, longitude);
+    }
+    public ArrayList<String> make_watchList (ArrayList<String> buffer,ParseObject item,String objectId, String itemPrice, String itemTitle, String itemDescription, String itemCategories[], String itemSellerID){
+        buffer.add(objectId);
+        item.put("objectId", objectId);
+        item.put("Price", itemPrice);
+        item.put("Title", itemTitle);
+        item.put("Description", itemDescription);
+        item.put("Categories", Arrays.asList(itemCategories));
+        item.put("SellerID", itemSellerID);
+        item.put("Title_lower", itemTitle.toLowerCase());
+        item.put("Description_lower", itemDescription.toLowerCase());
+        item.put("Status", 0);
+        item.put("offer_buyer_id", Arrays.asList());
+        item.put("offer_value", Arrays.asList());
+        return buffer;
     }
 
 }

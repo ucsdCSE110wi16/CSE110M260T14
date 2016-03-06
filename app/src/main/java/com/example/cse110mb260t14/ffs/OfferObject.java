@@ -13,6 +13,8 @@ public class OfferObject {
 
     ParseUser potential_buyer;
     String offer;
+    String test_user;
+    public OfferObject(){};
     public OfferObject(String userid, String value){
         getUser(userid);
         offer = value;
@@ -45,5 +47,11 @@ public class OfferObject {
     public String retrieveValue(){
         return offer;
     }
+    public void make_offer(String userid, String value){
+        test_user = userid;
+        offer = value;
+
+    }
+
 
 }

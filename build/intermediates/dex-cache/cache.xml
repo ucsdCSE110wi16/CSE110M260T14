@@ -1,3 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<items version="2" />
+<items version="2" >
 
+    <item
+        jar="/Users/kongdeqian1994/Desktop/CSE110M260T14/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-basement/8.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="d0dda274b703dd9c5bb056867649d22b4171ae7d">
+        <dex dex="/Users/kongdeqian1994/Desktop/CSE110M260T14/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-basement-8.1.0_aaf609662e0acd184779081b8ce46ff2c9cb85c6.jar" />
+    </item>
+    <item
+        jar="/Users/kongdeqian1994/Desktop/CSE110M260T14/app/build/intermediates/exploded-aar/com.facebook.android/facebook-android-sdk/4.10.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="bcb4a50f5e2c67b3e84441b1b2a239856776c9b8">
+        <dex dex="/Users/kongdeqian1994/Desktop/CSE110M260T14/app/build/intermediates/pre-dexed/debug/com.facebook.android-facebook-android-sdk-4.10.0_6b0432ffb7d8a3245d7a8cc56c52402b3308cfdf.jar" />
+    </item>
+    <item
+        jar="/Users/kongdeqian1994/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-applinks/1.4.0/8ad21bf21784dacce5f2043afb97218cc377e835/bolts-applinks-1.4.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="8ad21bf21784dacce5f2043afb97218cc377e835">
+        <dex dex="/Users/kongdeqian1994/Desktop/CSE110M260T14/app/build/intermediates/pre-dexed/debug/bolts-applinks-1.4.0_05fcb6428e5c1588ef3496b9ede3c93e01f793ea.jar" />
+    </item>
+    <item
+        jar="/Users/kongdeqian1994/Desktop/CSE110M260T14/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.2.0/jars/libs/internal_impl-23.2.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="6e239441500605809818997dd63b62a947195f8c">
+        <dex dex="/Users/kongdeqian1994/Desktop/CSE110M260T14/app/build/intermediates/pre-dexed/debug/internal_impl-23.2.0_6139c941617f7dbf7a867ab1b0f4a765bf6c6720.jar" />
+    </item>
+    <item
+        jar="/Users/kongdeqian1994/Desktop/CSE110M260T14/app/build/intermediates/exploded-aar/com.parse/parsefacebookutils-v4-android/1.10.3/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="771e1739a38be7573c55458d16ca2d2f9f546cf7">
+        <dex dex="/Users/kongdeqian1994/Desktop/CSE110M260T14/app/build/intermediates/pre-dexed/debug/com.parse-parsefacebookutils-v4-android-1.10.3_8d5d7b1e23ce880bb79b99af837a607b25cae628.jar" />
+    </item>
+    <item
+        jar="/Users/kongdeqian1994/Desktop/CSE110M260T14/app/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="5c5699834e9722f1c288fea2de82725d078ba127">
+        <dex dex="/Users/kongdeqian1994/Desktop/CSE110M260T14/app/build/intermediates/pre-dexed/debug/com.android.support-appcompat-v7-23.1.1_bf05aca9f545fe7fbfb569fc4043dbb349d24d1d.jar" />
+    </item>
+    <item
+        jar="/Users/kongdeqian1994/Desktop/CSE110M260T14/app/build/intermediates/exploded-aar/com.google.android.gms/play-services-appindexing/8.1.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="4477ea44f5ec5ad064022a22691732d7638ff197">
+        <dex dex="/Users/kongdeqian1994/Desktop/CSE110M260T14/app/build/intermediates/pre-dexed/debug/com.google.android.gms-play-services-appindexing-8.1.0_fbf6e195dae8455e4a1cb620e078903a316b1d5f.jar" />
+    </item>
+    <item
+        jar="/Users/kongdeqian1994/Desktop/CSE110M260T14/app/build/intermediates/exploded-aar/com.android.support/recyclerview-v7/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="09c5e804bc67fc0580360043dff067df574a60d4">
+        <dex dex="/Users/kongdeqian1994/Desktop/CSE110M260T14/app/build/intermediates/pre-dexed/debug/com.android.support-recyclerview-v7-23.1.1_a5e7628c4c3142ae1cc4c8bcf631eceaac778f53.jar" />
+    </item>
+    <item
+        jar="/Users/kongdeqian1994/Desktop/CSE110M260T14/app/build/intermediates/exploded-aar/com.android.support/cardview-v7/23.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="bc599eb9531da9d18bc58ec4eb0b1a1d895f6839">
+        <dex dex="/Users/kongdeqian1994/Desktop/CSE110M260T14/app/build/intermediates/pre-dexed/debug/com.android.support-cardview-v7-23.2.0_3f8b857728adc934121ac724f383ed9b49762b41.jar" />
+    </item>
+    <item
+        jar="/Users/kongdeqian1994/.gradle/caches/modules-2/files-2.1/com.parse/parse-android/1.13.0/58a7d54b6a4f28be11f0cecec93097eddf473e6f/parse-android-1.13.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="58a7d54b6a4f28be11f0cecec93097eddf473e6f">
+        <dex dex="/Users/kongdeqian1994/Desktop/CSE110M260T14/app/build/intermediates/pre-dexed/debug/parse-android-1.13.0_8309ba8e7703cd4f2535e162f99e7256f02edb79.jar" />
+    </item>
+    <item
+        jar="/Users/kongdeqian1994/Library/Android/sdk/extras/android/m2repository/com/android/support/support-annotations/23.2.0/support-annotations-23.2.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="c5bf571bb10462bd90e5419ade67793f71acbc87">
+        <dex dex="/Users/kongdeqian1994/Desktop/CSE110M260T14/app/build/intermediates/pre-dexed/debug/support-annotations-23.2.0_604d17b7cf0e81a3ab221e2999d499cbcd17104a.jar" />
+    </item>
+    <item
+        jar="/Users/kongdeqian1994/.gradle/caches/modules-2/files-2.1/com.parse.bolts/bolts-tasks/1.4.0/d85884acf6810a3bbbecb587f239005cbc846dc4/bolts-tasks-1.4.0.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="d85884acf6810a3bbbecb587f239005cbc846dc4">
+        <dex dex="/Users/kongdeqian1994/Desktop/CSE110M260T14/app/build/intermediates/pre-dexed/debug/bolts-tasks-1.4.0_540587f16fcdc6ff2e3cb6f388b64aee80ef1f7e.jar" />
+    </item>
+    <item
+        jar="/Users/kongdeqian1994/Desktop/CSE110M260T14/app/build/intermediates/exploded-aar/com.android.support/design/23.1.1/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="379471b2bd17d9737c050345c08e8c7d16589784">
+        <dex dex="/Users/kongdeqian1994/Desktop/CSE110M260T14/app/build/intermediates/pre-dexed/debug/com.android.support-design-23.1.1_630e0b77dc28b75f1dc5890baf3b2a4bf15ab7f7.jar" />
+    </item>
+    <item
+        jar="/Users/kongdeqian1994/Desktop/CSE110M260T14/app/build/intermediates/exploded-aar/com.android.support/support-v4/23.2.0/jars/classes.jar"
+        jumboMode="false"
+        revision="23.0.2"
+        sha1="e5f32fa48a3eb2de0c987025c11b6e3864b634d9">
+        <dex dex="/Users/kongdeqian1994/Desktop/CSE110M260T14/app/build/intermediates/pre-dexed/debug/com.android.support-support-v4-23.2.0_de32650d1271c627fbc65b3fc700d143919d18a3.jar" />
+    </item>
+
+</items>
