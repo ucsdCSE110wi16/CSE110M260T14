@@ -53,6 +53,7 @@ public class DrawerMenuActivity extends ActionBarActivity {
 
     ViewPager pager;
     ViewPagerAdapter adapter;
+    ImageView burgerIcon;
     SlidingTabLayout tabs;
     CharSequence Titles[]={"BUY","SELL","WATCH"};
     int Numboftabs =3;
@@ -98,6 +99,13 @@ public class DrawerMenuActivity extends ActionBarActivity {
         addDrawerItems();
         setupDrawer();
 
+        burgerIcon = (ImageView)findViewById(R.id.burger_icon);
+        burgerIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDrawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
 
 
         geocoder = new Geocoder(this, Locale.getDefault());
