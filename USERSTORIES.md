@@ -26,9 +26,11 @@ As a user, I want to be able to login via my Facebook account so I can easily ac
 
   
   # Watch Tab
+  
     As a user, I want to be able to see all items I am interested through a watchlist so I can keep track items usefule to me.
   
   # Left Tabs Menu
+  
     As a user, I want to be able to access my profile page from which I can edit my profile information (phone number / venmo username).
     As a user, I want to be able to access the categories page for a more efficient search.
     As a user, I want to have access to my Transaction history page so I can see my listings and all items on which I made offers.
