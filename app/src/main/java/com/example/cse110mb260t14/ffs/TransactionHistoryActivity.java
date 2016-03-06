@@ -20,9 +20,9 @@ import java.util.List;
 
 public class TransactionHistoryActivity extends AppCompatActivity {
 
-    private ListView offersListView, listingsListView;
-    private TextView myOffersTV, myItemsTV;
-    private boolean showOffers=false, showItems=false;
+    private ListView offersListView, listingsListView, SoldListingsList;
+    private TextView myOffersTV, myItemsTV, myItemsSoldTV;
+    private boolean showOffers=false, showItems=false, showSoldItems=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,21 +31,24 @@ public class TransactionHistoryActivity extends AppCompatActivity {
 
         offersListView = (ListView) findViewById(R.id.my_offers_list);
         listingsListView =  (ListView) findViewById(R.id.my_listings_list);
+        SoldListingsList =  (ListView) findViewById(R.id.my_sold_items_list);
         myOffersTV = (TextView) findViewById(R.id.my_offers);
         myItemsTV = (TextView)findViewById(R.id.my_listings);
+        myItemsSoldTV = (TextView)findViewById(R.id.my_items_sold);
 
         populateMyListings();
         populateOffers();
+        populateMySoldListings();
 
         myOffersTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (showOffers) {
                     offersListView.setVisibility(View.VISIBLE);
-                    showOffers=false;
+                    showOffers = false;
                 } else {
                     offersListView.setVisibility(View.GONE);
-                    showOffers=true;
+                    showOffers = true;
                 }
             }
         });
@@ -63,12 +66,26 @@ public class TransactionHistoryActivity extends AppCompatActivity {
                 }
             }
         });
+
+        myItemsSoldTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(showSoldItems){
+                    SoldListingsList.setVisibility(View.VISIBLE);
+                    showSoldItems=false;
+                }
+                else {
+                    SoldListingsList.setVisibility(View.GONE);
+                    showSoldItems=true;
+                }
+            }
+        });
     }
 
     private void populateMyListings(){
         ParseQuery<ParseObject> query = ParseQuery.getQuery("Listings");
         query.whereEqualTo("SellerID", ParseUser.getCurrentUser().getObjectId());
-        query.whereNotEqualTo("Status", 2);
+        query.whereEqualTo("Status", 0);
         query.findInBackground(new FindCallback<ParseObject>() {
             @Override
             public void done(List<ParseObject> found, ParseException e) {
@@ -102,7 +119,47 @@ public class TransactionHistoryActivity extends AppCompatActivity {
         });
 
 
-        }
+    }
+
+
+    private void populateMySoldListings(){
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("Listings");
+        query.whereEqualTo("SellerID", ParseUser.getCurrentUser().getObjectId());
+        query.whereEqualTo("Status", 1);
+        query.findInBackground(new FindCallback<ParseObject>() {
+            @Override
+            public void done(List<ParseObject> found, ParseException e) {
+                OfferListingAdapter adapter = new OfferListingAdapter(TransactionHistoryActivity.this, new ArrayList<ParseObject>());
+                ArrayList<ParseObject> objects = new ArrayList<ParseObject>(found);
+                if (objects != null) {
+                    adapter = new OfferListingAdapter(TransactionHistoryActivity.this, objects);
+                }
+                SoldListingsList.setAdapter(adapter);
+
+                SoldListingsList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> adapter, View view, int position, long id) {
+
+                        Intent intent = new Intent(TransactionHistoryActivity.this, displayFullItem.class);
+                        intent.putExtra("objectID", ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
+                        startActivity(intent);
+                        return false;
+                    }
+                });
+
+                SoldListingsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
+                        Intent intent = new Intent(TransactionHistoryActivity.this, DisplayOffersPage.class);
+                        intent.putExtra("objectID", ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
+                        startActivity(intent);
+                    }
+                });
+            }
+        });
+
+
+    }
 
     private void populateOffers(){
         final ParseUser user = ParseUser.getCurrentUser();

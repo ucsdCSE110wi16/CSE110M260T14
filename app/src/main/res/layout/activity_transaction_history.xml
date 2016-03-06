@@ -4,54 +4,63 @@
     android:layout_width="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/my_listings"
-            android:textStyle="bold|italic"
-            android:textSize="20dp"
-            android:text="My items"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/my_listings"
+        android:textStyle="bold|italic"
+        android:textSize="20dp"
+        android:text="My items"/>
 
 
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:layout_marginTop="20dp"
-            android:layout_below="@id/my_listings"
-            android:visibility="gone"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/my_listings_list">
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/my_listings"
+        android:visibility="gone"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/my_listings_list">
+
+    </ListView>
 
 
-        </ListView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/my_items_sold"
+        android:textStyle="bold|italic"
+        android:textSize="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/my_listings_list"
+        android:text="My Items Sold"/>
 
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        android:layout_below="@id/my_items_sold"
+        android:id="@+id/my_sold_items_list">
+    </ListView>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/my_offers"
-            android:textStyle="bold|italic"
-            android:textSize="20dp"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@id/my_listings_list"
-            android:text="My offers"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/my_offers"
+        android:textStyle="bold|italic"
+        android:textSize="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/my_sold_items_list"
+        android:text="My offers"/>
 
-        <ListView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:visibility="gone"
-            android:layout_below="@id/my_offers"
-            android:id="@+id/my_offers_list">
+    <ListView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        android:layout_below="@id/my_offers"
+        android:id="@+id/my_offers_list">
 
-
-        </ListView>
-
-
-
-
-
-
-
-
+    </ListView>
 </RelativeLayout>
