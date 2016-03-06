@@ -7,7 +7,6 @@ import android.location.Geocoder;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -90,7 +89,7 @@ public class BuyTab extends Fragment {
 
         query = ParseQuery.getQuery("Listings");
         query.whereEqualTo("Status", 0);
-        //query.whereNotEqualTo("SellerID", ParseUser.getCurrentUser().getObjectId());
+        query.whereNotEqualTo("SellerID", ParseUser.getCurrentUser().getObjectId());
         query.whereContains("Title", "");
         query.whereContains("objectId", "");
         search_button = (Button) v.findViewById(R.id.Search);
@@ -143,8 +142,9 @@ public class BuyTab extends Fragment {
                     //System.out.println("SOME:" + Split_description[i]);
                     title.whereContains("objectId", "");
                     title.whereContains("Title_lower", lowerCase_description);
-
+                    title.whereNotEqualTo("SellerID", ParseUser.getCurrentUser().getObjectId());
                     description.whereContains("objectId", "");
+                    description.whereNotEqualTo("SellerID", ParseUser.getCurrentUser().getObjectId());
                     description.whereContains("Description_lower", lowerCase_description);
 
                    // System.out.println("Description is : " + Split_description[i]);
