@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseFile;
 import com.parse.ParseGeoPoint;
@@ -36,7 +37,7 @@ public class displayFullItem extends AppCompatActivity {
     private ImageView photo_display, image_stamp;
     private ParseFile photoByteArray;
     private Bitmap photoBitmap;
-    ParseUser user = ParseUser.getCurrentUser();
+    ParseUser user;
     ArrayList<String> watchList;
     private boolean fullscreen = false;
 
@@ -46,6 +47,10 @@ public class displayFullItem extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (ParseUser.class == null) {
+            Parse.initialize(this);
+        }
+        user = ParseUser.getCurrentUser();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_full_item);
         try
@@ -79,14 +84,8 @@ public class displayFullItem extends AppCompatActivity {
             DescriptionTV.setText((String) listing.get("Description"));
             PriceTV.setText("$" + (String) listing.get("Price"));
             String categoriesString = listing.get("Categories").toString();
-            String[] allCats = categoriesString.replace('[', ' ').replace(']',' ').replaceAll(" ", "").split(",");
-            String finalCatString = allCats[0];
-            if(!allCats[2].equals("null")){
-                finalCatString += ", " + allCats[1] + " and " +allCats[2];
-            }
-            else if (!allCats[1].equals("null")){
-                finalCatString += " and " + allCats[1];
-            }
+
+            String finalCatString = makefinalCatString(categoriesString);
             CategoriesTV.setText(finalCatString);
 
             LocationTV.setText("Pickup Address at: " + ParseUser.getCurrentUser().getString("address")
@@ -204,42 +203,6 @@ public class displayFullItem extends AppCompatActivity {
             DeleteItemTV.setVisibility(View.VISIBLE);
         }
 
-
-
-        /*
-         //TODO: added enlarge image capability
-        photo_display.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!fullscreen) {
-                    TitleTV.setVisibility(View.GONE);
-                    PriceTV.setVisibility(View.GONE);
-                    DescriptionTV.setVisibility(View.GONE);
-                    CategoriesTV.setVisibility(View.GONE);
-                    LocationTV.setVisibility(View.GONE);
-                    findViewById(R.id.AddToWatchListButton).setVisibility(View.GONE);
-                    findViewById(R.id.makeOfferButton).setVisibility(View.GONE);
-                    findViewById(R.id.full_listing_relative_layout).setVisibility(View.GONE);
-                    photo_display.setMinimumHeight(findViewById(R.id.full_listing_relative_layout).getHeight());
-                    photo_display.setMinimumWidth(findViewById(R.id.full_listing_relative_layout).getWidth());
-                    photo_display.setScaleType(ImageView.ScaleType.CENTER_CROP);
-                    fullscreen = true;
-                } else {
-                    TitleTV.setVisibility(View.VISIBLE);
-                    PriceTV.setVisibility(View.VISIBLE);
-                    DescriptionTV.setVisibility(View.VISIBLE);
-                    CategoriesTV.setVisibility(View.VISIBLE);
-                    LocationTV.setVisibility(View.VISIBLE);
-                    findViewById(R.id.AddToWatchListButton).setVisibility(View.VISIBLE);
-                    findViewById(R.id.makeOfferButton).setVisibility(View.VISIBLE);
-                    findViewById(R.id.full_listing_relative_layout).setVisibility(View.VISIBLE);
-                    photo_display.setMaxWidth(250);
-                    photo_display.setMaxHeight(250);
-                    fullscreen = false;
-                }
-            }
-        }); */
-
         LocationTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -343,7 +306,17 @@ public class displayFullItem extends AppCompatActivity {
         if((int)listing.get("Status")==1){
             image_stamp.setVisibility(View.VISIBLE);
         }
-
-
     }
+    public String makefinalCatString(String categoriesString) {
+            String[] allCats = categoriesString.replace('[', ' ').replace(']',' ').replaceAll(" ", "").split(",");
+            String finalCatString = allCats[0];
+            if(!allCats[2].equals("null")){
+                finalCatString += ", " + allCats[1] + " and " +allCats[2];
+            }
+            else if (!allCats[1].equals("null")){
+                finalCatString += " and " + allCats[1];
+            }
+            return finalCatString;
+    }
+
 }

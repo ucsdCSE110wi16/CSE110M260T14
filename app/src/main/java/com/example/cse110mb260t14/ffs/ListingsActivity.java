@@ -171,7 +171,7 @@ public class ListingsActivity extends AppCompatActivity {
                                              }
                                          });
 
-        query.findInBackground(new FindCallback<ParseObject>() {
+                query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> found, ParseException e) {
                                 /*
                                 System.out.println(found.size());

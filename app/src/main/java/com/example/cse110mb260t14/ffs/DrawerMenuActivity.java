@@ -331,7 +331,6 @@ public class DrawerMenuActivity extends ActionBarActivity {
                     }
                 }
     }
-
 }
 
 
