@@ -19,11 +19,27 @@
         tools:context=".MainActivity">
 
 
-        <com.example.cse110mb260t14.ffs.SlidingTabLayout
-            android:id="@+id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="#4A5DB4" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:background="#4A5DB4"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="55dp"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="0dp"
+                android:id="@+id/burger_icon"
+                android:src="@drawable/burgericonnoir"/>
+
+            <com.example.cse110mb260t14.ffs.SlidingTabLayout
+                android:id="@+id/tabs"
+                android:layout_toRightOf="@id/burger_icon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#4A5DB4" />
+
+        </RelativeLayout>
 
         <android.support.v4.view.ViewPager
             android:id="@+id/pager"
