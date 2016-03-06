@@ -61,7 +61,15 @@ Expected progress:
   - refine database (location data)
   - update code due to database refractor
 
+
 # Week 10:
   - finish up refine layout
   - finish up adding tests
   - add behavioral tests
+  - Finish offers feature
+  - Update UI for everything
+  - Do all the testing! (Espresso + JUnit)
+  - fix minor bugs everywhere
+  - add leftbar menu slide icon
+
+# Present Project
