@@ -1,19 +1,9 @@
 package com.example.cse110mb260t14.ffs;
 
-import android.support.v4.app.FragmentActivity;
 import android.widget.Button;
-
-import com.parse.Parse;
-import com.parse.ParseException;
-import com.parse.ParseObject;
-import com.parse.ParseQuery;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 import static junit.framework.Assert.assertEquals;
 
