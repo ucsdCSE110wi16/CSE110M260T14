@@ -69,4 +69,15 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     public int getCount() {
         return NumbOfTabs;
     }
+
+    public String getBuyTab() {
+        return "Buy";
+    }
+    public String getSellTab(){
+        return "Sell";
+    }
+    public String getWatchTab(){
+        return "Watch";
+    }
+
 }

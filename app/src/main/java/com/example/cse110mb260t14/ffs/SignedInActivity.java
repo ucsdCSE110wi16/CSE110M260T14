@@ -8,15 +8,18 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 
 public class SignedInActivity extends AppCompatActivity {
-
+    private boolean show = false;
+    private boolean sign_in = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signed_in);
+        sign_in = true;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
+        show  = true;
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -26,5 +29,12 @@ public class SignedInActivity extends AppCompatActivity {
         });
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
     }
+    public boolean signed_in(){
+        return sign_in;
+    }
+    public boolean show(){
+        return show;
+    }
+
 
 }
