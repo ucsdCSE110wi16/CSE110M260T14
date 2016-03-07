@@ -49,23 +49,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Name"
-        android:id="@+id/buyer_name"
-        android:layout_marginBottom="50dp"
-        android:layout_above="@id/buyer_email"
+        android:id="@+id/offer_value"
         android:textColor="#FFFFFF"
-        android:layout_centerHorizontal="true" />
+        android:layout_above="@id/buyer_email"
+        android:text="OfferMade"
+        android:layout_marginBottom="30dp"
+        android:layout_alignRight="@+id/relativeLayout"
+        android:layout_alignEnd="@+id/relativeLayout" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:id="@+id/offer_value"
+        android:text="Name"
+        android:id="@+id/buyer_name"
+        android:layout_marginBottom="20dp"
+        android:layout_above="@id/offer_value"
         android:textColor="#FFFFFF"
-        android:text="OfferMade"
-        android:layout_alignTop="@+id/buyer_name"
-        android:layout_alignRight="@+id/relativeLayout"
-        android:layout_alignEnd="@+id/relativeLayout" />
+        android:layout_centerHorizontal="true" />
 
     <RelativeLayout
         android:layout_width="wrap_content"

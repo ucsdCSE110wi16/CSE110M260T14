@@ -3,13 +3,14 @@
 <RelativeLayout
     android:layout_height="wrap_content"
     android:layout_width="match_parent"
+    android:background="#4A5DB4"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Buyer Name"
-        android:layout_centerVertical="true"
+        android:textColor="#FFFFFF"
         android:id="@+id/potential_buyer_name"
         android:textSize="20dp" />
 
@@ -17,12 +18,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Phone Number"
+        android:textColor="#FFFFFF"
+        android:layout_below="@id/potential_buyer_name"
         android:layout_centerHorizontal="true"
         android:id="@+id/phone_number"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Email Address"
+        android:textColor="#FFFFFF"
         android:id="@+id/email_address"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/phone_number"/>
@@ -30,6 +34,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#FFFFFF"
         android:id="@+id/item_row_offer"
         android:text="Offer Made"
         android:layout_alignParentRight="true" />
