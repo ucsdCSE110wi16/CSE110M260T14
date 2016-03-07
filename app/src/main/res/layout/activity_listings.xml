@@ -11,18 +11,20 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TableRow>
+        <TableRow
+            android:layout_width="match_parent"
+            android:id="@+id/searchTableRow">
 
             <EditText
-            android:layout_width="210dp"
-            android:layout_height="wrap_content"
-            android:inputType="text"
-            android:hint="Search..."
-            android:textColorHint="@color/colorPrimary"
-            android:textColor="@color/colorPrimary"
-            android:ems="20"
-            android:id="@+id/EditTextIdList"
-            android:layout_weight="0.31" />
+                android:layout_width="210dp"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                android:hint="Search..."
+                android:textColorHint="@color/colorPrimary"
+                android:textColor="@color/colorPrimary"
+                android:ems="20"
+                android:id="@+id/EditTextIdList"
+                android:layout_weight="0.31" />
 
             <Spinner
                 android:layout_width="wrap_content"
@@ -33,25 +35,19 @@
                 android:touchscreenBlocksFocus="false" />
 
             <Button
-            android:id="@+id/SearchList"
-            android:layout_height="match_parent"
-            android:text="@string/Search"
-            android:onClick="search"
-            android:layout_width="fill_parent">
+                android:id="@+id/SearchList"
+                android:layout_height="match_parent"
+                android:text="@string/Search"
+                android:onClick="search"
+                android:layout_width="fill_parent">
             </Button>
-
-        </TableRow>
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
         </TableRow>
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1">
+
             <ListView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"

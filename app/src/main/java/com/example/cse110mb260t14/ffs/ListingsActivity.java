@@ -198,13 +198,9 @@ public class ListingsActivity extends AppCompatActivity {
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
-                        // do later
-
-                        System.out.println("CLICKED ON ITEM  " + ((ParseObject) adapter.getItemAtPosition(position)).getString("Title"));
 
                         Intent intent = new Intent(ListingsActivity.this, displayFullItem.class);
                         intent.putExtra("objectID", ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
-                        System.out.println("LISTING ID IS " + ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
                         startActivity(intent);
 
                     }

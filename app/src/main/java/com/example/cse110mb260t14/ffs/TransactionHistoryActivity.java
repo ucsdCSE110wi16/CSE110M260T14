@@ -103,7 +103,7 @@ public class TransactionHistoryActivity extends AppCompatActivity {
                         Intent intent = new Intent(TransactionHistoryActivity.this, displayFullItem.class);
                         intent.putExtra("objectID", ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
                         startActivity(intent);
-                        return false;
+                        return true;
                     }
                 });
 
@@ -143,7 +143,7 @@ public class TransactionHistoryActivity extends AppCompatActivity {
                         Intent intent = new Intent(TransactionHistoryActivity.this, displayFullItem.class);
                         intent.putExtra("objectID", ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
                         startActivity(intent);
-                        return false;
+                        return true;
                     }
                 });
 
@@ -186,7 +186,7 @@ public class TransactionHistoryActivity extends AppCompatActivity {
                         intent.putExtra("objectID", ((ParseObject) parent.getItemAtPosition(position)).getObjectId());
                         intent.putExtra("MyOffersOnly", false);
                         startActivity(intent);
-                        return false;
+                        return true;
                     }
                 });
 

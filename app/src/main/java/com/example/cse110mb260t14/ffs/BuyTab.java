@@ -1,5 +1,6 @@
 package com.example.cse110mb260t14.ffs;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.location.Address;
@@ -11,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -47,6 +49,7 @@ public class BuyTab extends Fragment {
     private Spinner radiusSpinner;
     private String radius_selection;
     private double radius;
+    private EditText descriptionText;
     private List<ParseObject> title_description_res, radius_res;
     String description;
     String[] Split_description;
@@ -78,6 +81,8 @@ public class BuyTab extends Fragment {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         radiusSpinner.setAdapter(adapter);
+        descriptionText = (EditText) v.findViewById(R.id.EditTextId);
+        descriptionText.requestFocus();
 
         Spinner radius_spinner = (Spinner) v.findViewById(R.id.radius_spinner);
                 radius_selection = radius_spinner.getSelectedItem().toString();
@@ -107,8 +112,8 @@ public class BuyTab extends Fragment {
                     radius = Double.parseDouble(radius_selection);
                     System.out.print("Radius is: " + radius);
                 }
-                EditText descriptionText = (EditText) v.findViewById(R.id.EditTextId);
                 description = descriptionText.getText().toString();
+
                 int sub_postion = 0;
                 for(int i = 0; i < description.length(); i++){
                     if(description.charAt(i) == ' '){
@@ -118,6 +123,11 @@ public class BuyTab extends Fragment {
                         break;
                     }
                 }
+                InputMethodManager inputManager = (InputMethodManager)
+                        getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                inputManager.hideSoftInputFromWindow(getActivity().getCurrentFocus().getWindowToken(),
+                        InputMethodManager.HIDE_NOT_ALWAYS);
                 description = description.substring(sub_postion);
                 System.out.println("What is :" + description);
                 Split_description = description.split("\\s+");

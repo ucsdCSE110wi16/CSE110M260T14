@@ -89,6 +89,7 @@ public class SellTab extends Fragment {
         locationCheckBox = (CheckBox)v.findViewById(R.id.location_checkbox);
         locationText = (EditText) v.findViewById(R.id.location_editText);
 
+        postTitle.requestFocus();
 
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter2 = ArrayAdapter.createFromResource(getActivity(),
