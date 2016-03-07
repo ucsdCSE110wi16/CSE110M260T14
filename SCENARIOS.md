@@ -32,4 +32,30 @@
   When I click on My Items, it shows all the items I posted. When I click on the item, it shows the picture, title, description and price, as well as all the offers ever made on this item. When click on an offer, I am now on a new page displaying the email, name and number of the person who made the offer, the value of their offer, and buttons allowing me to accept or decline the offer.
   When I click on My Offers, it shows all the items on which I ever made an offer. When I click on one of the items, it will show the title, description, price and picture of the item, as well as all offers I have ever made on that item.
   
-  
+# Test Feature: Buy Feature
+   As a valid user I can make a offer to an item
+   I login to my account
+   I click an item
+   I click the MAKE OFFER button 
+   I enter the "price" into "Make your offer"
+   I click submit offer button
+# Test Feature: Sell Feature
+   As a valid user I can sell an item
+   I login to my account
+   I click sell tab
+   I enter the "name" into "item_title_edit_text"
+   I enter the "description" into "item_description_edit_text"
+   I enter the "price" into "item_price_edit_text"
+   I click item_categories_checkbox1
+   I click item_categories_spinner1
+   I click one category
+   I click post_listing_button
+   I click confirm_button
+# Test Feature: Search Feature
+   As a valid user I can search and buy an item
+   I login to my account
+   I entry "word" into "EditTextId"
+   I click the item shows up 
+   I click the MAKE OFFER button 
+   I enter the "price" into "Make your offer"
+   I click submit offer button
