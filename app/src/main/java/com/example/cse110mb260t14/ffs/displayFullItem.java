@@ -206,10 +206,9 @@ public class displayFullItem extends AppCompatActivity {
         LocationTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ParseGeoPoint geoLoc = (ParseGeoPoint) ParseUser.getCurrentUser().get("location");
-                double latitude = geoLoc.getLatitude();
-                double longitude = geoLoc.getLongitude();
-                String uri = String.format(Locale.ENGLISH, "geo:%f,%f", latitude, longitude);
+
+                ParseGeoPoint geoLoc = (ParseGeoPoint)listing.get("geopoint");
+                String uri = String.format(Locale.ENGLISH, "geo:%f,%f", geoLoc.getLatitude(), geoLoc.getLongitude());
                 Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
                 startActivity(intent);
             }
