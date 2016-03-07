@@ -32,7 +32,7 @@ public class DisplayOffersPage extends AppCompatActivity {
 
     private ArrayList<String> userid_offers, value_offers;
     private ArrayList<OfferObject> allOffers = new ArrayList<>();
-    private boolean MyOffersOnly;
+    private boolean MyOffersOnly= false;
 
 
     private ParseFile photoByteArray;
@@ -100,18 +100,20 @@ public class DisplayOffersPage extends AppCompatActivity {
                     offer_listview.setAdapter(myAdapter);
 
 
-                    offer_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
-                            // do later
-                            Intent intent = new Intent(DisplayOffersPage.this, FullPageBuyer.class);
-                            intent.putExtra("objectId", itemObjectId);
-                            OfferObject obj = allOffers.get(position);
-                            intent.putExtra("OfferValue", obj.retrieveValue());
-                            intent.putExtra("userid", obj.retrieveUser().getObjectId());
-                            startActivity(intent);
-                        }
-                    });
+                    if(!MyOffersOnly){
+                        offer_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
+                                // do later
+                                Intent intent = new Intent(DisplayOffersPage.this, FullPageBuyer.class);
+                                intent.putExtra("objectId", itemObjectId);
+                                OfferObject obj = allOffers.get(position);
+                                intent.putExtra("OfferValue", obj.retrieveValue());
+                                intent.putExtra("userid", obj.retrieveUser().getObjectId());
+                                startActivity(intent);
+                            }
+                        });
+                    }
                 }
             }
         }

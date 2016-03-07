@@ -131,18 +131,19 @@
         android:id="@+id/zipcode_confirm"/>
     <!-- BUTTONS -->
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="120dp"
+        style="?android:attr/buttonStyleSmall"
         android:layout_height="wrap_content"
         android:text="Edit"
         android:id="@+id/edit_button"
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="50dp"
         android:textColor="#FFFFFF"
-        android:background="#2962FF"
         android:textStyle="bold" />
 
     <Button
-        android:layout_width="wrap_content"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:text="Confirm"
         android:id="@+id/confirm_button"
@@ -152,7 +153,6 @@
         android:layout_toEndOf="@+id/edit_button"
         android:layout_marginLeft="14dp"
         android:layout_marginStart="14dp"
-        android:background="#2962FF"
         android:textStyle="bold" />
 
     <ImageView
