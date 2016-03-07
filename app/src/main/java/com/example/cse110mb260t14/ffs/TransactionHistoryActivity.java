@@ -21,7 +21,7 @@ import java.util.List;
 public class TransactionHistoryActivity extends AppCompatActivity {
 
     private ListView offersListView, listingsListView, SoldListingsList;
-    private TextView myOffersTV, myItemsTV, myItemsSoldTV;
+    private TextView myOffersTV, myItemsTV, myItemsSoldTV, soldNone, itemsNone, OffersNone;
     private boolean showOffers=false, showItems=false, showSoldItems=false;
 
     @Override
@@ -122,27 +122,35 @@ public class TransactionHistoryActivity extends AppCompatActivity {
                 if (objects != null) {
                     adapter = new OfferListingAdapter(TransactionHistoryActivity.this, objects);
                 }
-                listingsListView.setAdapter(adapter);
+                if(objects.size()==0){
+                    itemsNone = (TextView)findViewById(R.id.my_items_none);
+                    itemsNone.setVisibility(View.GONE);
+                }
+                else {
 
-                listingsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                    @Override
-                    public boolean onItemLongClick(AdapterView<?> adapter, View view, int position, long id) {
 
-                        Intent intent = new Intent(TransactionHistoryActivity.this, displayFullItem.class);
-                        intent.putExtra("objectID", ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
-                        startActivity(intent);
-                        return true;
-                    }
-                });
+                    listingsListView.setAdapter(adapter);
 
-                listingsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
-                        Intent intent = new Intent(TransactionHistoryActivity.this, DisplayOffersPage.class);
-                        intent.putExtra("objectID", ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
-                        startActivity(intent);
-                    }
-                });
+                    listingsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                        @Override
+                        public boolean onItemLongClick(AdapterView<?> adapter, View view, int position, long id) {
+
+                            Intent intent = new Intent(TransactionHistoryActivity.this, displayFullItem.class);
+                            intent.putExtra("objectID", ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
+                            startActivity(intent);
+                            return true;
+                        }
+                    });
+
+                    listingsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
+                            Intent intent = new Intent(TransactionHistoryActivity.this, DisplayOffersPage.class);
+                            intent.putExtra("objectID", ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
+                            startActivity(intent);
+                        }
+                    });
+                }
             }
         });
 
@@ -162,27 +170,33 @@ public class TransactionHistoryActivity extends AppCompatActivity {
                 if (objects != null) {
                     adapter = new OfferListingAdapter(TransactionHistoryActivity.this, objects);
                 }
-                SoldListingsList.setAdapter(adapter);
+                if(objects.size()==0){
+                    soldNone = (TextView)findViewById(R.id.my_items_sold_none);
+                    soldNone.setVisibility(View.GONE);
+                }
+                else {
+                    SoldListingsList.setAdapter(adapter);
 
-                SoldListingsList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                    @Override
-                    public boolean onItemLongClick(AdapterView<?> adapter, View view, int position, long id) {
+                    SoldListingsList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                        @Override
+                        public boolean onItemLongClick(AdapterView<?> adapter, View view, int position, long id) {
 
-                        Intent intent = new Intent(TransactionHistoryActivity.this, displayFullItem.class);
-                        intent.putExtra("objectID", ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
-                        startActivity(intent);
-                        return true;
-                    }
-                });
+                            Intent intent = new Intent(TransactionHistoryActivity.this, displayFullItem.class);
+                            intent.putExtra("objectID", ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
+                            startActivity(intent);
+                            return true;
+                        }
+                    });
 
-                SoldListingsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
-                        Intent intent = new Intent(TransactionHistoryActivity.this, DisplayOffersPage.class);
-                        intent.putExtra("objectID", ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
-                        startActivity(intent);
-                    }
-                });
+                    SoldListingsList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
+                            Intent intent = new Intent(TransactionHistoryActivity.this, DisplayOffersPage.class);
+                            intent.putExtra("objectID", ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
+                            startActivity(intent);
+                        }
+                    });
+                }
             }
         });
 
@@ -205,30 +219,22 @@ public class TransactionHistoryActivity extends AppCompatActivity {
                 if (objects != null) {
                     adapter = new ListingAdapter(TransactionHistoryActivity.this, objects);
                 }
-                offersListView.setAdapter(adapter);
-
-                offersListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                    @Override
-                    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-                        Intent intent = new Intent(TransactionHistoryActivity.this, displayFullItem.class);
-                        intent.putExtra("objectID", ((ParseObject) parent.getItemAtPosition(position)).getObjectId());
-                        intent.putExtra("MyOffersOnly", false);
-                        startActivity(intent);
-                        return true;
-                    }
-                });
-
-                offersListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
-                        // do later
-                        Intent intent = new Intent(TransactionHistoryActivity.this, DisplayOffersPage.class);
-                        intent.putExtra("objectID", ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
-                        intent.putExtra("MyOffersOnly", true);
-                        startActivity(intent);
-                    }
-                });
-
+                if(objects.size()==0){
+                    itemsNone = (TextView)findViewById(R.id.my_items_none);
+                    itemsNone.setVisibility(View.GONE);
+                }
+                else {
+                    offersListView.setAdapter(adapter);
+                    offersListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
+                            Intent intent = new Intent(TransactionHistoryActivity.this, displayFullItem.class);
+                            intent.putExtra("objectID", ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
+                            intent.putExtra("MyOffersOnly", false);
+                            startActivity(intent);
+                        }
+                    });
+                }
             }
         });
     }

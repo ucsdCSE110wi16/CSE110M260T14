@@ -15,6 +15,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginBottom="20dp"
         android:layout_centerHorizontal="true" />
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -40,6 +41,15 @@
         android:id="@+id/my_listings_list">
 
     </ListView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="No Offers"
+        android:layout_marginLeft="20dp"
+        android:id="@+id/my_items_none"
+        android:textStyle="italic"
+        android:layout_below="@id/my_listings"
+        android:visibility="gone" />
 
 
     <TextView
@@ -64,6 +74,15 @@
         android:layout_below="@id/my_items_sold"
         android:id="@+id/my_sold_items_list">
     </ListView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="No Offers"
+        android:layout_marginLeft="20dp"
+        android:textStyle="italic"
+        android:id="@+id/my_items_sold_none"
+        android:layout_below="@id/my_items_sold"
+        android:visibility="gone" />
 
     <TextView
         android:layout_width="match_parent"
@@ -88,6 +107,14 @@
         android:id="@+id/my_offers_list">
 
     </ListView>
-
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text="No Offers"
+        android:id="@+id/my_offers_none"
+        android:layout_marginLeft="20dp"
+        android:textStyle="italic"
+        android:layout_below="@id/my_offers"
+        android:visibility="gone" />
 
 </RelativeLayout>
