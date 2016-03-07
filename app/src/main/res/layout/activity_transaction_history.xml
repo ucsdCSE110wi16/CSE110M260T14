@@ -44,10 +44,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="No Offers"
+        android:text="You haven't posted any items!"
         android:layout_marginLeft="20dp"
         android:id="@+id/my_items_none"
-        android:textStyle="italic"
+        android:textStyle="italic|bold"
         android:layout_below="@id/my_listings"
         android:visibility="gone" />
 
@@ -77,9 +77,9 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="No Offers"
+        android:text="You haven't sold any items!"
         android:layout_marginLeft="20dp"
-        android:textStyle="italic"
+        android:textStyle="italic|bold"
         android:id="@+id/my_items_sold_none"
         android:layout_below="@id/my_items_sold"
         android:visibility="gone" />
@@ -110,10 +110,10 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="No Offers"
+        android:text="You haven't made any offers!"
         android:id="@+id/my_offers_none"
         android:layout_marginLeft="20dp"
-        android:textStyle="italic"
+        android:textStyle="italic|bold"
         android:layout_below="@id/my_offers"
         android:visibility="gone" />
 

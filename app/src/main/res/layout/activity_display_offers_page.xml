@@ -62,7 +62,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/itemDescription"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:id="@+id/show_offers_on_item"></ListView>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="No Offers On This Item"
+        android:textStyle="italic|bold"
+        android:id="@+id/offers_none"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@id/itemDescription"
+        android:visibility="gone"
+        />
 
     <TextView
         android:layout_width="wrap_content"

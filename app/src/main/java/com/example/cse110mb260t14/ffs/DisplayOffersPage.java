@@ -26,7 +26,7 @@ public class DisplayOffersPage extends AppCompatActivity {
     private ParseObject listing;
 
     private String itemObjectId;
-    private TextView itemTitle, itemPrice, itemDescription;
+    private TextView itemTitle, itemPrice, itemDescription, NoneTV;
     private ImageView photo_display;
     private ListView offer_listview;
 
@@ -77,36 +77,43 @@ public class DisplayOffersPage extends AppCompatActivity {
             userid_offers = (ArrayList)listing.get("offer_buyer_id");
             value_offers = (ArrayList) listing.get("offer_value");
 
-            if(userid_offers.size()==value_offers.size()) {
-                for (int i = 0; i < userid_offers.size(); i++) {
-                    if (userid_offers.get(i) != null && value_offers.get(i) != null) {
-                        if(MyOffersOnly){
-                            if(!userid_offers.get(i).equals(ParseUser.getCurrentUser().getObjectId())){
-                                continue;
-                            }
-                        }
-                        OfferObject obj = new OfferObject(userid_offers.get(i), value_offers.get(i));
-                        allOffers.add(obj);
-                    }
-                }
-                OfferListViewAdapter myAdapter = new OfferListViewAdapter(DisplayOffersPage.this, allOffers);
-                offer_listview.setAdapter(myAdapter);
-
-
-                offer_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
-                        // do later
-                        Intent intent = new Intent(DisplayOffersPage.this, FullPageBuyer.class);
-                        intent.putExtra("objectId", itemObjectId);
-                        OfferObject obj = allOffers.get(position);
-                        intent.putExtra("OfferValue", obj.retrieveValue());
-                        intent.putExtra("userid", obj.retrieveUser().getObjectId());
-                        startActivity(intent);
-                    }
-                });
+            if(userid_offers.size()==0){
+                NoneTV = (TextView)findViewById(R.id.offers_none);
+                NoneTV.setVisibility(View.VISIBLE);
             }
+            else {
 
+
+                if (userid_offers.size() == value_offers.size()) {
+                    for (int i = 0; i < userid_offers.size(); i++) {
+                        if (userid_offers.get(i) != null && value_offers.get(i) != null) {
+                            if (MyOffersOnly) {
+                                if (!userid_offers.get(i).equals(ParseUser.getCurrentUser().getObjectId())) {
+                                    continue;
+                                }
+                            }
+                            OfferObject obj = new OfferObject(userid_offers.get(i), value_offers.get(i));
+                            allOffers.add(obj);
+                        }
+                    }
+                    OfferListViewAdapter myAdapter = new OfferListViewAdapter(DisplayOffersPage.this, allOffers);
+                    offer_listview.setAdapter(myAdapter);
+
+
+                    offer_listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
+                            // do later
+                            Intent intent = new Intent(DisplayOffersPage.this, FullPageBuyer.class);
+                            intent.putExtra("objectId", itemObjectId);
+                            OfferObject obj = allOffers.get(position);
+                            intent.putExtra("OfferValue", obj.retrieveValue());
+                            intent.putExtra("userid", obj.retrieveUser().getObjectId());
+                            startActivity(intent);
+                        }
+                    });
+                }
+            }
         }
         catch (ParseException e){};
 

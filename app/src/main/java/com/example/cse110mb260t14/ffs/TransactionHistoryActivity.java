@@ -124,7 +124,7 @@ public class TransactionHistoryActivity extends AppCompatActivity {
                 }
                 if(objects.size()==0){
                     itemsNone = (TextView)findViewById(R.id.my_items_none);
-                    itemsNone.setVisibility(View.GONE);
+                    itemsNone.setVisibility(View.VISIBLE);
                 }
                 else {
 
@@ -172,7 +172,7 @@ public class TransactionHistoryActivity extends AppCompatActivity {
                 }
                 if(objects.size()==0){
                     soldNone = (TextView)findViewById(R.id.my_items_sold_none);
-                    soldNone.setVisibility(View.GONE);
+                    soldNone.setVisibility(View.VISIBLE);
                 }
                 else {
                     SoldListingsList.setAdapter(adapter);
@@ -221,7 +221,7 @@ public class TransactionHistoryActivity extends AppCompatActivity {
                 }
                 if(objects.size()==0){
                     itemsNone = (TextView)findViewById(R.id.my_items_none);
-                    itemsNone.setVisibility(View.GONE);
+                    itemsNone.setVisibility(View.VISIBLE);
                 }
                 else {
                     offersListView.setAdapter(adapter);
