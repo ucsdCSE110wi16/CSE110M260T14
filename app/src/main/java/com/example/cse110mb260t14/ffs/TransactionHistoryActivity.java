@@ -43,40 +43,68 @@ public class TransactionHistoryActivity extends AppCompatActivity {
         myOffersTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (showOffers) {
+                showItems = false;
+                showSoldItems=false;
+                SoldListingsList.setVisibility(View.GONE);
+                listingsListView.setVisibility(View.GONE);
+                myItemsTV.setText("+ My Items (Available)");
+                myItemsSoldTV.setText("+ My Sold Items");
+                if (!showOffers) {
                     offersListView.setVisibility(View.VISIBLE);
-                    showOffers = false;
+                    showOffers = true;
+                    myOffersTV.setText("- My Offers");
                 } else {
                     offersListView.setVisibility(View.GONE);
-                    showOffers = true;
+                    showOffers = false;
+                    myOffersTV.setText("+ My Offers");
                 }
+
             }
         });
 
         myItemsTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(showItems){
+                showSoldItems=false;
+                SoldListingsList.setVisibility(View.GONE);
+                showOffers=false;
+                offersListView.setVisibility(View.GONE);
+                myOffersTV.setText("+ My Offers");
+                myItemsSoldTV.setText("+ My Sold Items");
+                if(!showItems){
                     listingsListView.setVisibility(View.VISIBLE);
-                    showItems=false;
+                    showItems=true;
+                    myItemsTV.setText("- My Items (Available)");
                 }
                 else {
                     listingsListView.setVisibility(View.GONE);
-                    showItems=true;
+                    showItems=false;
+                    myItemsTV.setText("+ My Items (Available)");
+
                 }
+
             }
         });
 
         myItemsSoldTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(showSoldItems){
+                showOffers=false;
+                showItems=false;
+                listingsListView.setVisibility(View.GONE);
+                offersListView.setVisibility(View.GONE);
+                myOffersTV.setText("+ My Offers");
+                myItemsTV.setText("+ My Items (Available)");
+                if(!showSoldItems){
                     SoldListingsList.setVisibility(View.VISIBLE);
-                    showSoldItems=false;
+                    showSoldItems=true;
+                    myItemsSoldTV.setText("- My Sold Items");
+
                 }
                 else {
                     SoldListingsList.setVisibility(View.GONE);
-                    showSoldItems=true;
+                    showSoldItems=false;
+                    myItemsSoldTV.setText("+ My Sold Items");
                 }
             }
         });

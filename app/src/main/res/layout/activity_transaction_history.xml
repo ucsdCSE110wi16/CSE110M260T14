@@ -6,21 +6,36 @@
     android:background="#4A5DB4">
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="My Transaction History"
+        android:id="@+id/transaction_history"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp"
+        android:layout_centerHorizontal="true" />
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/my_listings"
         android:textStyle="bold"
         android:textSize="20dp"
-        android:text="My Items"
+        android:text="+ My Items (Available)"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_below="@id/transaction_history"
         android:textColor="#FFFFFF" />
 
 
     <ListView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="300dp"
         android:layout_marginTop="20dp"
         android:layout_below="@id/my_listings"
+        android:layout_marginRight="20dp"
         android:visibility="gone"
+        android:layout_marginLeft="20dp"
         android:layout_centerHorizontal="true"
         android:id="@+id/my_listings_list">
 
@@ -28,21 +43,24 @@
 
 
     <TextView
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/my_items_sold"
         android:textStyle="bold"
         android:textSize="20dp"
-        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
         android:layout_below="@id/my_listings_list"
-        android:text="Items I&apos;ve Sold"
+        android:text="+ My Sold Items"
         android:textColor="#FFFFFF" />
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
         android:visibility="gone"
+        android:layout_marginRight="20dp"
         android:layout_below="@id/my_items_sold"
         android:id="@+id/my_sold_items_list">
     </ListView>
@@ -51,20 +69,25 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/my_offers"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
         android:textStyle="bold"
         android:textSize="20dp"
-        android:layout_centerHorizontal="true"
         android:layout_below="@id/my_sold_items_list"
-        android:text="My Offers"
+        android:text="+ My Offers"
         android:textColor="#FFFFFF" />
 
     <ListView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
         android:visibility="gone"
         android:layout_below="@id/my_offers"
         android:id="@+id/my_offers_list">
 
     </ListView>
+
+
 </RelativeLayout>
