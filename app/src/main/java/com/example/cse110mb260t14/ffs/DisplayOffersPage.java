@@ -110,6 +110,7 @@ public class DisplayOffersPage extends AppCompatActivity {
                                 OfferObject obj = allOffers.get(position);
                                 intent.putExtra("OfferValue", obj.retrieveValue());
                                 intent.putExtra("userid", obj.retrieveUser().getObjectId());
+                                intent.putExtra("offerIndex", position);
                                 startActivity(intent);
                             }
                         });

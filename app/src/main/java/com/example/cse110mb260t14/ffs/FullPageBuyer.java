@@ -25,7 +25,7 @@ public class FullPageBuyer extends AppCompatActivity {
     ParseUser curr = ParseUser.getCurrentUser();
     String offerValue, userid, email, phoneNum, Name, listingId;
     ParseObject listing;
-    int offerIndex;
+    int offerIndex=0;
 
     private TextView NameTV, EmailTV, NumberTV, OfferTV, MessageTV, OfferStatus;
     private Button AcceptButton, DeclineButton;
@@ -48,6 +48,7 @@ public class FullPageBuyer extends AppCompatActivity {
         userid = getIntent().getStringExtra("userid");
         offerValue = getIntent().getStringExtra("OfferValue");
         listingId = getIntent().getStringExtra("objectId");
+        offerIndex = getIntent().getIntExtra("offerIndex", 0);
 
         if(userid!=null){
             ParseQuery<ParseUser> q = ParseUser.getQuery();
@@ -71,26 +72,12 @@ public class FullPageBuyer extends AppCompatActivity {
             listing = objects.get(0);
         }
         catch (ParseException e){}
-        getOfferIndex();
         setGUI();
 
     }
 
 
 
-    private void getOfferIndex(){
-        user_offers = (ArrayList)listing.get("offer_buyer_id");
-        value_offers = (ArrayList)listing.get("offer_value");
-        status_offers = (ArrayList) listing.get("offerStatus");
-
-        for(int i =0;i<user_offers.size();i++){
-            if(user_offers.get(i).equals(userid) && value_offers.get(i).equals(offerValue)){
-                offerIndex = i;
-                break;
-            }
-        }
-
-    }
 
     private void setGUI() {
         NameTV = (TextView) findViewById(R.id.buyer_name);
@@ -98,6 +85,9 @@ public class FullPageBuyer extends AppCompatActivity {
         NumberTV = (TextView) findViewById(R.id.buyer_phone);
         MessageTV = (TextView) findViewById(R.id.buyer_offer);
         OfferTV = (TextView) findViewById(R.id.offer_value);
+        user_offers = (ArrayList)listing.get("offer_buyer_id");
+        value_offers = (ArrayList)listing.get("offer_value");
+        status_offers = (ArrayList) listing.get("offerStatus");
 
         NameTV.setText(Name);
         EmailTV.setText(email);
@@ -111,10 +101,10 @@ public class FullPageBuyer extends AppCompatActivity {
         AcceptButton = (Button) findViewById(R.id.accept_button);
         DeclineButton = (Button) findViewById(R.id.decline_button);
 
-        if (status_offers!=null && status_offers.get(offerIndex).equals("1")) {
+        if (status_offers!=null && status_offers.size() > offerIndex && status_offers.get(offerIndex).equals("1")) {
             AcceptOffer();
         }
-        else if(status_offers!=null && status_offers.get(offerIndex).equals("0")){
+        else if(status_offers!=null && status_offers.size() > offerIndex && status_offers.get(offerIndex).equals("0")){
             declineOffer();
         }
         else {
@@ -128,7 +118,7 @@ public class FullPageBuyer extends AppCompatActivity {
                     builder.setPositiveButton("Yes!", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            setValue("1");
+                            setValue("1", status_offers);
                             AcceptOffer();
                         }
                     });
@@ -151,7 +141,7 @@ public class FullPageBuyer extends AppCompatActivity {
                     builder.setPositiveButton("Yes!", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            setValue("0");
+                            setValue("0", status_offers);
                             declineOffer();
                         }
                     });
@@ -181,9 +171,9 @@ public class FullPageBuyer extends AppCompatActivity {
         });
     }
 
-    private void setValue(String val) {
+    private void setValue(String val, ArrayList<String> st_of) {
         if (status_offers == null) {
-            status_offers = new ArrayList<>();
+            status_offers = new ArrayList<String>();
             for (int i = 0; i < user_offers.size(); i++) {
                 status_offers.add("-1");
             }

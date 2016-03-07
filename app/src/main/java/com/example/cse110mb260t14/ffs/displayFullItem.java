@@ -270,7 +270,7 @@ public class displayFullItem extends AppCompatActivity {
                 ArrayList<String> offer_value = (ArrayList<String>) (listing.get("offer_value"));
                 ArrayList<String> user_offers_id = (ArrayList<String>) (user.get("offer_made_id"));
                 ArrayList<String> user_offers_value = (ArrayList<String>) (user.get("offer_made_value"));
-
+                ArrayList<String> offer_status = (ArrayList<String>)(listing.get("offerStatus"));
 
                 if (listing == null) {
                 } else {
@@ -287,12 +287,17 @@ public class displayFullItem extends AppCompatActivity {
                     if (user_offers_value == null) {
                         user_offers_value = new ArrayList<String>();
                     }
+                    if(offer_status==null){
+                        offer_status = new ArrayList<String>();
+                    }
                     String offer = OfferTV.getText().toString();
                     OfferTV.setText("");
                     offers_id.add(user.getObjectId());
                     offer_value.add(offer);
+                    offer_status.add("-1");
                     listing.put("offer_buyer_id", offers_id);
                     listing.put("offer_value", offer_value);
+                    listing.put("offerStatus", offer_status);
                     listing.saveInBackground();
                     user_offers_id.add(listing.getObjectId());
                     user_offers_value.add(offer);
