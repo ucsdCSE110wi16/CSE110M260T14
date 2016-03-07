@@ -1,6 +1,7 @@
 package com.example.cse110mb260t14.ffs;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
@@ -39,7 +41,8 @@ public class displayFullItem extends AppCompatActivity {
     private Bitmap photoBitmap;
     ParseUser user;
     ArrayList<String> watchList;
-    private boolean fullscreen = false;
+    private boolean fullscreen = false, showOffers = false;
+
 
 
     ParseObject listing;
@@ -80,16 +83,13 @@ public class displayFullItem extends AppCompatActivity {
         try {
             List<ParseObject> found = query.find();
             listing = found.get(0);
-            TitleTV.setText((String) listing.get("Title"));
-            DescriptionTV.setText((String) listing.get("Description"));
-            PriceTV.setText("$" + (String) listing.get("Price"));
+            TitleTV.setText( listing.getString("Title"));
+            DescriptionTV.setText("Description: " + listing.getString("Description"));
+            PriceTV.setText("$" + listing.getString("Price"));
             String categoriesString = listing.get("Categories").toString();
-
             String finalCatString = makefinalCatString(categoriesString);
-            CategoriesTV.setText(finalCatString);
-
-            LocationTV.setText("Pickup Address at: " + ParseUser.getCurrentUser().getString("address")
-                    + ", " + ParseUser.getCurrentUser().getString("city"));
+            CategoriesTV.setText("Categories: " + finalCatString);
+            LocationTV.setText("Sold in area: " + listing.getString("ZipCode"));
 
             photoByteArray = (ParseFile) listing.get("photo_byte_array");
             if (photoByteArray != null) {
@@ -241,8 +241,16 @@ public class displayFullItem extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 OfferTV = (TextView) findViewById(R.id.offerTextView);
-                OfferTV.setVisibility(View.VISIBLE);
-                OfferSubmitButton.setVisibility(View.VISIBLE);
+                if(!showOffers) {
+                    OfferTV.setVisibility(View.VISIBLE);
+                    OfferSubmitButton.setVisibility(View.VISIBLE);
+                    showOffers = true;
+                }
+                else {
+                    OfferTV.setVisibility(View.GONE);
+                    OfferSubmitButton.setVisibility(View.GONE);
+                    showOffers = false;
+                }
 
             }
         });
@@ -252,6 +260,11 @@ public class displayFullItem extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                InputMethodManager inputManager = (InputMethodManager)
+                        getSystemService(Context.INPUT_METHOD_SERVICE);
+
+                inputManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                        InputMethodManager.HIDE_NOT_ALWAYS);
 
                 ArrayList<String> offers_id = (ArrayList<String>) (listing.get("offer_buyer_id"));
                 ArrayList<String> offer_value = (ArrayList<String>) (listing.get("offer_value"));

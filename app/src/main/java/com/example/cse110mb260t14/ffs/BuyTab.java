@@ -221,6 +221,8 @@ public class BuyTab extends Fragment {
                 Toast.makeText(getContext(), "Search Completed.", Toast.LENGTH_SHORT).show();
             }
         });
+
+
         query.findInBackground(new FindCallback<ParseObject>() {
             public void done(List<ParseObject> found, ParseException e) {
                 title_description_res = found;
@@ -252,6 +254,7 @@ public class BuyTab extends Fragment {
                 });
             }
         });
+
 
         return v;
     }

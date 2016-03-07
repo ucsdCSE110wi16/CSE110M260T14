@@ -61,6 +61,7 @@ public class WatchTab extends Fragment {
             ParseQuery<ParseObject> query = ParseQuery.getQuery("Listings");
             query.whereContainedIn("objectId", watchList);
             query.whereNotEqualTo("Status", 2);
+
             query.findInBackground(new FindCallback<ParseObject>() {
                 @Override
                 public void done(List<ParseObject> found, ParseException e) {
