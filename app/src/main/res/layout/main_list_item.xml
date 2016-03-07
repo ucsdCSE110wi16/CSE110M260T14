@@ -11,10 +11,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/item_row_price"
-        android:layout_alignParentRight="true"
         android:layout_marginRight="20dp"
         android:textStyle="bold"
-        android:text="Price"/>
+        android:text="Price"
+        android:layout_marginEnd="20dp"
+        android:layout_alignBaseline="@+id/item_row_title"
+        android:layout_alignBottom="@+id/item_row_title"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:textSize="20dp" />
 
     <TextView xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
@@ -22,7 +27,8 @@
         android:text="Title"
         android:layout_marginRight="50dp"
         android:id="@+id/item_row_title"
-        android:textSize="27dp" />
+        android:textSize="27dp"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"

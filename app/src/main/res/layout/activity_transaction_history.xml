@@ -2,15 +2,17 @@
 <RelativeLayout
     android:layout_height="match_parent"
     android:layout_width="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="#4A5DB4">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/my_listings"
-        android:textStyle="bold|italic"
+        android:textStyle="bold"
         android:textSize="20dp"
-        android:text="My items"/>
+        android:text="My Items"
+        android:textColor="#FFFFFF" />
 
 
     <ListView
@@ -29,11 +31,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/my_items_sold"
-        android:textStyle="bold|italic"
+        android:textStyle="bold"
         android:textSize="20dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/my_listings_list"
-        android:text="My Items Sold"/>
+        android:text="Items I&apos;ve Sold"
+        android:textColor="#FFFFFF" />
 
     <ListView
         android:layout_width="match_parent"
@@ -48,11 +51,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/my_offers"
-        android:textStyle="bold|italic"
+        android:textStyle="bold"
         android:textSize="20dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@id/my_sold_items_list"
-        android:text="My offers"/>
+        android:text="My Offers"
+        android:textColor="#FFFFFF" />
 
     <ListView
         android:layout_width="match_parent"
