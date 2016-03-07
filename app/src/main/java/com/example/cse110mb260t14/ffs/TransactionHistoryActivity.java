@@ -22,7 +22,7 @@ public class TransactionHistoryActivity extends AppCompatActivity {
 
     private ListView offersListView, listingsListView, SoldListingsList;
     private TextView myOffersTV, myItemsTV, myItemsSoldTV, soldNone, itemsNone, OffersNone;
-    private boolean showOffers=false, showItems=false, showSoldItems=false;
+    private boolean showOffers=false, showItems=false, showSoldItems=false, noOffers=false, noItems=false, noSold=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +35,11 @@ public class TransactionHistoryActivity extends AppCompatActivity {
         myOffersTV = (TextView) findViewById(R.id.my_offers);
         myItemsTV = (TextView)findViewById(R.id.my_listings);
         myItemsSoldTV = (TextView)findViewById(R.id.my_items_sold);
+        itemsNone = (TextView)findViewById(R.id.my_items_none);
+        OffersNone = (TextView)findViewById(R.id.my_offers_none);
+        soldNone = (TextView)findViewById(R.id.my_items_sold_none);
+
+
 
         populateMyListings();
         populateOffers();
@@ -47,14 +52,22 @@ public class TransactionHistoryActivity extends AppCompatActivity {
                 showSoldItems=false;
                 SoldListingsList.setVisibility(View.GONE);
                 listingsListView.setVisibility(View.GONE);
+                soldNone.setVisibility(View.GONE);
+                itemsNone.setVisibility(View.GONE);
                 myItemsTV.setText("+ My Items (Available)");
                 myItemsSoldTV.setText("+ My Sold Items");
                 if (!showOffers) {
-                    offersListView.setVisibility(View.VISIBLE);
+                    if(noOffers){
+                        OffersNone.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        offersListView.setVisibility(View.VISIBLE);
+                    }
                     showOffers = true;
                     myOffersTV.setText("- My Offers");
                 } else {
                     offersListView.setVisibility(View.GONE);
+                    OffersNone.setVisibility(View.GONE);
                     showOffers = false;
                     myOffersTV.setText("+ My Offers");
                 }
@@ -69,15 +82,23 @@ public class TransactionHistoryActivity extends AppCompatActivity {
                 SoldListingsList.setVisibility(View.GONE);
                 showOffers=false;
                 offersListView.setVisibility(View.GONE);
+                OffersNone.setVisibility(View.GONE);
+                soldNone.setVisibility(View.GONE);
                 myOffersTV.setText("+ My Offers");
                 myItemsSoldTV.setText("+ My Sold Items");
                 if(!showItems){
-                    listingsListView.setVisibility(View.VISIBLE);
+                    if(noItems){
+                        itemsNone.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        listingsListView.setVisibility(View.VISIBLE);
+                    }
                     showItems=true;
                     myItemsTV.setText("- My Items (Available)");
                 }
                 else {
                     listingsListView.setVisibility(View.GONE);
+                    itemsNone.setVisibility(View.GONE);
                     showItems=false;
                     myItemsTV.setText("+ My Items (Available)");
 
@@ -93,16 +114,24 @@ public class TransactionHistoryActivity extends AppCompatActivity {
                 showItems=false;
                 listingsListView.setVisibility(View.GONE);
                 offersListView.setVisibility(View.GONE);
+                OffersNone.setVisibility(View.GONE);
+                itemsNone.setVisibility(View.GONE);
                 myOffersTV.setText("+ My Offers");
                 myItemsTV.setText("+ My Items (Available)");
                 if(!showSoldItems){
-                    SoldListingsList.setVisibility(View.VISIBLE);
+                    if(noSold){
+                        soldNone.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        SoldListingsList.setVisibility(View.VISIBLE);
+                    }
                     showSoldItems=true;
                     myItemsSoldTV.setText("- My Sold Items");
 
                 }
                 else {
                     SoldListingsList.setVisibility(View.GONE);
+                    soldNone.setVisibility(View.GONE);
                     showSoldItems=false;
                     myItemsSoldTV.setText("+ My Sold Items");
                 }
@@ -123,35 +152,31 @@ public class TransactionHistoryActivity extends AppCompatActivity {
                     adapter = new OfferListingAdapter(TransactionHistoryActivity.this, objects);
                 }
                 if(objects.size()==0){
-                    itemsNone = (TextView)findViewById(R.id.my_items_none);
-                    itemsNone.setVisibility(View.VISIBLE);
+                    noItems=true;
                 }
-                else {
 
+                listingsListView.setAdapter(adapter);
 
-                    listingsListView.setAdapter(adapter);
+                listingsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> adapter, View view, int position, long id) {
+                        Intent intent = new Intent(TransactionHistoryActivity.this, displayFullItem.class);
+                        intent.putExtra("objectID", ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
+                        startActivity(intent);
+                        return true;
+                    }
+                });
 
-                    listingsListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-                        @Override
-                        public boolean onItemLongClick(AdapterView<?> adapter, View view, int position, long id) {
-
-                            Intent intent = new Intent(TransactionHistoryActivity.this, displayFullItem.class);
-                            intent.putExtra("objectID", ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
-                            startActivity(intent);
-                            return true;
-                        }
-                    });
-
-                    listingsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
-                            Intent intent = new Intent(TransactionHistoryActivity.this, DisplayOffersPage.class);
-                            intent.putExtra("objectID", ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
-                            startActivity(intent);
-                        }
-                    });
+                listingsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapter, View v, int position, long id) {
+                        Intent intent = new Intent(TransactionHistoryActivity.this, DisplayOffersPage.class);
+                        intent.putExtra("objectID", ((ParseObject) adapter.getItemAtPosition(position)).getObjectId());
+                        startActivity(intent);
+                    }
+                });
                 }
-            }
+
         });
 
 
@@ -171,8 +196,7 @@ public class TransactionHistoryActivity extends AppCompatActivity {
                     adapter = new OfferListingAdapter(TransactionHistoryActivity.this, objects);
                 }
                 if(objects.size()==0){
-                    soldNone = (TextView)findViewById(R.id.my_items_sold_none);
-                    soldNone.setVisibility(View.VISIBLE);
+                    noSold = true;
                 }
                 else {
                     SoldListingsList.setAdapter(adapter);
@@ -220,8 +244,7 @@ public class TransactionHistoryActivity extends AppCompatActivity {
                     adapter = new ListingAdapter(TransactionHistoryActivity.this, objects);
                 }
                 if(objects.size()==0){
-                    itemsNone = (TextView)findViewById(R.id.my_items_none);
-                    itemsNone.setVisibility(View.VISIBLE);
+                    noOffers=true;
                 }
                 else {
                     offersListView.setAdapter(adapter);

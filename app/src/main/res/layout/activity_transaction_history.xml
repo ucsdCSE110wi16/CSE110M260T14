@@ -47,6 +47,7 @@
         android:text="You haven't posted any items!"
         android:layout_marginLeft="20dp"
         android:id="@+id/my_items_none"
+        android:layout_marginBottom="20dp"
         android:textStyle="italic|bold"
         android:layout_below="@id/my_listings"
         android:visibility="gone" />
@@ -81,6 +82,7 @@
         android:layout_marginLeft="20dp"
         android:textStyle="italic|bold"
         android:id="@+id/my_items_sold_none"
+        android:layout_marginBottom="20dp"
         android:layout_below="@id/my_items_sold"
         android:visibility="gone" />
 
@@ -113,6 +115,7 @@
         android:text="You haven't made any offers!"
         android:id="@+id/my_offers_none"
         android:layout_marginLeft="20dp"
+        android:layout_marginBottom="20dp"
         android:textStyle="italic|bold"
         android:layout_below="@id/my_offers"
         android:visibility="gone" />
