@@ -175,12 +175,18 @@ public class SellTab extends Fragment {
                     confirmPageIntent.putExtra("Categories0", itemCategories[0]);
                     confirmPageIntent.putExtra("Categories1", itemCategories[1]);
                     confirmPageIntent.putExtra("Categories2", itemCategories[2]);
+
+
                     if (!locationCheckBox.isChecked()) {
                         confirmPageIntent.putExtra("Zipcode", locationText.getText().toString());
                     }
-                    else {
-                        confirmPageIntent.putExtra("Zipcode", "");
+                    else{
+                        ZipCode = ParseUser.getCurrentUser().getString("postalCode");
+                        if(ZipCode!=null && !ZipCode.equals("")){
+                            confirmPageIntent.putExtra("Zipcode",ZipCode);
+                        }
                     }
+
                     if (photo_preview.getDrawable() != null) {
                         confirmPageIntent.putExtra("Photo", ((BitmapDrawable) photo_preview.getDrawable()).getBitmap());
                     }
@@ -221,12 +227,16 @@ public class SellTab extends Fragment {
         itemDescription = postDescripttion.getText().toString();
         if (!locationCheckBox.isChecked()) {
             ZipCode = locationText.getText().toString();
+            if(ZipCode.equals("")){
+                return false;
+            }
         }
         else {
-            if(ParseUser.getCurrentUser().getParseGeoPoint("location")==null){
+            if(ParseUser.getCurrentUser().getString("postalCode")==null||ParseUser.getCurrentUser().getString("postalCode").equals("")){
                 Toast.makeText(getActivity(), "Can't get current location, please enter zipcode", Toast.LENGTH_SHORT).show();
                 locationCheckBox.setChecked(false);
                 locationText.setVisibility(View.VISIBLE);
+                return false;
             }
         }
         if(categoriesSpinner1.getSelectedItemPosition()==0){

@@ -127,6 +127,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
         android:layout_toRightOf="@id/zipcode_textview"
+        android:textColor="#FFFFFF"
         android:layout_alignBaseline="@id/zipcode_textview"
         android:id="@+id/zipcode_confirm"/>
     <!-- BUTTONS -->

@@ -214,6 +214,8 @@ public class ConfirmItemListing extends AppCompatActivity {
         item.put("Status", 0);
         item.put("offer_buyer_id", Arrays.asList());
         item.put("offer_value", Arrays.asList());
+        item.put("offerStatus", Arrays.asList());
+        item.put("ZipCode", zipcode);
     }
 
     public ParseGeoPoint makeGeopoint(double latitude, double longitude) {
