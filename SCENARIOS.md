@@ -9,13 +9,16 @@
 
 # HOME PAGE SCENARIOS
   # Buy Tab
+  
     Given that you are logged in, and you see items around you. When you type something in the search textfieild then press Search, you will only see the items that match your search.
     Given that you are logged in, and you see items around you. When you change the search Radius, then press Search, you will only see the items that match your search.
   
   # Sell Tab
+  
     Given that you are logged in, when you enter values in all textfields, then press "Post", you will be redirected to a page where you can confirm your listing. When you press post again, your item will be posted, if instead you pressed edit, you will come back to the previous page where you can change all your values!
     
   # Watch Tab
+  
     Given that I am logged in, and I have items in my watchlist, I will see these items. When I tap on an item, then untoggle the Watchlist, that item will be removed from my watchlist.
     
   # Left Tabs Menu
